@@ -1,6 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
   const modalContainers = document.getElementsByClassName("modal-container");
   const passwordContainers = document.getElementsByClassName("password-container");
+  const authContainer = document.getElementById("auth-container")
 
   function showPassword(input, hider, shower) {
     hider.classList.add("hide");
@@ -32,17 +33,12 @@ document.addEventListener("DOMContentLoaded", () => {
             passwordShower.classList.contains("hide") ? null : hidePassword(input, passwordHider, passwordShower);
           });
         }
-        const inputs = container.querySelectorAll("input");
-        inputs.forEach(input => {
-            input.value = "";
-        });
-        const errorMsgs = container.querySelectorAll(".error-msg");
-        errorMsgs.forEach(errorMsg => {
-            errorMsg.textContent = "";
-        });
-        console.log("close");
-        
+        container.querySelectorAll("input").forEach(input => input.value = "")
+        container.querySelectorAll(".error-msg").forEach(errorMsg => errorMsg.textContent = "")
         container.classList.remove("show");
+        if (container.classList.contains("password-resetting") && btn.classList.contains("cancel-btn")){
+          authContainer.classList.add("show")
+        }
       });
     });
   }

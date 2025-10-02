@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block links %} <link rel="stylesheet" href="{{ url_for('catalog.static', filename='css/catalog.css') }}"> {% endblock %}
+{% block title %} Catalog {% endblock %}
+{% block content %}
+    <form action="" method="post" enctype="multipart/form-data">
+        <input type="text" name="name" required placeholder="Назва">
+        <input type="number" name="price" required placeholder="Ціна">
+        <input type="number" name="discount" required placeholder="Знижка">
+        <input type="file" name="image" id="" accept="image/*">
+        <textarea name="summary" id="" placeholder="Короткий опис"></textarea>
+        <button>Додати</button>
+    </form>
+    <div class="products">
+        {% for product in products %}
+            <a class="product" href="/product/{{ product.id }}">
+                <img src="{{ url_for('catalog.static', filename=product.get_path()) }}" alt="">
+                <p class="product-name">{{ product.name }}</p>
+                {% if product.discount <= 0 %}
+                    <p class="product-price">{{ product.price }}</p>
+                {% else %}
+                    <p class="product-price-discount">
+                        <span class="discount">{{ product.price }}</span> 
+                        <span class="new-price">{{ product.get_discounted_price()}}</span>
+                    </p>
+                {% endif %}
+            </a>
+        {% endfor %}
+    </div>
+{% endblock %}

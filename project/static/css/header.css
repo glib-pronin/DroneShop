@@ -1,0 +1,270 @@
+header {
+  height: 100vh;
+  min-height: 586px;
+  background-color: #cdd5dd;
+  position: relative;
+  z-index: 4;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.nav {
+  position: fixed;
+  z-index: 5;
+  height: 64px;
+  width: 94%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: rgba(255, 255, 255, 0.5);
+  border-radius: 62px;
+  padding: 10px 40px;
+  margin-top: 4vh;
+  box-sizing: border-box;
+  border: 1px solid #e4e4e7;
+  backdrop-filter: blur(8px);
+}
+
+.menu {
+  display: flex;
+  gap: 33px;
+  font-size: 14px;
+}
+
+.logo {
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%);
+}
+
+.icons-menu {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+}
+
+#link-to-profile {
+  height: 21px;
+}
+
+.icons-menu svg {
+  cursor: pointer;
+}
+
+.icons-menu svg path {
+  fill: #9ea0aa;
+}
+
+.icons-menu svg:hover path {
+  fill: black;
+}
+
+.burger-btn,
+.cross-btn {
+  display: none;
+}
+
+.active {
+  display: block;
+}
+
+.burger-btn.disable {
+  display: none;
+}
+
+.cross-btn {
+  position: fixed;
+  top: 4vh;
+  right: 4vw;
+  z-index: 4;
+}
+
+.header-part {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3vh;
+  padding-top: max(25vh, 100px);
+  position: relative;
+  z-index: 3;
+  flex-grow: 1;
+}
+
+.wrapper {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+}
+
+.pos1 {
+  top: max(70vh, 350px);
+}
+
+.title {
+  text-align: center;
+  font-size: 61px;
+  margin: 0;
+  color: white;
+  font-weight: 800;
+  padding: 0 10px;
+  letter-spacing: 3%;
+}
+
+.drone {
+  position: absolute;
+  z-index: 4;
+  display: inline-block;
+  height: 95vh;
+  max-height: 841px;
+  width: auto;
+  max-width: 128vw;
+  object-fit: cover;
+  transform: rotate(10deg);
+  top: 25vh;
+}
+
+.to-catalog {
+  z-index: 4;
+  position: absolute;
+  bottom: 0;
+  right: 6vw;
+}
+
+.to-catalog-button {
+  background-color: #0c122a;
+  color: white;
+  font-size: 14px;
+  font-weight: 700;
+  display: inline-block;
+  padding: 18px 40px;
+  border-radius: 100px;
+  border: 1.5px solid transparent;
+  box-sizing: border-box;
+  transition: all 0.25s ease;
+}
+
+.to-catalog-button:hover {
+  background-color: white;
+  border: 1.5px solid #0c122a;
+  color: #0c122a;
+}
+
+.to-catalog-button:hover svg path {
+  fill: #0c122a;
+}
+
+.to-catalog-button svg {
+  display: none;
+}
+
+@media (min-width: 1000px) {
+  .burger-btn, .cross-btn {
+    display: none;
+  }
+}
+
+@media (max-width: 1000px) {
+  .menu {
+    display: none;
+  }
+
+  .burger-btn {
+    display: block;
+  }
+
+  .popup-menu {
+    position: fixed;
+    z-index: 4;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background-color: rgba(12, 18, 42, 0.7);
+  }
+
+  .popup-menu .nav-link {
+    font-size: 18px;
+    font-weight: 700;
+  }
+
+  .logo {
+    position: static;
+    transform: translate(0);
+  }
+}
+
+@media (max-width: 980px) {
+  .drone {
+    top: 27vh;
+  }
+}
+
+@media (max-width: 768px) {
+  .header-part {
+      padding-top: max(20vh, 100px);
+  }
+
+  .title {
+    font-size: 46px;
+  }
+
+  .drone {
+    top: 20vh;
+    max-height: 800px;
+    width: auto;
+  }
+}
+
+@media (max-width: 480px) {
+  .header-part {
+      padding-top: max(15vh, 100px);
+  }
+
+  .nav {
+    width: 100%;
+    margin: 0;
+    margin-top: 10px !important;
+    padding: 10px 16px;
+  }
+
+  .title {
+    font-size: 36px;
+  }
+
+  .to-catalog {
+    bottom: 0;
+    left: 6vw;
+    bottom: 6vh;
+  }
+
+  .to-catalog-button {
+    width: 228px;
+    height: 60px;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+  }
+
+  .to-catalog-button svg {
+    display: block;
+  }
+
+  .drone {
+    height: 65vh;
+    max-height: 565px;
+    width: auto;
+    top: 20vh;
+  }
+}

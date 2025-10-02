@@ -1,0 +1,45 @@
+header {
+    background-color: white;
+    height: auto;
+    flex-shrink: 1;
+    min-height: 100px;
+}
+
+main {
+    margin-top: 57px;
+}
+
+.nav {
+    margin: 30px 0 0 0;
+}
+
+.discount {
+    text-decoration: line-through;
+}
+
+.new-price {
+    color: red;
+}
+
+.product {
+    display: flex;
+    flex-direction: column;
+    width: 322px;
+    height: 363px;
+    border-radius: 20px;
+}
+
+.product img {
+    width: 261px;
+    height: 261px;
+}
+
+.product:hover {
+    background-color: rgb(217, 217, 217);
+}
+
+.products {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 24px;
+}

@@ -1,0 +1,153 @@
+button {
+  font-family: "GT Walsheim Pro";
+  font-size: 14px;
+  padding: 0;
+}
+
+.modal-container {
+  position: fixed;
+  z-index: 4;
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(12, 18, 42, 0.7);
+}
+
+.modal-container.show {
+  display: flex;
+}
+
+.password-toggler.hide {
+  display: none;
+}
+
+.modal-form {
+  width: 447px;
+  padding: 16px 24px;
+  box-sizing: border-box;
+  background-color: white;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  font-size: 14px;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 32px;
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.btn-text {
+  background-color: inherit;
+  border: none;
+  font-size: 20px;
+  font-weight: 500;
+}
+
+.alternative-modal {
+  color: #9ea0aa;
+}
+
+.form-body {
+  width: 95%;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 44px;
+}
+
+.input-container {
+  position: relative;
+}
+
+.input-container input {
+  width: 100%;
+  height: 40px;
+  border-radius: 4px;
+  border: 1px solid #ced0d4;
+  margin-top: 8px;
+  box-sizing: border-box;
+  padding: 0 16px;
+  font-size: 16px;
+}
+
+.form-body a {
+  text-decoration: underline;
+}
+
+.password-toggler {
+  position: absolute;
+  top: 36px;
+  right: 12px;
+}
+
+.form-btn {
+  letter-spacing: 2px;
+  border-radius: 100px;
+  padding: 12px 16px;
+  box-sizing: border-box;
+  font-weight: 500;
+}
+
+.cancel-btn {
+  box-sizing: border-box;
+  padding: 12px 16px;
+  border: 1.5px solid #0c122a;
+  background-color: white;
+  border-radius: 100px;
+  color: #0c122a;
+}
+
+.submit-btn {
+  background-color: #0c122a;
+  border: 1.5px solid #0c122a;
+  color: white;
+  margin-left: 10px;
+}
+
+.public-contract, .error-msg {
+  color: #b62d11;
+}
+
+.error-msg {
+  margin: 0 0 0 0;
+  line-height: 2;
+  font-weight: 700;
+}
+
+#info-container {
+  margin: 0;
+  color: #9EA0AA;
+}
+
+#result-container .submit-btn {
+  margin-left: 0;
+}
+
+.special-btn {
+  background-color: inherit;
+  border: none;
+  height: 13px;
+}
+
+@media (max-width: 480px) {
+  .modal-form {
+    width: 350px;
+  }
+  .form-btn {
+    font-size: 13px;
+    padding: 10px 10px;
+  }
+}

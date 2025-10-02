@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% block links %} <link rel="stylesheet" href="{{ url_for('catalog.static', filename='css/product.css') }}"> {% endblock %}
+{% block title %} Catalog {% endblock %}
+{% block header %}
+    <div class="wrapper">
+        <div class="ellipse-big pos1"></div>
+    </div>
+    <div class="header-part">
+        <h2 class="title">ТЕХНОЛОГІЇ</h2>
+        <h2 class="title">ЯКІ ЗМІНЮЮТЬ РЕАЛЬНІСТЬ</h2>
+        <img class="drone" src="{{ url_for('main.static', filename='images/drone.png') }}" alt="">
+    </div>
+{% endblock %}
+{% block content %}
+    <h1>{{ product.name }}</h1>
+    <p>{{ product.summary }}</p>
+    <img src="{{ url_for('catalog.static', filename=product.get_path()) }}" alt="">
+    <div class="buy-block">
+        <img src="{{ url_for('catalog.static', filename=product.get_path()) }}" alt="">
+        <div>
+            <p class="product-name">{{ product.name }}</p>
+                {% if product.discount <= 0 %}
+                    <p class="product-price">{{ product.price }}</p>
+                {% else %}
+                    <p class="product-price-discount">
+                        <span class="discount">{{ product.price }}</span> 
+                        <span class="new-price">{{ product.get_discounted_price()}}</span>
+                    </p>
+                {% endif %}
+        </div>
+        <div class="btns-line">
+            <button>Кошик</button>
+            <button>Замовити</button>
+        </div>
+    </div>
+{% endblock %}

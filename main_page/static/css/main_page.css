@@ -1,314 +1,197 @@
-main {
-    position: relative;
-    z-index: 3;
-    background-color: white;
-}
-
-.header-part {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 24px;
-    background-color: #CDD5DD;
-    padding: 121px 0 0 0;
-    position: relative;
-    z-index: 2;
-}
-
-.title {
-    text-align: center;
-    font-size: 61px;
-    margin: 0;
-    color: white;
-    font-weight: 800;
-    padding: 0 10px;
-    letter-spacing: 3%;
-}
-
-.pos1 {
-    bottom: -534px;
-}
-
-.drone {
-    position: absolute;
-    z-index: 3;
-    display: inline-block;
-    width: 811px;
-    height: auto;
-    transform: rotate(10deg);
-    /* top: 100px; */
-    top: 15%;
-}
-
-.to-catalog {
-    margin-top: 349px;
-    margin-right: 4%;
-    position: relative;
-    z-index: 3;
-    align-self: flex-end;
-}
-
-.transfer-btn {
-    display: inline-block;
-    padding: 18px 40px;
-    border-radius: 100px;
-    box-sizing: border-box;
-}
-
-.to-catalog-button {
-    background-color: #0C122A;
-    color: white;
-    font-size: 14px;
-    font-weight: 700;
-}
-
-.to-catalog-button svg {
-    display: none;
-}
-
 .content {
-    position: relative;
-    z-index: 2;
+  position: relative;
+  z-index: 2;
 }
 
 .section-margin {
-    margin-bottom: 179px;
+  margin-bottom: 179px;
 }
 
 .to-about {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 24px;
-    text-align: center;
-    margin-top: 205px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  text-align: center;
+  margin-top: 205px;
 }
 
 .to-about p {
-    margin: 0;
+  margin: 0;
 }
 
 .to-about-button {
-    display: flex;
-    align-items: center;
-    background-color: white;
-    border: 2px solid #0C122A;
-    font-size: 14px;
-    font-weight: 700;
+  color: #0c122a;
+  display: flex;
+  align-items: center;
+  background-color: white;
+  border: 1.5px solid #0c122a;
+  font-size: 14px;
+  font-weight: 700;
+  display: inline-block;
+  padding: 18px 40px;
+  border-radius: 100px;
+  box-sizing: border-box;
+  transition: all 0.25s ease;
 }
 
 .to-about-button svg {
-    padding-left: 20px;
+  padding-left: 20px;
+}
+
+.to-about-button:hover {
+  color: white;
+  background-color: #0c122a;
+}
+
+.to-about-button:hover svg path {
+  fill: white;
 }
 
 section h2 {
-    margin: 0;
-    text-align: center;
-    font-size: 44px;
-    color: #CDD5DD;
-    font-weight: 800;
+  margin: 0;
+  text-align: center;
+  font-size: 44px;
+  color: #cdd5dd;
+  font-weight: 800;
 }
 
 .images-container {
-    margin-top: 135px;
-    display: flex;
-    /* flex-direction: column; */
-    justify-content: center;
-    align-items: center;
-    gap: 2%;
+  margin-top: 135px;
+  display: flex;
+  /* flex-direction: column; */
+  justify-content: center;
+  align-items: center;
+  gap: 2%;
 }
 
 .image-container {
-    position: relative;
-    border-radius: 10px;
-    height: 437px;
-    width: 30%;   
-    min-width: 343px; 
-    background-size: cover;
-    padding: 228px 24px 24px 24px;
-    box-sizing: border-box;
+  position: relative;
+  border-radius: 10px;
+  height: 437px;
+  width: 30%;
+  min-width: 343px;
+  background-size: cover;
+  padding: 228px 24px 24px 24px;
+  box-sizing: border-box;
 }
 
 .image-container div {
-    position: relative;
-    z-index: 1;
-    color: white;
+  position: relative;
+  z-index: 1;
+  color: white;
 }
 
 .image-container::before {
-    content: "";
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 63%;
-    border-bottom-left-radius: 10px;
-    border-bottom-right-radius: 10px;
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 63%;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
 }
-
 
 .current-image1 {
-    background-image: url('../images/mavic_1.png');
+  background-image: url("../images/mavic_1.png");
 }
 
-.current-image1::before{
-    background: linear-gradient(to top, rgb(245, 190, 79), rgba(245, 190, 79, 0));
+.current-image1::before {
+  background: linear-gradient(to top, rgb(245, 190, 79), rgba(245, 190, 79, 0));
 }
 
 .current-image2 {
-     background-image: url('../images/mavic_2.png');
+  background-image: url("../images/mavic_2.png");
 }
 
-.current-image2::before{
-    background: linear-gradient(to top, rgb(26, 39, 27), rgba(26, 39, 27, 0));
+.current-image2::before {
+  background: linear-gradient(to top, rgb(26, 39, 27), rgba(26, 39, 27, 0));
 }
 
 .current-image3 {
-     background-image: url('../images/mavic_3.png');
+  background-image: url("../images/mavic_3.png");
 }
 
-.current-image3::before{
-    background: linear-gradient(to top, rgb(79, 148, 164), rgba(79, 148, 164, 0));
+.current-image3::before {
+  background: linear-gradient(to top, rgb(79, 148, 164), rgba(79, 148, 164, 0));
 }
 
 .info-conrainer-title {
-    font-size: 44px;
-    font-weight: 500;
-    margin: 0 0 8px;
+  font-size: 44px;
+  font-weight: 500;
+  margin: 0 0 8px;
 }
 
 .info-conrainer-desc {
-    margin: 0;   
+  margin: 0;
 }
 
 .buy-line {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: 69px;
-    font-size: 14px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 69px;
+  font-size: 14px;
 }
 
 .buy-line a {
-    padding: 12px 16px;
-    border-radius: 100px;
-    border: 1px solid white;
-    box-sizing: border-box;
-    color: white;
-    display: flex;
-    align-items: center;
+  padding: 12px 16px;
+  border-radius: 100px;
+  border: 1px solid white;
+  box-sizing: border-box;
+  color: white;
+  display: flex;
+  align-items: center;
+  transition: all 0.25s ease;
 }
 
-.buy-line a svg{
-    margin-left: 12px;
+.buy-line a:hover {
+  box-shadow: 0 0 20px rgba(255,255,255,0.7);
+  transform: scale(1.05);
+}
+
+.buy-line a svg {
+  margin-left: 12px;
 }
 
 .image-drone {
-    width: 265px;
-    height: 265px;
-    position: absolute;
-    z-index: 3;
-    top: 0;
-    left: 50%;
-    transform: translate(-50%, -42%);
+  width: 265px;
+  height: 265px;
+  position: absolute;
+  z-index: 3;
+  top: 0;
+  left: 50%;
+  transform: translate(-50%, -42%);
 }
 
 .image-drone-front {
-    width: 354px;
-    height: 354px;
-    top: 0;
-    left: 50%;
-    transform: translate(-50%, -45%);
-}
-
-@media (max-width: 1285px) and (min-width: 768px) {
-    .to-catalog {
-        position: absolute;
-        bottom: -150px;
-        /* margin-top: 0; */
-    }
-
-    .header-part {
-        padding-bottom: 460px;
-    }
-
-    .to-about {
-        margin-top: 305px;
-    }
+  width: 354px;
+  height: 354px;
+  top: 0;
+  left: 50%;
+  transform: translate(-50%, -45%);
 }
 
 @media (max-width: 1100px) {
-    .images-container {
-        flex-direction: column;
-        gap: 121px;
-        width: 100%;
-        margin-top: 118px;
-    }
+  .images-container {
+    flex-direction: column;
+    gap: 121px;
+    width: 100%;
+    margin-top: 118px;
+  }
 
-    .image-container {
-        width: 40%;
-    }
-}
-
-@media (max-width: 980px) {
-    .drone {
-        top: 23%;
-    }
-}
-
-@media (max-width: 768px) {
-    .header-part {
-        padding-top: 100px;
-    }
-
-    .title {
-        font-size: 46px;
-    }
-
-    .drone {
-        width: 600px;
-        top: 15%;
-    }
+  .image-container {
+    width: 40%;
+  }
 }
 
 @media (max-width: 480px) {
-    section h2 {
-        font-size: 36px;
-    }
+  section h2 {
+    font-size: 36px;
+  }
 
-    .section-margin {
-        margin: 119px 16px 131px 16px;
-    }
-
-    .title {
-        font-size: 36px;
-    }
-
-    .header-part {
-        padding-top: 42px;
-    }
-
-    .to-catalog {
-        align-self: flex-start;
-        margin: 332px 0 0 16px;
-    }
-
-    .to-catalog-button {
-        width: 228px;
-        height: 60px;
-        padding: 0;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 16px;
-    }
-
-    .to-catalog-button svg {
-        display: block;
-    }
-
-    .drone {
-        width: 449px;
-        top: 15%;
-    }
+  .section-margin {
+    margin: 119px 16px 131px 16px;
+  }
 }

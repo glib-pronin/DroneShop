@@ -1,89 +1,95 @@
 {% extends 'base.html' %}
 {% block links %} <link rel="stylesheet" href="{{ url_for('main.static', filename='css/main_page.css') }}"> {% endblock %}
-{% block title %} Drones {% endblock %}
-{% block content %}
-<div class="header-part">
-    <h2 class="title">ТЕХНОЛОГІЇ</h2>
-    <h2 class="title">ЯКІ ЗМІНЮЮТЬ РЕАЛЬНІСТЬ</h2>
-    <div class="ellipse-big pos1"></div>
-    <img class="drone" src="{{ url_for('main.static', filename='images/drone.png') }}" alt="">
+{% block title %}
+    Drones
+{% endblock %}
+{% block header %}
+    <div class="wrapper">
+        <div class="ellipse-big pos1"></div>
+    </div>
+    <div class="header-part">
+        <h2 class="title">ТЕХНОЛОГІЇ</h2>
+        <h2 class="title">ЯКІ ЗМІНЮЮТЬ РЕАЛЬНІСТЬ</h2>
+        <img class="drone" src="{{ url_for('main.static', filename='images/drone.png') }}" alt="">
+    </div>
     <section class="to-catalog">
-        <p>Передові технології в одному місці. <br> Обирай найкраще для найважливішого.</p>
-            <a class="transfer-btn to-catalog-button" href="">
-                ДО КАТАЛОГУ
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M12 4L10.59 5.41L16.17 11H4V13H16.17L10.59 18.59L12 20L20 12L12 4Z" fill="white"/>
+            <p>Передові технології в одному місці. <br> Обирай найкраще для найважливішого.</p>
+                <a class="transfer-btn to-catalog-button" href="">
+                    ДО КАТАЛОГУ
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 4L10.59 5.41L16.17 11H4V13H16.17L10.59 18.59L12 20L20 12L12 4Z" fill="white"/>
+                    </svg>
+                </a>
+        </section>
+{% endblock %}
+{% block content %} 
+    <div class="content">
+        <section class="to-about section-margin">
+            <h2>ПРО НАС</h2>
+            <p>Ми - команда, що об'єднує технології та надійність. <br> 
+                Пропонуємо дрони й тепловізори, перевірені у найскладніших умовах. <br>
+                Обираємо тільки те, чому довіряємо самі.
+            </p>
+            <a class="transfer-btn to-about-button" href="">
+                ЧИТАТИ БІЛЬШЕ
+                <svg width="17" height="17" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M8.5 0.953125L7.09 2.36312L12.67 7.95312H0.5V9.95312H12.67L7.09 15.5431L8.5 16.9531L16.5 8.95312L8.5 0.953125Z" fill="#0C122A"/>
                 </svg>
             </a>
-    </section>
-</div>
-<div class="content">
-    <section class="to-about section-margin">
-        <h2>ПРО НАС</h2>
-        <p>Ми - команда, що об'єднує технології та надійність. <br> 
-            Пропонуємо дрони й тепловізори, перевірені у найскладніших умовах. <br>
-            Обираємо тільки те, чому довіряємо самі.
-        </p>
-        <a class="transfer-btn to-about-button" href="">
-            ЧИТАТИ БІЛЬШЕ
-            <svg width="17" height="17" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M8.5 0.953125L7.09 2.36312L12.67 7.95312H0.5V9.95312H12.67L7.09 15.5431L8.5 16.9531L16.5 8.95312L8.5 0.953125Z" fill="#0C122A"/>
-            </svg>
-        </a>
-    </section>
-    <section class="new-on-site section-margin">
-        <h2>НОВЕ НА САЙТІ</h2>
-        <div class="images-container">
-            <div class="image-container current-image1">
-                <img class="image-drone" src="{{url_for('main.static', filename='images/drone.png')}}" alt="">
-                <div class="info-container">
-                    <p class="info-conrainer-title">DJI Mini  4K</p>
-                    <p class="info-conrainer-desc">Easy-To-Use Mini Camera Drone</p>
+        </section>
+        <section class="new-on-site section-margin">
+            <h2>НОВЕ НА САЙТІ</h2>
+            <div class="images-container">
+                <div class="image-container current-image1">
+                    <img class="image-drone" src="{{url_for('main.static', filename='images/drone.png')}}" alt="">
+                    <div class="info-container">
+                        <p class="info-conrainer-title">DJI Mini  4K</p>
+                        <p class="info-conrainer-desc">Easy-To-Use Mini Camera Drone</p>
+                    </div>
+                    <div class="buy-line">
+                        <span>from to $299</span> 
+                        <a href=""">
+                            КУПИТИ
+                            <svg width="17" height="16" viewBox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M8.65658 2.66663L7.71658 3.60663L11.4366 7.33329H3.32324V8.66663H11.4366L7.71658 12.3933L8.65658 13.3333L13.9899 7.99996L8.65658 2.66663Z" fill="white"/>
+                            </svg>
+                        </a>
+                    </div>
                 </div>
-                <div class="buy-line">
-                    <span>from to $299</span> 
-                    <a href=""">
-                        КУПИТИ
-                        <svg width="17" height="16" viewBox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M8.65658 2.66663L7.71658 3.60663L11.4366 7.33329H3.32324V8.66663H11.4366L7.71658 12.3933L8.65658 13.3333L13.9899 7.99996L8.65658 2.66663Z" fill="white"/>
-                        </svg>
-                    </a>
+                <div class="image-container current-image2">
+                    <img class="image-drone image-drone-front" src="{{url_for('main.static', filename='images/drone_front.png')}}" alt="">
+                    <div class="info-container">
+                        <p class="info-conrainer-title">DJI Mini  4K</p>
+                        <p class="info-conrainer-desc">Easy-To-Use Mini Camera Drone</p>
+                    </div>
+                    <div class="buy-line">
+                        <span>from to $299</span> 
+                        <a href="">
+                            КУПИТИ
+                            <svg width="17" height="16" viewBox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M8.65658 2.66663L7.71658 3.60663L11.4366 7.33329H3.32324V8.66663H11.4366L7.71658 12.3933L8.65658 13.3333L13.9899 7.99996L8.65658 2.66663Z" fill="white"/>
+                            </svg>
+                        </a>
+                    </div>
                 </div>
-            </div>
-            <div class="image-container current-image2">
-                <img class="image-drone image-drone-front" src="{{url_for('main.static', filename='images/drone_front.png')}}" alt="">
-                <div class="info-container">
-                    <p class="info-conrainer-title">DJI Mini  4K</p>
-                    <p class="info-conrainer-desc">Easy-To-Use Mini Camera Drone</p>
-                </div>
-                <div class="buy-line">
-                    <span>from to $299</span> 
-                    <a href="">
-                        КУПИТИ
-                        <svg width="17" height="16" viewBox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M8.65658 2.66663L7.71658 3.60663L11.4366 7.33329H3.32324V8.66663H11.4366L7.71658 12.3933L8.65658 13.3333L13.9899 7.99996L8.65658 2.66663Z" fill="white"/>
-                        </svg>
-                    </a>
-                </div>
-            </div>
-            <div class="image-container current-image3">
-                <img class="image-drone" src="{{url_for('main.static', filename='images/drone.png')}}" alt="">
-                <div class="info-container">
-                    <p class="info-conrainer-title">DJI Mini  4K</p>
-                    <p class="info-conrainer-desc">Easy-To-Use Mini Camera Drone</p>
-                </div>
-                <div class="buy-line">
-                    <span>from to $299</span> 
-                    <a href="">
-                        КУПИТИ
-                        <svg width="17" height="16" viewBox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M8.65658 2.66663L7.71658 3.60663L11.4366 7.33329H3.32324V8.66663H11.4366L7.71658 12.3933L8.65658 13.3333L13.9899 7.99996L8.65658 2.66663Z" fill="white"/>
-                        </svg>
-                    </a>
+                <div class="image-container current-image3">
+                    <img class="image-drone" src="{{url_for('main.static', filename='images/drone.png')}}" alt="">
+                    <div class="info-container">
+                        <p class="info-conrainer-title">DJI Mini  4K</p>
+                        <p class="info-conrainer-desc">Easy-To-Use Mini Camera Drone</p>
+                    </div>
+                    <div class="buy-line">
+                        <span>from to $299</span> 
+                        <a href="">
+                            КУПИТИ
+                            <svg width="17" height="16" viewBox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M8.65658 2.66663L7.71658 3.60663L11.4366 7.33329H3.32324V8.66663H11.4366L7.71658 12.3933L8.65658 13.3333L13.9899 7.99996L8.65658 2.66663Z" fill="white"/>
+                            </svg>
+                        </a>
+                    </div>
                 </div>
             </div>
-        </div>
-    </section>
-    
-</div>
+        </section>
+        
+    </div>
 {% endblock %}

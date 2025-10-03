@@ -13,23 +13,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const passwordErrorWeak = registerForm.querySelector('#weak-password')
   const emailError = registerForm.querySelector('#existing-email')
   const authError = authForm.querySelector('#auth-error')
-
-  function switchModal(from, to){
-    from.classList.remove("show");
-    to.classList.add("show");
-    from.querySelector(".cancel-btn").click()
-  }
-
-  function checkPasswords() {
-    if (confirmPassword.value === '' || confirmPassword.value === password.value ) {
-      passwordErrorDiff.textContent = ''
-      return
-    }
-
-    if (confirmPassword.value !== password.value) {
-      passwordErrorDiff.textContent = 'Паролі не збігаються'
-    }
-  }
+  const registerError = registerForm.querySelector('#register-error')
 
   function fillResultContainer(title, text) {
     resultContainer.querySelector('#result-title').textContent = title
@@ -59,25 +43,8 @@ document.addEventListener("DOMContentLoaded", function () {
     switchModal(authContainer, resetPasswordContainer)
   })
   
-  password.addEventListener('input', checkPasswords)
-  password.addEventListener('input', function() {
-    if(this.value.length<6){
-      if(passwordErrorWeak.textContent !== 'Пароль повинен складатися мінімум з 6 символів') {
-        passwordErrorWeak.textContent = 'Пароль повинен складатися мінімум з 6 символів'
-      }
-    }
-    else {
-      if (passwordErrorWeak.textContent !== ''){
-        passwordErrorWeak.textContent = ''
-      }
-    }
-  })
-  confirmPassword.addEventListener('input', checkPasswords)
-  email.addEventListener('input', function() {
-    if (emailError.textContent != ''){
-      emailError.textContent = ''
-    }
-  })
+  initPasswordValidation('registr-password', 'registr-confirm-password', 'diff-password', 'weak-password')
+  initEmailValidation('registr-email', 'existing-email')
 
   registerForm.addEventListener('submit', async function(e) {
     e.preventDefault()
@@ -101,8 +68,8 @@ document.addEventListener("DOMContentLoaded", function () {
             passwordErrorDiff.textContent = 'Паролі не збігаються'
           } else if (data.error === 'weak_password'){
             passwordErrorWeak.textContent = 'Пароль повинен складатися мінімум з 6 символів'
-          } else if (data.error === 'empty_field'){
-
+          } else if (data.error === 'already_logged_in') {
+            registerError.textContent = 'Ви вже авторизовані'
           }
         }
     }
@@ -125,8 +92,8 @@ document.addEventListener("DOMContentLoaded", function () {
     } else {
       if (data.error === 'invalid_credentials'){
         authError.textContent = 'Неправильна електронна пошта або пароль'
-      } else {
-        authError.textContent = 'Вибачте, сталася помилка'
+      } else if (data.error === 'already_logged_in') {
+        authError.textContent = 'Ви вже авторизовані'
       }
     }
   })

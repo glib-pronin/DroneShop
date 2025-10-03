@@ -2,4 +2,4 @@ __pycache__/
 venv/
 catalog_page/static/images/products/
 .env
-.db
+project/db/data.db

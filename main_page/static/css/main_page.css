@@ -48,14 +48,6 @@
   fill: white;
 }
 
-section h2 {
-  margin: 0;
-  text-align: center;
-  font-size: 44px;
-  color: #cdd5dd;
-  font-weight: 800;
-}
-
 .images-container {
   margin-top: 135px;
   display: flex;
@@ -187,10 +179,6 @@ section h2 {
 }
 
 @media (max-width: 480px) {
-  section h2 {
-    font-size: 36px;
-  }
-
   .section-margin {
     margin: 119px 16px 131px 16px;
   }

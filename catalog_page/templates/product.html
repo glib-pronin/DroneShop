@@ -16,7 +16,6 @@
     <p>{{ product.summary }}</p>
     <img src="{{ url_for('catalog.static', filename=product.get_path()) }}" alt="">
     <div class="buy-block">
-        <img src="{{ url_for('catalog.static', filename=product.get_path()) }}" alt="">
         <div>
             <p class="product-name">{{ product.name }}</p>
                 {% if product.discount <= 0 %}
@@ -29,7 +28,7 @@
                 {% endif %}
         </div>
         <div class="btns-line">
-            <button>Кошик</button>
+            <button class="to-cart" id="for-cart-{{ product.id }}">Кошик</button>
             <button>Замовити</button>
         </div>
     </div>

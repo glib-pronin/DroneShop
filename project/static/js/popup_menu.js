@@ -6,17 +6,17 @@ document.addEventListener('DOMContentLoaded', function() {
 
     burger.addEventListener('click', function(){
         nav.style.backdropFilter = 'none'
-        menu.classList.toggle('popup-menu') 
-        cross.classList.toggle('active') 
-        this.classList.toggle('disable')
+        menu.classList.add('popup-menu') 
+        cross.classList.add('active') 
+        this.classList.add('disable')
         nav.style.position = "relative"
     })
 
     cross.addEventListener('click', function(){
         nav.style.backdropFilter = 'blur(8px)'
-        menu.classList.toggle('popup-menu') 
-        burger.classList.toggle('disable') 
-        this.classList.toggle('active')   
+        menu.classList.remove('popup-menu') 
+        burger.classList.remove('disable') 
+        this.classList.remove('active')   
         nav.style.position = "fixed"
     })
 })

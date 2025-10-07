@@ -1,4 +1,4 @@
-import flask, random
+import flask, random, re
 from flask_login import login_user, logout_user
 from .models import User, DATABASE, select
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -17,6 +17,8 @@ def register():
          return flask.jsonify({"success": False, "error": "weak_password"})
     if password != confirmPassword:
          return flask.jsonify({"success": False, "error": "diff_password"})
+    if not re.match(r'^[a-zA-Z0-9+_%-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$', email):
+        return flask.jsonify({"success": False, "error": "invalid_email"})
     existing = DATABASE.session.execute(select(User).where(User.email == email)).scalars().first()
     if existing:
         return flask.jsonify({"success": False, "error": "existing_email"})
@@ -91,4 +93,3 @@ def reset_password():
     DATABASE.session.commit()
     flask.session.pop("reset_id")
     return flask.jsonify({"success": True})
-

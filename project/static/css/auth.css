@@ -18,15 +18,29 @@ button {
   background-color: rgba(12, 18, 42, 0.7);
 }
 
-.modal-container.show {
+.spinner {
+  display: none;
+  width: 30px;
+  height: 30px;
+  border: 6px solid #0C122A;
+  border-top-color: transparent;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  position: absolute;
+  left: 50%;
+  bottom: 5%;
+}
+
+.show {
   display: flex;
 }
 
-.password-toggler.hide {
+.password-toggler.hide, .buttons.hide {
   display: none;
 }
 
 .modal-form {
+  position: relative;
   width: 447px;
   padding: 16px 24px;
   box-sizing: border-box;
@@ -124,7 +138,7 @@ button {
 
 .error-msg {
   margin: 0 0 0 0;
-  line-height: 2;
+  line-height: 1.5;
   font-weight: 700;
   width: 100%;
 }
@@ -149,6 +163,15 @@ button {
   margin-right: 10px;
   padding: 0 10px;
   text-align: center;
+}
+
+@keyframes spin {
+  0% {
+    transform: translateX(-50%) rotate(0deg);
+  }
+  100% {
+    transform: translateX(-50%) rotate(360deg);
+  }
 }
 
 

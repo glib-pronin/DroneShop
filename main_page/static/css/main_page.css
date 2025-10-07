@@ -87,6 +87,8 @@
 
 .current-image1 {
   background-image: url("../images/mavic_1.png");
+  position: relative;
+  z-index: 3;
 }
 
 .current-image1::before {
@@ -95,6 +97,8 @@
 
 .current-image2 {
   background-image: url("../images/mavic_2.png");
+  position: relative;
+  z-index: 2;
 }
 
 .current-image2::before {

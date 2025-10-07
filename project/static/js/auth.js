@@ -51,7 +51,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const name = registerForm.elements["name"].value
     const email = registerForm.elements["email"].value
     
-    if (confirmPassword.value === password.value && password.value.length>=6 ) {
+    if (confirmPassword.value === password.value && password.value.length>=6 && /^[a-zA-Z0-9+_%-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(email)) {
       const res = await fetch('/register', {
           method: "POST",
           headers: {"Content-Type": 'application/json'},
@@ -70,6 +70,8 @@ document.addEventListener("DOMContentLoaded", function () {
             passwordErrorWeak.textContent = 'Пароль повинен складатися мінімум з 6 символів'
           } else if (data.error === 'already_logged_in') {
             registerError.textContent = 'Ви вже авторизовані'
+          } else if (data.error === 'invalid_email') {
+            emailError.textContent = 'Неправильний формат електронної пошти'
           }
         }
     }

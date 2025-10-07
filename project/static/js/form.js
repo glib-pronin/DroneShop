@@ -39,6 +39,10 @@ document.addEventListener("DOMContentLoaded", () => {
         if (container.classList.contains("password-resetting") && btn.classList.contains("cancel-btn")){
           authContainer.classList.add("show")
         }
+        if (container.id === "enter-email-container"){
+          container.querySelector('#send-email-spinner').classList.remove('show')
+          container.querySelector('.buttons').classList.remove('hide')
+        }
       });
     });
   }

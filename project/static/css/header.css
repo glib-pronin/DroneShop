@@ -167,6 +167,11 @@ header {
   .burger-btn, .cross-btn {
     display: none;
   }
+
+  .nav {
+    position: fixed !important ;
+    backdrop-filter: blur(8px) !important;
+  }
 }
 
 @media (max-width: 1000px) {

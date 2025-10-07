@@ -35,8 +35,12 @@ function initEmailValidation(emailFieldId, emailErrorFieldId){
     const emailErrorField = document.getElementById(emailErrorFieldId)
 
     emailField.addEventListener('input', function() {
-    if (emailErrorField.textContent != ''){
+    if (emailErrorField.textContent !== ''){
       emailErrorField.textContent = ''
+
+    }
+    if (!/^[a-zA-Z0-9+_%-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(emailField.value)){
+      emailErrorField.textContent = 'Неправильний формат електронної пошти'
     }
   })
 }

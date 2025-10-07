@@ -18,17 +18,29 @@ document.addEventListener('DOMContentLoaded', ()=>{
     initEmailValidation('reset-email', 'not-existing-email-error')
     enterEmailForm.addEventListener('submit', async (e)=>{
         e.preventDefault()
+        const spinner = enterEmailForm.querySelector('#send-email-spinner')
+        const buttonsContainer = enterEmailForm.querySelector('.buttons')
         const email = enterEmailForm.elements["email"].value
+        const closeBtns = enterEmailForm.querySelectorAll('.close-btn')
         if (!email){
             emailError.textContent = 'Потрібно заповнити це поле'
             return
         }
+        if (!/^[a-zA-Z0-9+_%-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(email)){
+            return
+        }
+        spinner.classList.add('show')
+        buttonsContainer.classList.add('hide')
+        closeBtns.forEach(btn => btn.disabled = true)
         const res = await fetch('/send_code', {
             method: "POST",
             headers: {"Content-Type": "application/json"},
             body: JSON.stringify({ email })
         })
         const data = await res.json()
+        spinner.classList.remove('show')
+        buttonsContainer.classList.remove('hide')
+        closeBtns.forEach(btn => btn.disabled = false)
         if (data.success) {
             switchModal(enterEmailContainer, enterCodeContainer)
         }
@@ -38,8 +50,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
             emailSessionError.textContent = 'Ви вже авторизовані'
         } else if (data.error === 'email_not_sent') {
             emailSessionError.textContent = 'Сталася помилка під час відправлення коду'
-        }
-        
+        }  
     })
     
     digitInputs.forEach((digit, i)=>{

@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/header.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/auth.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/cart.css') }}">
     {% block links %} {% endblock %}
     <title>{% block title %} {% endblock %}</title>
 </head>
@@ -30,7 +31,7 @@
                 </svg>
             </a>
             <div class="icons-menu">
-                <svg width="18" height="21" viewBox="0 0 18 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <svg width="18" height="21" viewBox="0 0 18 21" fill="none" xmlns="http://www.w3.org/2000/svg" id="cart-btn">
                     <path fill-rule="evenodd" clip-rule="evenodd" d="M5.46447 1.91075C6.40215 0.973073 7.67392 0.446289 9 0.446289C10.3261 0.446289 11.5979 0.973073 12.5355 1.91075C13.4732 2.84844 14 4.12021 14 5.44629V6.44629H16C16.5201 6.44629 16.9534 6.84495 16.9965 7.36324L17.9965 19.3632C18.0198 19.6419 17.9252 19.9176 17.7359 20.1234C17.5465 20.3292 17.2797 20.4463 17 20.4463H1C0.720351 20.4463 0.453476 20.3292 0.264121 20.1234C0.0747659 19.9176 -0.0197664 19.6419 0.00345746 19.3632L1.00346 7.36324C1.04665 6.84495 1.47991 6.44629 2 6.44629H4V5.44629C4 4.12021 4.52679 2.84844 5.46447 1.91075ZM4 8.44629V9.44629C4 9.99857 4.44772 10.4463 5 10.4463C5.55229 10.4463 6 9.99857 6 9.44629V8.44629H12V9.44629C12 9.99857 12.4477 10.4463 13 10.4463C13.5523 10.4463 14 9.99857 14 9.44629V8.44629H15.0799L15.9132 18.4463H2.0868L2.92014 8.44629H4ZM12 6.44629H6V5.44629C6 4.65064 6.31607 3.88758 6.87868 3.32497C7.44129 2.76236 8.20435 2.44629 9 2.44629C9.79565 2.44629 10.5587 2.76236 11.1213 3.32497C11.6839 3.88758 12 4.65064 12 5.44629V6.44629Z" fill="#9EA0AA"/>
                 </svg>
                 {% if not current_user.is_authenticated %}
@@ -201,6 +202,7 @@
                 <button class="cancel-btn form-btn cursor-pointer close-btn" type="button">СКАСУВАТИ</button>
                 <button class="submit-btn form-btn cursor-pointer" type="submit">НАДІСЛАТИ ЛИСТ</button>
             </div>
+            <div class="spinner" id="send-email-spinner"></div>
         </form>
     </div>
     <div class="modal-container password-resetting" id="enter-code-container">
@@ -302,6 +304,48 @@
             </div>
         </form>
     </div>
+    <div class="modal-container" id="cart-container">
+        <div class="cart">
+            <div class="cart-header">
+                <p>Кошик</p>
+                <button class="cursor-pointer special-btn close-btn" type="button">
+                    <svg class="cursor-pointer" width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M6.5 5.05945L11.1669 0.392578L12.5 1.7257L7.83312 6.39258L12.5 11.0595L11.1669 12.3926L6.5 7.7257L1.83312 12.3926L0.5 11.0595L5.16688 6.39258L0.5 1.7257L1.83312 0.392578L6.5 5.05945Z" fill="#0C122A"/>
+                    </svg>
+                </button>
+            </div>
+            <div class="cart-content">
+                <p class="empty-cart" id="empty-cart">
+                    Ваш кошик порожній. <br> 
+                    Почніть вибирати товари, щоб вони з’явилися тут
+                </p>
+                <div class="cart-items-container hide-element" id="cart-items-container"></div>
+                <div class="total-price hide-element" id="total-price">
+                    <p class="total-price-row">
+                        Загальна сума
+                        <span id="total-price-span"></span>
+                    </p>
+                    <p class="total-price-row hide-element" id="discount-line">
+                        Заощаджено
+                        <span class="savings"></span>
+                    </p>
+                    <p class="total-price-row hide-element" id="alternative-price-line">
+                        Зі знижкою
+                        <span class="cart-item-discounted-price final-price"></span>
+                    </p>
+                </div>
+                <div class="cart-btns">
+                    <button class="cancel-btn form-btn cursor-pointer close-btn">ПРОДОВЖИТИ ПОКУПКИ</button>
+                    <button class="submit-btn form-btn cursor-pointer make-order-btn hide-element" id="make-order-btn">
+                        ОФОРМИТИ ЗАМОВЛЕННЯ
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M8.00033 2.66699L7.06033 3.60699L10.7803 7.33366H2.66699V8.66699H10.7803L7.06033 12.3937L8.00033 13.3337L13.3337 8.00033L8.00033 2.66699Z" fill="white"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
     <footer>
         <div class="statistic-line">
             <div class="statistic-block">
@@ -331,9 +375,10 @@
         <p class="footer-copyright">&#169; 2025 Drones Всі права захищені.</p>
     </footer>
     <script src="{{ url_for('static', filename='js/popup_menu.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/formValidation.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/form_validation.js') }}"></script>
     <script src="{{ url_for('static', filename='js/form.js') }}"></script>
     <script src="{{ url_for('static', filename='js/reset_password.js') }}"></script>
     <script src="{{ url_for('static', filename='js/auth.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/cart.js') }}"></script>
 </body>
 </html>

@@ -10,6 +10,7 @@ document.addEventListener('DOMContentLoaded', function() {
         cross.classList.add('active') 
         this.classList.add('disable')
         nav.style.position = "relative"
+        nav.style.top = "0"
     })
 
     cross.addEventListener('click', function(){
@@ -18,5 +19,6 @@ document.addEventListener('DOMContentLoaded', function() {
         burger.classList.remove('disable') 
         this.classList.remove('active')   
         nav.style.position = "fixed"
+        nav.style.top = "4vh"
     })
 })

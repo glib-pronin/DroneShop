@@ -10,6 +10,14 @@ header {
   align-items: center;
 }
 
+.nav-container {
+  width: 100%;
+  height: 64px;
+  margin-top: 4vh;
+  display: flex;
+  justify-content: center;
+}
+
 .nav {
   position: fixed;
   z-index: 5;
@@ -21,7 +29,7 @@ header {
   background-color: rgba(255, 255, 255, 0.5);
   border-radius: 62px;
   padding: 10px 40px;
-  margin-top: 4vh;
+  top: 4vh;
   box-sizing: border-box;
   border: 1px solid #e4e4e7;
   backdrop-filter: blur(8px);
@@ -86,7 +94,7 @@ header {
   flex-direction: column;
   align-items: center;
   gap: 3vh;
-  padding-top: max(25vh, 100px);
+  padding-top: max(13vh, 60px);
   position: relative;
   z-index: 3;
   flex-grow: 1;
@@ -103,7 +111,7 @@ header {
 }
 
 .pos1 {
-  top: max(70vh, 350px);
+  top: max(65vh, 350px);
 }
 
 .title {
@@ -120,13 +128,13 @@ header {
   position: absolute;
   z-index: 4;
   display: inline-block;
-  height: 95vh;
+  height: 89vh;
   max-height: 841px;
   width: auto;
   max-width: 128vw;
   object-fit: cover;
   transform: rotate(10deg);
-  top: 25vh;
+  top: 9vh;
 }
 
 .to-catalog {
@@ -171,10 +179,15 @@ header {
   .nav {
     position: fixed !important ;
     backdrop-filter: blur(8px) !important;
+    top: 4vh !important;
   }
 }
 
 @media (max-width: 1000px) {
+  .header-part {
+      padding-top: max(9vh, 40px);
+  }
+
   .menu {
     display: none;
   }
@@ -210,13 +223,14 @@ header {
 
 @media (max-width: 980px) {
   .drone {
-    top: 27vh;
+    top: 18vh;
+    height: 73vh;
   }
 }
 
 @media (max-width: 768px) {
   .header-part {
-      padding-top: max(20vh, 100px);
+      padding-top: max(8vh, 60px);
   }
 
   .title {
@@ -224,21 +238,31 @@ header {
   }
 
   .drone {
-    top: 20vh;
+    top: 15vh;
+    height: 71vh;
     max-height: 800px;
     width: auto;
   }
+
+  .pos1 {
+    top: max(60vh, 350px);
+  }
+
 }
 
 @media (max-width: 480px) {
   .header-part {
-      padding-top: max(15vh, 100px);
+      padding-top: 6vh;
+  }
+
+  .nav-container {
+    margin-top: 10px;
   }
 
   .nav {
     width: 100%;
     margin: 0;
-    margin-top: 10px !important;
+    top: 10px !important;
     padding: 10px 16px;
   }
 
@@ -270,6 +294,6 @@ header {
     height: 65vh;
     max-height: 565px;
     width: auto;
-    top: 20vh;
+    top: 11vh;
   }
 }

@@ -1,4 +1,4 @@
-from project.db import DATABASE
+from project.db import DATABASE, select
 
 class Product(DATABASE.Model):
     id = DATABASE.Column(DATABASE.Integer, primary_key=True)

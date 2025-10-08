@@ -228,11 +228,10 @@ document.addEventListener('DOMContentLoaded', ()=>{
     }
 
     openCart.addEventListener('click', async ()=>{
-        cartContainer.classList.add('show')
         if (document.cookie.includes('productsId')){
             const res = await fetch('/get_cart')
             const data = await res.json()
-            console.log(data);
+            cartContainer.classList.add('show')
             if (data.list_product.length>0) {
                 emptyCart.classList.add('hide-element')
                 makeOrderbtn.classList.remove('hide-element')
@@ -255,6 +254,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
                 showEmptyCart()
             }
         } else {
+            cartContainer.classList.add('show')
             showEmptyCart()
         }
     })

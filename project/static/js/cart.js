@@ -1,7 +1,8 @@
 document.addEventListener('DOMContentLoaded', ()=>{
     const openCart = document.getElementById('cart-btn')
     const cartContainer = document.getElementById('cart-container')
-    const btnsCartList = document.querySelectorAll('.to-cart')
+    const productsContainer = document.querySelector('#products-container')
+    const toCartBtns = document.querySelectorAll('.to-cart')
     const emptyCart = cartContainer.querySelector('#empty-cart')
     const makeOrderbtn = cartContainer.querySelector('#make-order-btn')
     const cartItemsContainer = cartContainer.querySelector('#cart-items-container')
@@ -258,18 +259,27 @@ document.addEventListener('DOMContentLoaded', ()=>{
             showEmptyCart()
         }
     })
+    
+    function addProductToCart(toCart){
+        productId = toCart.id.split('-')[2]
+        if (document.cookie.includes('productsId')) {
+            console.log(document.cookie);
+            productsId = document.cookie.split('productsId=')[1]
+            document.cookie = `productsId=${productsId}|${productId}; path=/`
+        } else {
+            document.cookie = `productsId=${productId}; path=/`
+        }
+    }
 
-    btnsCartList.forEach(btnCart =>{
-        btnCart.addEventListener('click', (e)=>{
+    toCartBtns.forEach(btn => btn.addEventListener('click', ()=>addProductToCart(btn)))
+
+    if (productsContainer){
+        productsContainer.addEventListener('click', (e)=>{
+            const toCart = e.target.closest('.to-cart');
+            if (!toCart) return; // не по .to-cart → нічого не робимо
             e.preventDefault()
-            productId = btnCart.id.split('-')[2]
-            if (document.cookie.includes('productsId')) {
-                console.log(document.cookie);
-                productsId = document.cookie.split('productsId=')[1]
-                document.cookie = `productsId=${productsId}|${productId}; path=/`
-            } else {
-                document.cookie = `productsId=${productId}; path=/`
-            }
+            addProductToCart(toCart)
         })
-    })
+    }
+
 })

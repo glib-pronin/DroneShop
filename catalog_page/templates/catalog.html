@@ -2,31 +2,48 @@
 {% block links %} <link rel="stylesheet" href="{{ url_for('catalog.static', filename='css/catalog.css') }}"> {% endblock %}
 {% block title %} Catalog {% endblock %}
 {% block content %}
-    <h2 class="section-header">НОВЕ НА САЙТІ</h2>
-    <form action="" method="post" enctype="multipart/form-data">
+    <h2 class="section-header page-header">КАТАЛОГ</h2>
+    <!-- <form action="" method="post" enctype="multipart/form-data">
         <input type="text" name="name" required placeholder="Назва">
         <input type="number" name="price" required placeholder="Ціна">
         <input type="number" name="discount" required placeholder="Знижка">
         <input type="file" name="image" id="" accept="image/*">
         <textarea name="summary" id="" placeholder="Короткий опис"></textarea>
         <button>Додати</button>
-    </form>
+    </form> -->
     <div class="products-wrapper">
-        <div class="products-container">
-            {% for product in products %}
+        <div class="catalog-filter">
+            <a href="" class="filter-criteria selected-criteria">Всі</a>
+            <a href="" class="filter-criteria">
+                <img src="{{ url_for('catalog.static', filename='/images/filters/drone.png') }}" alt="">
+            </a>
+            <a href="" class="filter-criteria">
+                <img src="{{ url_for('catalog.static', filename='/images/filters/thermal_imager.png') }}" alt="">
+            </a>
+        </div>
+        <div class="products-container" id="products-container"></div>
+        <div class="catalog-pagination hide-element" id="catalog-pagination"></div>
+    </div>
+{% endblock %}
+{% block scripts %}
+    <script src="{{ url_for('catalog.static', filename='js/filter.js') }}"></script>
+    <script src="{{ url_for('catalog.static', filename='js/pagination.js') }}"></script>
+{% endblock  %}
+
+<!-- {% for product in products %}
                 <a class="product" href="/product/{{ product.id }}">
                     <div class="product-image-container">
                         <img src="{{ url_for('catalog.static', filename=product.get_path()) }}" alt="">
                     </div>
                     <div class="product-info">
-                    <p class="product-name">{{ product.name }}</p>
-                    {% if product.discount <= 0 %}
-                        <p class="product-price">{{ product.price }}</p>
-                    {% else %}
-                        <p class="product-price-discount">
-                            <span class="discount">{{ product.price }}</span> 
-                            <span class="product-price new-price">{{ product.get_discounted_price()}}</span>
-                        </p>
+                        <p class="product-name">{{ product.name }}</p>
+                        {% if product.discount <= 0 %}
+                            <p class="product-price">{{ product.price }} $</p>
+                        {% else %}
+                            <p class="product-price-discount">
+                                <span class="discount">{{ product.price }} $</span> 
+                                <span class="product-price new-price">{{ product.get_discounted_price()}} $</span>
+                            </p>
                         {% endif %}
                     </div>
                     <div class="to-cart" id="for-cart-{{ product.id }}">
@@ -35,7 +52,4 @@
                         </svg>
                     </div>
                 </a>
-            {% endfor %}
-        </div>
-    </div>
-{% endblock %}
+            {% endfor %} -->

@@ -195,7 +195,7 @@
 }
 
 .hide-element {
-    display: none;
+    display: none !important;
 }
 
 @media (max-width: 650px) {

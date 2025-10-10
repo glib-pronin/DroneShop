@@ -66,6 +66,7 @@ main {
   flex: 1 0 auto;
   /* min-height: 100vh; */
   background-color: white;
+  margin: 0 40px;
 }
 
 footer {
@@ -185,6 +186,10 @@ footer {
   }
 }
 
+.page-header {
+    margin-top: 57px;
+}
+
 @media (max-width: 700px) {
   .big-text {
     width: 440px;
@@ -211,4 +216,13 @@ footer {
   .section-header {
     font-size: 36px;
   }
+
+  .page-header {
+    margin-top: 36px;
+  }
+
+  main {
+    margin: 0 15px;
+  }
+
 }

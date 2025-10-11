@@ -103,6 +103,10 @@ document.addEventListener('DOMContentLoaded', ()=>{
             const btn = document.createElement('button')
             btn.classList.add('pagination-btn', 'cursor-pointer')
             if (p === currentPage) btn.classList.add('selected-page')
+            if (p === '...') {
+                btn.disabled = true
+                btn.classList.remove('cursor-pointer')
+            } 
             btn.textContent = p
             btn.addEventListener('click', ()=>{
                 currentPage = p

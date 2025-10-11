@@ -53,6 +53,27 @@ header {
   gap: 30px;
 }
 
+#cart-btn {
+  position: relative;
+  height: 21px;
+}
+
+.product-in-cart {
+  width: 17px;
+  height: 17px;
+  background-color: #B62D11;
+  border-radius: 50%;
+  position: absolute;
+  top: -3px;
+  right: -8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-size: 10px;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+}
+
 #link-to-profile {
   height: 21px;
 }

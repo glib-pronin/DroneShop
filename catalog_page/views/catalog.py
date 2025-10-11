@@ -3,7 +3,7 @@ from ..models import Product, DATABASE, select
 
 products_path = os.path.abspath(__file__+'/../../static/images/products')
 
-ITEMS_PER_PAGE = 5
+ITEMS_PER_PAGE = 2
 
 def render_catalog():
     if flask.request.method == 'POST':

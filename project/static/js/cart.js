@@ -1,5 +1,6 @@
 document.addEventListener('DOMContentLoaded', ()=>{
     const openCart = document.getElementById('cart-btn')
+    const cartProductsIndicator = openCart.querySelector('.product-in-cart')
     const cartContainer = document.getElementById('cart-container')
     const productsContainer = document.querySelector('#products-container')
     const toCartBtns = document.querySelectorAll('.to-cart')
@@ -58,7 +59,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
         const cartItemActionQuantity = document.createElement('div')
         cartItemActionQuantity.classList.add('cart-item-action-quantity')
         const minusBtn = document.createElement('div')
-        minusBtn.id = 'minus-btn'
+        minusBtn.classList.add('minus-btn')
         minusBtn.textContent = '-'
         minusBtn.classList.add('cart-item-action-btn')
         if (item.count > 1) {
@@ -125,7 +126,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
         if (!cartItem) {
             return
         }
-        const minusBtn = cartItem.querySelector('#minus-btn')
+        const minusBtn = cartItem.querySelector('.minus-btn')
         const quantitySpan = cartItem.querySelector('.cart-item-quantity')
         if(parseInt(quantitySpan.textContent) <= 1){
             changeIncrementionState(minusBtn, false)
@@ -165,7 +166,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
         if (!cartItem) {
             return
         }
-        const minusBtn = cartItem.querySelector('#minus-btn')
+        const minusBtn = cartItem.querySelector('.minus-btn')
         const quantitySpan = cartItem.querySelector('.cart-item-quantity')
         let prevQuantity = parseInt(quantitySpan.textContent)
         if (!isNaN(prevQuantity)) {
@@ -208,6 +209,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
         })
         const data = await res.json()
         cartItem.remove()
+        showCartProductsNum()
         if (cartItemsContainer.children.length === 0){
             showEmptyCart()
             return
@@ -259,15 +261,33 @@ document.addEventListener('DOMContentLoaded', ()=>{
             showEmptyCart()
         }
     })
+
+    function showCartProductsNum(needToReadCookie = true, cookiePart = null){
+        if (needToReadCookie){
+            cookiePart = document.cookie.split('productsId=')[1]
+        }
+        if (!cookiePart){
+            cartProductsIndicator.classList.add('hide-element')
+            return
+        }
+        productsSet = new Set(cookiePart.split('|'))
+        if (productsSet.size > 0){
+            cartProductsIndicator.classList.remove('hide-element')
+            cartProductsIndicator.textContent = productsSet.size
+        } else {
+            cartProductsIndicator.classList.add('hide-element')
+        }
+    }
     
     function addProductToCart(toCart){
         productId = toCart.id.split('-')[2]
         if (document.cookie.includes('productsId')) {
-            console.log(document.cookie);
             productsId = document.cookie.split('productsId=')[1]
             document.cookie = `productsId=${productsId}|${productId}; path=/`
+            showCartProductsNum(false, `${productsId}|${productId}`)
         } else {
             document.cookie = `productsId=${productId}; path=/`
+            showCartProductsNum(false, productId)
         }
     }
 
@@ -282,4 +302,5 @@ document.addEventListener('DOMContentLoaded', ()=>{
         })
     }
 
+    showCartProductsNum()
 })

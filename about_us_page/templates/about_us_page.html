@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% block links %}
+    <link rel="stylesheet" href="{{ url_for('about_us.static', filename='css/about_us.css') }}">
+    <link rel="stylesheet" href="{{ url_for('catalog.static', filename='css/section.css') }}">
+{% endblock %}
+{% block content %}
+<h2 class="section-header page-header extra-bootom-margin">ПРО НАС</h2>
+<div class="content-container">
+        <div class="section center">
+            <div class="text-container">
+                <p>
+                    Ми — команда, яка об'єднана спільною метою: зробити передові технології доступними для кожного, 
+                    хто потребує точності, безпеки та інновацій. <br> З 2022 року ми спеціалізуємось на постачанні дронів 
+                    і тепловізорів для професійного, цивільного та волонтерського використання.
+                </p>
+            </div>
+            <div class="media-container">
+                <img src="{{ url_for('about_us.static', filename='images/image_1.png') }}" alt="">
+            </div>
+        </div>
+        <div class="section right">
+            <div class="text-container">
+                <h2>НАША МІСІЯ</h2>
+                <p>
+                    Допомагати тим, хто стоїть на передовій — у прямому й переносному сенсі.  Ми обираємо тільки надійну 
+                    техніку, яку перевіряємо самі. Наша мета — якість, простота, і підтримка на кожному етапі: 
+                    від покупки до використання.
+                </p>
+            </div>
+            <div class="media-container">
+                <img src="{{ url_for('about_us.static', filename='images/image_2.png') }}" alt="">
+            </div>
+        </div>
+        <div class="section left">
+            <div class="text-container">
+                <h2>Команда, якій можна довіряти</h2>
+                <p>
+                    Ми — не просто магазин. Ми — фахівці, які самі працюють із цією технікою й консультують з досвіду. 
+                    Засновники проєкту — волонтери, військові та IT-спеціалісти, які об'єднали зусилля задля важливої справи.
+                </p>
+            </div>
+            <div class="media-container">
+                <img src="{{ url_for('about_us.static', filename='images/image_3.png') }}" alt="">
+            </div>
+        </div>
+    </div>
+{% endblock %}

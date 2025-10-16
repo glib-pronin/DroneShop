@@ -1,0 +1,44 @@
+header {
+    background-color: white;
+    height: auto;
+    flex-shrink: 1;
+    min-height: 74px;
+}
+
+.extra-bootom-margin {
+    margin-bottom: 24px;
+}
+
+.content-container {
+    display: flex;
+    flex-direction: column;
+    gap: 160px;
+}
+
+.media-container {
+    position: relative;
+}
+
+.media-container::before {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 64%;
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+}
+
+.section.center .media-container::before {
+    height: 50%;
+    background: linear-gradient(to top, #8DB0C3, rgba(141, 176, 195, 0));
+}
+
+.section.right .media-container::before {
+    background: linear-gradient(to top, #9C9088, rgba(156, 144, 136, 0));
+}
+
+.section.left .media-container::before {
+    background: linear-gradient(to top, #CDD5DD, rgba(205, 213, 221, 0));
+}

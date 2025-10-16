@@ -194,6 +194,12 @@
     margin-left: 14px;
 }
 
+.to-catalog-btn {
+    border: 1.5px solid #0C122A;
+    border-radius: 100px;
+    color: #0C122A;
+}
+
 .hide-element {
     display: none !important;
 }

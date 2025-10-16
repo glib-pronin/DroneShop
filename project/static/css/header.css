@@ -245,7 +245,7 @@ header {
 @media (max-width: 980px) {
   .drone {
     top: 18vh;
-    height: 73vh;
+    height: 70vh;
   }
 }
 
@@ -260,7 +260,7 @@ header {
 
   .drone {
     top: 15vh;
-    height: 71vh;
+    height: 65vh;
     max-height: 800px;
     width: auto;
   }

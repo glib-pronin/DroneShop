@@ -1,0 +1,132 @@
+.section {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 24px;
+}
+
+.text-container {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    width: 46%;
+}
+
+.text-container h2 {
+    margin: 0;
+    font-size: 44px;
+    font-weight: 400;
+    text-transform: uppercase;
+}
+
+.text-container p {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 400;
+}
+
+.media-container {
+    width: 46vw;
+    aspect-ratio: 16 / 11;
+    /* height: 31vw; */
+}
+
+.center .media-container {
+    width: 70vw;
+    /* height: 38vw; */
+    aspect-ratio: 16 / 8;
+}
+
+.media-container video, .media-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 15px;
+}
+
+.section.center {
+    flex-direction: column;
+    gap: 44px;
+}
+
+.section.center .text-container {
+    width: 50%;
+    text-align: center;
+    gap: 24px;
+}
+
+.section.left {
+    flex-direction: row-reverse;
+}
+
+@media (max-width: 1000px) {
+    .section.left, .section.right {
+        flex-direction: column ;
+        gap: 44px ;
+    }
+
+    .content-container .section .text-container {
+        text-align: center;
+        gap: 24px;
+        width: 65%;
+    }
+
+    .content-container .section .media-container {
+        width: 70vw;
+        aspect-ratio: 16 / 8;
+    }
+}
+
+@media (max-width: 880px) {
+    .text-container h2 {
+        font-size: 36px;
+    }
+}
+
+@media (max-width: 780px) {
+    .text-container h2 {
+        font-size: 32px;
+    }
+
+    .content-container .section .text-container {
+        width: 75%;
+    }
+
+    .content-container {
+        gap: 100px;
+    }
+}
+
+@media (max-width: 600px) {
+    .text-container h2 {
+        font-size: 30px;
+    }
+
+    .content-container .section .text-container {
+        width: 85%;
+    }
+
+    .content-container {
+        margin-top: 0;
+    }
+}
+
+@media (max-width: 500px) {
+    .content-container .section .text-container {
+        width: 90%;
+    }
+    .content-container .section .media-container {
+        width: 80vw;
+        aspect-ratio: 16 / 8;
+    }
+}
+
+@media (max-width: 450px) {
+    .text-container h2 {
+        font-size: 26px;
+    }
+
+    .content-container .section .text-container {
+        width: 95%;
+    }
+}

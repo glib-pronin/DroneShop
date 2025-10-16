@@ -1,6 +1,8 @@
 {% extends 'base.html' %}
-{% block links %} <link rel="stylesheet" href="{{ url_for('catalog.static', filename='css/catalog.css') }}"> {% endblock %}
-{% block title %} Catalog {% endblock %}
+{% block links %} 
+    <link rel="stylesheet" href="{{ url_for('catalog.static', filename='css/catalog.css') }}"> 
+    <link rel="stylesheet" href="{{ url_for('catalog.static', filename='css/product_item.css') }}"> 
+{% endblock %}
 {% block content %}
     <h2 class="section-header page-header">КАТАЛОГ</h2>
     <!-- <form action="" method="post" enctype="multipart/form-data">
@@ -11,45 +13,43 @@
         <textarea name="summary" id="" placeholder="Короткий опис"></textarea>
         <button>Додати</button>
     </form> -->
+    <!-- <form action="/add_section" method="post" enctype="multipart/form-data">
+        <input type="text" required name="title" placeholder="Заголовок секції">
+        <textarea name="section_text" id="" placeholder="Текст секції" required></textarea>
+        <input type="file" name="image" id="" accept="image/*">  
+        <input type="file" name="video" id="" accept="video/*">
+        <label for="">Розтташування новини</label>
+        <select name="position" id="" required>
+            <option value="center">По центру</option>
+            <option value="left">Ліворуч</option>
+            <option value="right">Праворуч</option>
+        </select>
+        {% if products %}
+        <label for="">Товар</label>
+            <select name="product_id" id="">
+                {% for product in products %}
+                    <option value="{{ product.id }}">{{ product.name }}</option>
+                {% endfor %}
+            </select>
+        {% endif %}
+        <button>Додати</button>
+    </form> -->
     <div class="products-wrapper">
         <div class="catalog-filter">
-            <a href="" class="filter-criteria selected-criteria">Всі</a>
-            <a href="" class="filter-criteria">
+            <button href="" class="filter-criteria selected-criteria cursor-pointer" id="all">Всі</button>
+            <button href="" class="filter-criteria cursor-pointer" id="drone">
                 <img src="{{ url_for('catalog.static', filename='/images/filters/drone.png') }}" alt="">
-            </a>
-            <a href="" class="filter-criteria">
+            </button>
+            <button href="" class="filter-criteria cursor-pointer" id="thermal_imager">
                 <img src="{{ url_for('catalog.static', filename='/images/filters/thermal_imager.png') }}" alt="">
-            </a>
+            </button>
         </div>
         <div class="products-container" id="products-container"></div>
         <div class="catalog-pagination hide-element" id="catalog-pagination"></div>
     </div>
 {% endblock %}
 {% block scripts %}
-    <script src="{{ url_for('catalog.static', filename='js/filter.js') }}"></script>
+    <script src="{{ url_for('catalog.static', filename='js/render_catalog_elements.js') }}"></script>
     <script src="{{ url_for('catalog.static', filename='js/pagination.js') }}"></script>
+    <script src="{{ url_for('catalog.static', filename='js/filter.js') }}"></script>
 {% endblock  %}
-
-<!-- {% for product in products %}
-                <a class="product" href="/product/{{ product.id }}">
-                    <div class="product-image-container">
-                        <img src="{{ url_for('catalog.static', filename=product.get_path()) }}" alt="">
-                    </div>
-                    <div class="product-info">
-                        <p class="product-name">{{ product.name }}</p>
-                        {% if product.discount <= 0 %}
-                            <p class="product-price">{{ product.price }} $</p>
-                        {% else %}
-                            <p class="product-price-discount">
-                                <span class="discount">{{ product.price }} $</span> 
-                                <span class="product-price new-price">{{ product.get_discounted_price()}} $</span>
-                            </p>
-                        {% endif %}
-                    </div>
-                    <div class="to-cart" id="for-cart-{{ product.id }}">
-                        <svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path fill-rule="evenodd" clip-rule="evenodd" d="M8.85216 3.46447C9.78985 2.52678 11.0616 2 12.3877 2C13.7138 2 14.9855 2.52678 15.9232 3.46447C16.8609 4.40215 17.3877 5.67392 17.3877 7V8H19.3877C19.9078 8 20.3411 8.39866 20.3842 8.91695L21.3842 20.917C21.4075 21.1956 21.3129 21.4713 21.1236 21.6771C20.9342 21.8829 20.6674 22 20.3877 22H4.3877C4.10805 22 3.84117 21.8829 3.65182 21.6771C3.46246 21.4713 3.36793 21.1956 3.39115 20.917L4.39115 8.91695C4.43434 8.39866 4.86761 8 5.3877 8H7.3877V7C7.3877 5.67392 7.91448 4.40215 8.85216 3.46447ZM7.3877 10V11C7.3877 11.5523 7.83541 12 8.3877 12C8.93998 12 9.3877 11.5523 9.3877 11V10H15.3877V11C15.3877 11.5523 15.8354 12 16.3877 12C16.94 12 17.3877 11.5523 17.3877 11V10H18.4676L19.3009 20H5.4745L6.30783 10H7.3877ZM15.3877 8H9.3877V7C9.3877 6.20435 9.70377 5.44129 10.2664 4.87868C10.829 4.31607 11.592 4 12.3877 4C13.1833 4 13.9464 4.31607 14.509 4.87868C15.0716 5.44129 15.3877 6.20435 15.3877 7V8Z" fill="#0C122A"/>
-                        </svg>
-                    </div>
-                </a>
-            {% endfor %} -->

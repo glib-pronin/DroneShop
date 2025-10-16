@@ -226,3 +226,10 @@ footer {
   }
 
 }
+
+@media (min-height: 1100px){
+  .ellipse-big {
+    width: 1435px;
+    height: 1000px;
+  }
+}

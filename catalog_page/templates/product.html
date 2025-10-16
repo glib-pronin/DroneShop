@@ -1,35 +1,105 @@
 {% extends 'base.html' %}
-{% block links %} <link rel="stylesheet" href="{{ url_for('catalog.static', filename='css/product.css') }}"> {% endblock %}
-{% block title %} Catalog {% endblock %}
+{% block links %} 
+    <link rel="stylesheet" href="{{ url_for('catalog.static', filename='css/product.css') }}"> 
+    <link rel="stylesheet" href="{{ url_for('catalog.static', filename='css/product_header.css') }}"> 
+    <link rel="stylesheet" href="{{ url_for('catalog.static', filename='css/product_item.css') }}"> 
+    <link rel="stylesheet" href="{{ url_for('catalog.static', filename='css/section.css') }}"> 
+{% endblock %}
 {% block header %}
     <div class="wrapper">
         <div class="ellipse-big pos1"></div>
     </div>
     <div class="header-part">
-        <h2 class="title">ТЕХНОЛОГІЇ</h2>
-        <h2 class="title">ЯКІ ЗМІНЮЮТЬ РЕАЛЬНІСТЬ</h2>
-        <img class="drone" src="{{ url_for('main.static', filename='images/drone.png') }}" alt="">
+        <div class="title-container">
+            <h2 class="title-name">{{ product.name }}</h2>
+            <p class="title-summary">{{ product.summary }}</p>
+        </div>
+        <img class="product-img" src="{{ url_for('catalog.static', filename=product.get_path()) }}" alt="">
+        <div class="buy-block">
+            <div class="content">
+                <div class="img-container">
+                    <img src="{{ url_for('catalog.static', filename=product.get_path()) }}" alt="">
+                </div>
+                <div class="info">
+                    <p class="product-name">{{ product.name }}</p>
+                        {% if product.discount <= 0 %}
+                            <p class="product-price">{{ product.price }} $</p>
+                        {% else %}
+                            <p class="product-price-discount">
+                                <span class="discount">{{ product.price }} $</span> 
+                                <span class="new-price">{{ product.get_discounted_price()}} $</span>
+                            </p>
+                        {% endif %}
+                </div>
+            </div>
+            <div class="btns-line">
+                <button class="to-cart cursor-pointer" id="for-cart-{{ product.id }}">
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M5.64298 2.30932C6.2681 1.6842 7.11595 1.33301 8 1.33301C8.88406 1.33301 9.7319 1.6842 10.357 2.30932C10.9821 2.93444 11.3333 3.78229 11.3333 4.66634V5.33301H12.6667C13.0134 5.33301 13.3022 5.59878 13.331 5.94431L13.9977 13.9443C14.0132 14.1301 13.9502 14.3139 13.8239 14.4511C13.6977 14.5883 13.5198 14.6663 13.3333 14.6663H2.66667C2.48023 14.6663 2.30232 14.5883 2.17608 14.4511C2.04984 14.3139 1.98682 14.1301 2.0023 13.9443L2.66897 5.94431C2.69777 5.59878 2.98661 5.33301 3.33334 5.33301H4.66667V4.66634C4.66667 3.78229 5.01786 2.93444 5.64298 2.30932ZM4.66667 6.66634V7.33301C4.66667 7.7012 4.96515 7.99967 5.33334 7.99967C5.70153 7.99967 6 7.7012 6 7.33301V6.66634H10V7.33301C10 7.7012 10.2985 7.99967 10.6667 7.99967C11.0349 7.99967 11.3333 7.7012 11.3333 7.33301V6.66634H12.0532L12.6088 13.333H3.3912L3.94676 6.66634H4.66667ZM10 5.33301H6V4.66634C6 4.13591 6.21072 3.6272 6.58579 3.25213C6.96086 2.87705 7.46957 2.66634 8 2.66634C8.53044 2.66634 9.03914 2.87705 9.41422 3.25213C9.78929 3.6272 10 4.13591 10 4.66634V5.33301Z" fill="#0C122A"/>
+                    </svg>
+                </button>
+                <button class="make-order-btn card-make-order-btn cursor-pointer">
+                    ЗАМОВИТИ
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M7.99996 2.66699L7.05996 3.60699L10.78 7.33366H2.66663V8.66699H10.78L7.05996 12.3937L7.99996 13.3337L13.3333 8.00033L7.99996 2.66699Z" fill="white"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
     </div>
 {% endblock %}
 {% block content %}
-    <h1>{{ product.name }}</h1>
-    <p>{{ product.summary }}</p>
-    <img src="{{ url_for('catalog.static', filename=product.get_path()) }}" alt="">
-    <div class="buy-block">
-        <div>
-            <p class="product-name">{{ product.name }}</p>
-                {% if product.discount <= 0 %}
-                    <p class="product-price">{{ product.price }}</p>
-                {% else %}
-                    <p class="product-price-discount">
-                        <span class="discount">{{ product.price }}</span> 
-                        <span class="new-price">{{ product.get_discounted_price()}}</span>
-                    </p>
-                {% endif %}
-        </div>
-        <div class="btns-line">
-            <button class="to-cart" id="for-cart-{{ product.id }}">Кошик</button>
-            <button>Замовити</button>
-        </div>
+    <div class="content-container">
+        {% for section in sections %}
+            <div class="section {{ section.position }}">
+                <div class="text-container">
+                    <h2>{{ section.title }}</h2>
+                    <p>{{ section.section_text | replace('\n', '<br><br>') | safe }}</p>
+                </div>
+                <div class="media-container">
+                    {% if section.image_path %}
+                        <img src="{{ url_for('catalog.static', filename='images/products/'~section.image_path) }}" alt="">
+                    {% else %}
+                        <video src="{{ url_for('catalog.static', filename='videos/'~section.video_path) }}" controls></video>   
+                    {% endif %}
+                </div>
+            </div>
+        {% endfor %}
+        {% if similiar_products %}
+            <div class="similiar-products-container">
+                <h2 class="section-header">СХОЖІ ТОВАРИ</h2>
+                <div class="products">
+                    {% for p in similiar_products %}
+                        <a class="product" href="/product/{{ p.id }}">
+                            <div class="product-image-container">
+                                <img src="{{ url_for('catalog.static', filename=p.get_path()) }}" alt="">
+                            </div>
+                            <div class="product-info">
+                                <p class="product-name">{{ p.name }}</p>
+                                {% if p.discount <= 0 %}
+                                    <p class="product-price">{{ p.price }} $</p>
+                                {% else %}
+                                    <p class="product-price-discount">
+                                        <span class="discount">{{ p.price }} $</span> 
+                                        <span class="product-price new-price">{{ p.get_discounted_price()}} $</span>
+                                    </p>
+                                {% endif %}
+                            </div>
+                            <div class="to-cart" id="for-cart-{{ p.id }}">
+                                <svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M8.85216 3.46447C9.78985 2.52678 11.0616 2 12.3877 2C13.7138 2 14.9855 2.52678 15.9232 3.46447C16.8609 4.40215 17.3877 5.67392 17.3877 7V8H19.3877C19.9078 8 20.3411 8.39866 20.3842 8.91695L21.3842 20.917C21.4075 21.1956 21.3129 21.4713 21.1236 21.6771C20.9342 21.8829 20.6674 22 20.3877 22H4.3877C4.10805 22 3.84117 21.8829 3.65182 21.6771C3.46246 21.4713 3.36793 21.1956 3.39115 20.917L4.39115 8.91695C4.43434 8.39866 4.86761 8 5.3877 8H7.3877V7C7.3877 5.67392 7.91448 4.40215 8.85216 3.46447ZM7.3877 10V11C7.3877 11.5523 7.83541 12 8.3877 12C8.93998 12 9.3877 11.5523 9.3877 11V10H15.3877V11C15.3877 11.5523 15.8354 12 16.3877 12C16.94 12 17.3877 11.5523 17.3877 11V10H18.4676L19.3009 20H5.4745L6.30783 10H7.3877ZM15.3877 8H9.3877V7C9.3877 6.20435 9.70377 5.44129 10.2664 4.87868C10.829 4.31607 11.592 4 12.3877 4C13.1833 4 13.9464 4.31607 14.509 4.87868C15.0716 5.44129 15.3877 6.20435 15.3877 7V8Z" fill="#0C122A"/>
+                                </svg>
+                            </div>
+                        </a>
+                    {% endfor %}
+                </div>
+                <a href="/catalog" class="view-all-btn">
+                    ДИВИТИСЬ ВСІ
+                    <svg width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12.5944 4.92969L11.1844 6.33969L16.7644 11.9297H4.59436V13.9297H16.7644L11.1844 19.5197L12.5944 20.9297L20.5944 12.9297L12.5944 4.92969Z" fill="white"/>
+                    </svg>
+                </a>
+            </div>
+        {% endif %}
     </div>
 {% endblock %}

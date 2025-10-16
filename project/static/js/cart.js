@@ -4,6 +4,8 @@ document.addEventListener('DOMContentLoaded', ()=>{
     const cartContainer = document.getElementById('cart-container')
     const productsContainer = document.querySelector('#products-container')
     const toCartBtns = document.querySelectorAll('.to-cart')
+    console.log(toCartBtns);
+    
     const emptyCart = cartContainer.querySelector('#empty-cart')
     const makeOrderbtn = cartContainer.querySelector('#make-order-btn')
     const cartItemsContainer = cartContainer.querySelector('#cart-items-container')
@@ -274,12 +276,16 @@ document.addEventListener('DOMContentLoaded', ()=>{
         if (productsSet.size > 0){
             cartProductsIndicator.classList.remove('hide-element')
             cartProductsIndicator.textContent = productsSet.size
+            if (productsSet.size >= 10 ){
+                cartProductsIndicator.textContent = '9+'
+            }
         } else {
             cartProductsIndicator.classList.add('hide-element')
         }
     }
     
-    function addProductToCart(toCart){
+    function addProductToCart(toCart, e){
+        e.preventDefault()
         productId = toCart.id.split('-')[2]
         if (document.cookie.includes('productsId')) {
             productsId = document.cookie.split('productsId=')[1]
@@ -291,7 +297,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
         }
     }
 
-    toCartBtns.forEach(btn => btn.addEventListener('click', ()=>addProductToCart(btn)))
+    toCartBtns.forEach(btn => btn.addEventListener('click', (e)=>addProductToCart(btn, e)))
 
     if (productsContainer){
         productsContainer.addEventListener('click', (e)=>{

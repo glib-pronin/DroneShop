@@ -7,8 +7,9 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/header.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/auth.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/cart.css') }}">
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/favicon.png') }}">
     {% block links %} {% endblock %}
-    <title>{% block title %} {% endblock %}</title>
+    <title>{% block title %} Drones {% endblock %}</title>
 </head>
 <body>
     <header>
@@ -340,13 +341,13 @@
                     </p>
                 </div>
                 <div class="cart-btns">
-                    <button class="cancel-btn form-btn cursor-pointer close-btn">ПРОДОВЖИТИ ПОКУПКИ</button>
-                    <button class="submit-btn form-btn cursor-pointer make-order-btn hide-element" id="make-order-btn">
+                    <a href="/catalog" class="form-btn cursor-pointer to-catalog-btn">ПРОДОВЖИТИ ПОКУПКИ</a>
+                    <a href="/order" class="submit-btn form-btn cursor-pointer make-order-btn hide-element" id="make-order-btn">
                         ОФОРМИТИ ЗАМОВЛЕННЯ
                         <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M8.00033 2.66699L7.06033 3.60699L10.7803 7.33366H2.66699V8.66699H10.7803L7.06033 12.3937L8.00033 13.3337L13.3337 8.00033L8.00033 2.66699Z" fill="white"/>
                         </svg>
-                    </button>
+                    </a>
                 </div>
             </div>
         </div>
@@ -379,6 +380,7 @@
         </div>
         <p class="footer-copyright">&#169; 2025 Drones Всі права захищені.</p>
     </footer>
+    <script src="{{ url_for('static', filename='js/jquery-3.7.1.min.js') }}"></script>
     <script src="{{ url_for('static', filename='js/popup_menu.js') }}"></script>
     <script src="{{ url_for('static', filename='js/form_validation.js') }}"></script>
     <script src="{{ url_for('static', filename='js/form.js') }}"></script>

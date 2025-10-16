@@ -1,6 +1,7 @@
 import flask_migrate, flask_sqlalchemy, os
 from .settings import project
-from sqlalchemy import select
+from sqlalchemy import select, and_
+from sqlalchemy.orm import relationship
 
 migration_path = os.path.abspath(__file__ + '/../migrations')
 

@@ -1,11 +1,15 @@
-document.addEventListener('DOMContentLoaded', ()=>{
-    const criteriaBtns = document.querySelectorAll('.filter-criteria')
-
-    criteriaBtns.forEach(btn => {
-        btn.addEventListener('click', (e)=>{
-            e.preventDefault()
-            criteriaBtns.forEach(b => b.classList.remove('selected-criteria'))
-            btn.classList.add('selected-criteria')
+$(document).ready(()=>{
+    $('.filter-criteria').on('click', (e)=>{
+        $('.filter-criteria').removeClass("selected-criteria")
+        e.currentTarget.classList.add('selected-criteria')
+        $.ajax({
+            url: `/api/products?type=${e.currentTarget.id}`,
+            type: 'get',
+            success: (res)=>{
+                currentPage = res.currentPage
+                renderProducts(res.products)
+                renderPagination(res.totalPages, maxVisible)
+            }
         })
     })
 })

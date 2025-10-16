@@ -1,5 +1,6 @@
 __pycache__/
 venv/
 catalog_page/static/images/products/
+catalog_page/static/videos/
 .env
 project/db/data.db

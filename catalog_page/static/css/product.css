@@ -1,2 +1,131 @@
+.buy-block {
+    position: fixed;
+    right: 3vw;
+    bottom: 11vh;
+    z-index: 5;
+    width: 232px;
+    height: 164px;
+    background-color: white;
+    border-radius: 10px;
+    padding: 16px 14px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    box-shadow: 0 18px 40px rgba(17,24,39,0.08);
+}
 
+.content {
+     display: flex;
+     gap: 8px;
+}
 
+.content p {
+    margin: 0;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.img-container {
+    width: 50px;
+    height: 50px;
+}
+
+.img-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.info {
+    width: 146px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.discount {
+    text-decoration: line-through;
+}
+
+.new-price {
+    color: #B62D11;
+    margin-left: 15px;
+}
+
+.btns-line {
+    display: flex;
+    gap: 16px;
+}
+
+.to-cart {
+    width: 44px;
+    height: 44px;
+    border: 2px solid #0C122A;
+    box-sizing: border-box;
+    border-radius: 50%;
+    background-color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.card-make-order-btn {
+    width: 144px;
+    height: 44px;
+    background-color: #0C122A;
+    color: white;
+    border-radius: 100px;
+    padding: 12px 16px;
+    box-sizing: border-box;
+    letter-spacing: 1px;
+}
+
+.content-container {
+    margin-top: 50px;
+    display: flex;
+    flex-direction: column;
+    gap: 160px;
+}
+
+.similiar-products-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 44px;
+}
+
+.products {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 24px;
+}
+
+.view-all-btn {
+    font-size: 14px;
+    color: white;
+    background-color: #0C122A;
+    flex-shrink: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 18px 40px;
+    border-radius: 100px;
+    box-sizing: border-box;
+    border: 2px solid #0C122A;
+    transition: all 0.25s ease;
+}
+
+.view-all-btn svg {
+    margin-left: 16px;
+}
+
+.view-all-btn:hover {
+    background-color: white;
+    color: #0C122A;
+}
+
+.view-all-btn:hover path {
+    fill: #0C122A;
+}

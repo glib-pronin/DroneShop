@@ -27,6 +27,7 @@ header {
     box-sizing: border-box;
     border-radius: 50%;
     border: 1px solid #E7E7EA;
+    background-color: white;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -51,97 +52,14 @@ header {
 }
 
 .products-container {
+    position: relative;
     display: inline-flex;
-    justify-content: space-between;
+    justify-content: center;
     flex-shrink: 2;
     flex-grow: 0;
     flex-wrap: wrap;
     gap: 24px;
     min-height: 363px;
-}
-
-.product {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    width: 322px;
-    height: 363px;
-    border-radius: 20px;
-    padding: 14px;
-    box-sizing: border-box;
-    position: relative;
-}
-
-.product p {
-    margin: 0;
-    color: #0C122A;
-    font-size: 14px;
-}
-
-.product-image-container{
-    width: 294px;
-    height: 223px;
-    flex-shrink: 0;
-    align-self: center;
-}
-
-.product-image-container img{
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-.product-info {
-    display: flex;
-    flex-direction: column;
-    height: 86px;
-    justify-content: space-between;   
-}
-
-.product .product-name {
-    width: 240px;
-    font-size: 24px;
-}
-
-
-.discount {
-    text-decoration: line-through;
-}
-
-.new-price {
-    margin-left: 15px;
-    color: red;
-}
-
-.to-cart {
-    position: absolute;
-    width: 44px;
-    height: 44px;
-    border-radius: 50%;
-    border: 2px solid #0C122A;
-    display: none;
-    justify-content: center;
-    align-items: center;
-    bottom: 35px;
-    right: 14px;
-    z-index: 3;
-    transition: all 0.25s ease;
-}
-
-.product:hover {
-    background-color: #F4F4F4;
-}
-
-.product:hover .to-cart{
-    display: flex;
-}
-
-.to-cart:hover {
-    background-color: #0C122A;
-}
-
-.to-cart:hover path {
-    fill: white;
 }
 
 .catalog-pagination {
@@ -168,7 +86,7 @@ header {
     fill: #9EA0AA;
 }
 
-@media (max-width: 600px) {
+@media (max-width: 770px) {
     .pagination-btn {
         width: 35px;
         height: 35px;

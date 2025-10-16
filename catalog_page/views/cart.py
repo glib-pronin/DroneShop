@@ -1,7 +1,6 @@
 import flask
 from ..models import Product, select, DATABASE
 
-
 def _get_cart_ids():
     cart = flask.request.cookies.get('productsId')
     return cart.split('|') if cart else []

@@ -2,10 +2,13 @@ from main_page import *
 from catalog_page import *
 from profile_page import *
 from about_us_page import *
+from contacts_page import *
 
 main.add_url_rule(rule='/', view_func=render_main_page)
 
 about_us.add_url_rule(rule='/about_us', view_func=render_about_us_page)
+
+contacts.add_url_rule(rule='/contacts', view_func=render_contacts_page)
 
 catalog.add_url_rule(rule='/catalog', view_func=render_catalog, methods=['GET', 'POST'])
 catalog.add_url_rule(rule='/add_section', view_func=add_section_to_product, methods=['POST'])

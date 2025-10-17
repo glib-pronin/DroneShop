@@ -158,6 +158,9 @@ footer {
   font-weight: 800;
 }
 
+.no-scroll {
+  overflow: hidden;
+}
 
 @media (max-width: 1000px) {
   .statistic-line {

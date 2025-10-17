@@ -37,12 +37,13 @@ document.addEventListener("DOMContentLoaded", () => {
         container.querySelectorAll(".error-msg").forEach(errorMsg => errorMsg.textContent = "")
         container.classList.remove("show");
         if (container.classList.contains("password-resetting") && btn.classList.contains("cancel-btn")){
-          authContainer.classList.add("show")
+          switchModal(container, authContainer)
         }
         if (container.id === "enter-email-container"){
           container.querySelector('#send-email-spinner').classList.remove('show')
           container.querySelector('.buttons').classList.remove('hide')
         }
+        document.documentElement.classList.remove('no-scroll')
       });
     });
   }

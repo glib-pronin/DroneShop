@@ -1,0 +1,103 @@
+header {
+    background-color: white;
+    height: auto;
+    min-height: 74px;
+}
+
+.contacts-container {
+    display: flex;
+    gap: 25px;
+    margin-top: 57px;
+}
+
+.contacts-container p {
+    margin: 0;
+}
+
+.our-contacts, .contact-us {
+    display: flex;
+    flex-direction: column;
+    gap: 44px;
+    flex: 1 1 0;
+}
+
+.our-contacts h3, .contact-us h3 {
+    font-size: 24px;
+    font-weight: 400;
+    margin: 0;
+}
+
+.contacts-info {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    align-items: flex-start;
+}
+
+.contact-line {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.our-social-media p {
+    font-size: 20px;
+    margin-bottom: 24px;
+}
+
+.social-media-icons {
+    display: flex;
+    gap: 44px;
+}
+
+.contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.contact-form p {
+    font-size: 14px;
+}
+
+.contact-form-row {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.contact-form-row input, .contact-form-row textarea {
+    height: 40px;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 0 16px;
+    border: 1px solid #CED0D4;
+    border-radius: 4px;
+    font-size: 16px;
+    color: #0C122A;
+}
+
+.contact-form-row textarea {
+    height: 99px;
+    padding: 10px 16px;
+    resize: vertical;
+}
+
+.send-btn {
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    background-color: #0C122A;
+    border-radius: 2px solid #0C122A;
+    color: white;
+    padding: 18px 40px;
+    width: fit-content;
+    border-radius: 100px;
+    transition: all 0.25s ease;
+    margin-top: 28px;
+}
+
+.send-btn:hover {
+    color: #0C122A;
+    background-color: white;
+}

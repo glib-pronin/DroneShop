@@ -31,7 +31,10 @@ document.addEventListener('DOMContentLoaded', ()=>{
         }
         spinner.classList.add('show')
         buttonsContainer.classList.add('hide')
-        closeBtns.forEach(btn => btn.disabled = true)
+        closeBtns.forEach(btn => {
+            btn.disabled = true
+            btn.classList.remove('cursor-pointer')
+        })
         const res = await fetch('/send_code', {
             method: "POST",
             headers: {"Content-Type": "application/json"},
@@ -40,7 +43,10 @@ document.addEventListener('DOMContentLoaded', ()=>{
         const data = await res.json()
         spinner.classList.remove('show')
         buttonsContainer.classList.remove('hide')
-        closeBtns.forEach(btn => btn.disabled = false)
+        closeBtns.forEach(btn => {
+            btn.disabled = false
+            btn.classList.add('cursor-pointer')
+        })
         if (data.success) {
             switchModal(enterEmailContainer, enterCodeContainer)
         }

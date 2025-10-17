@@ -19,9 +19,11 @@ document.addEventListener("DOMContentLoaded", function () {
     resultContainer.querySelector('#result-title').textContent = title
     resultContainer.querySelector('#info-container').textContent = text
   }
+
   if (authBtnSvg){
       authBtnSvg.addEventListener("click", function() {
         authContainer.classList.add("show");
+        document.documentElement.classList.add('no-scroll')
       });
   }
 

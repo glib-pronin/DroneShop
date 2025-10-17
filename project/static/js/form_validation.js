@@ -49,4 +49,5 @@ function switchModal(from, to){
     from.classList.remove("show");
     to.classList.add("show");
     from.querySelector(".close-btn").click()
+    document.documentElement.classList.add('no-scroll')
 }

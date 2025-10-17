@@ -1,5 +1,6 @@
 document.addEventListener('DOMContentLoaded', ()=>{
     const openCart = document.getElementById('cart-btn')
+    const openCartLink = document.getElementById('cart-btn-link')
     const cartProductsIndicator = openCart.querySelector('.product-in-cart')
     const cartContainer = document.getElementById('cart-container')
     const productsContainer = document.querySelector('#products-container')
@@ -232,7 +233,9 @@ document.addEventListener('DOMContentLoaded', ()=>{
         totalPriceContainer.classList.add('hide-element')
     }
 
-    openCart.addEventListener('click', async ()=>{
+    async function openCartModal(e){
+        e.preventDefault()
+        document.documentElement.classList.add('no-scroll')
         if (document.cookie.includes('productsId')){
             const res = await fetch('/get_cart')
             const data = await res.json()
@@ -262,7 +265,10 @@ document.addEventListener('DOMContentLoaded', ()=>{
             cartContainer.classList.add('show')
             showEmptyCart()
         }
-    })
+    }
+
+    openCart.addEventListener('click', (e)=> openCartModal(e))
+    openCartLink.addEventListener('click', (e)=> openCartModal(e))
 
     function showCartProductsNum(needToReadCookie = true, cookiePart = null){
         if (needToReadCookie){
@@ -302,9 +308,9 @@ document.addEventListener('DOMContentLoaded', ()=>{
     if (productsContainer){
         productsContainer.addEventListener('click', (e)=>{
             const toCart = e.target.closest('.to-cart');
-            if (!toCart) return; // не по .to-cart → нічого не робимо
+            if (!toCart) return; 
             e.preventDefault()
-            addProductToCart(toCart)
+            addProductToCart(toCart, e)
         })
     }
 

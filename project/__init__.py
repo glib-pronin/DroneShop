@@ -9,9 +9,11 @@ from catalog_page import catalog
 from profile_page import profile
 from about_us_page import about_us
 from contacts_page import contacts
+from order_page import order
 
 project.register_blueprint(main)
 project.register_blueprint(catalog)
 project.register_blueprint(profile)
 project.register_blueprint(about_us)
 project.register_blueprint(contacts)
+project.register_blueprint(order)

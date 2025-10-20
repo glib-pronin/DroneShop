@@ -1,8 +1,8 @@
 import flask, random, re
 from flask_login import login_user, logout_user
-from .models import User, DATABASE, select
+from ..models import User, DATABASE, select
 from werkzeug.security import generate_password_hash, check_password_hash
-from .decorator import anonymous_required
+from ..decorators import anonymous_required
 from project.mail_manager import MAIL_MANAGER, Message
 
 @anonymous_required

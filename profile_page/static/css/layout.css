@@ -1,0 +1,38 @@
+header {
+    background-color: white;
+    height: auto;
+    flex-shrink: 1;
+    min-height: 74px;
+}
+
+.layout {
+    display: flex;
+    gap: 15%;
+    margin-top: 81px;
+}
+
+.layout aside {
+    display: flex;
+    flex-direction: column;
+    gap: 44px;
+}
+
+aside h2 {
+    font-size: 30px;
+    font-weight: 400;
+    margin: 0;
+}
+
+aside a {
+    font-size: 14px;
+    transition: color 0.25s ease;
+}
+
+aside a:hover, aside a.selected  {
+    color: #0C122A;
+}
+
+aside .line {
+    background-color: #CDD5DD;
+    height: 2px;
+}

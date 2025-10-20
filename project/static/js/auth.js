@@ -1,5 +1,6 @@
 document.addEventListener("DOMContentLoaded", function () {
   const authBtnSvg = document.getElementById("auth");
+  const authBtnLink = document.getElementById("auth-link");
   const authContainer = document.getElementById("auth-container")
   const regisrtContainer = document.getElementById("registr-container")
   const resultContainer = document.getElementById("result-container")
@@ -22,6 +23,14 @@ document.addEventListener("DOMContentLoaded", function () {
 
   if (authBtnSvg){
       authBtnSvg.addEventListener("click", function() {
+        authContainer.classList.add("show");
+        document.documentElement.classList.add('no-scroll')
+      });
+  }
+
+  if (authBtnLink){
+      authBtnLink.addEventListener("click", function(e) {
+        e.preventDefault()
         authContainer.classList.add("show");
         document.documentElement.classList.add('no-scroll')
       });

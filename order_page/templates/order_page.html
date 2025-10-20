@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block links %}
+    <link rel="stylesheet" href="{{ url_for('about_us.static', filename='css/about_us.css') }}">
+{% endblock %}
+{% block content %}
+    <div class="order">
+        {% for product in products %}
+            <p>{{ product.name }}</p>
+        {% endfor %}
+    </div>
+{% endblock %}

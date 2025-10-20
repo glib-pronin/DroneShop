@@ -28,9 +28,4 @@ class Section(DATABASE.Model):
     product = relationship('Product', back_populates='sections')
 
 
-    # def get_video_path(self):
-    #     return f'videos/{self.id}_{self.position}_video.mp4'
-    
-    # def get_video_path(self):
-    #     return f'images/products/{self.id}_{self.position}_image.png'
     

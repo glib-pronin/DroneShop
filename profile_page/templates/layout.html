@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block links %}
+    <link rel="stylesheet" href="{{ url_for('profile.static', filename='css/layout.css') }}">
+    {% block additional_links %} {% endblock %}
+{% endblock %}
+{% block content %}
+    <div class="layout">
+        <aside>
+            <h2>ОСОБИСТИЙ КАБІНЕТ</h2>
+            <a class="cursor-pointer {{ credentials_class }}" href="/credentials">КОНТАКТНІ ДАНІ</a>
+            <a class="cursor-pointer {{ my_orders_class }}">МОЇ ЗАМОВЛЕННЯ</a>
+            <a class="cursor-pointer {{ address_class }}">АДРЕСА ДОСТАВКИ</a>
+            <div class="line"></div>
+            <a class="cursor-pointer" href="/logout">ВИЙТИ</a>
+        </aside>
+        {% block page_content %} {% endblock %}
+    </div>
+{% endblock %}

@@ -9,3 +9,12 @@ def anonymous_required(func):
         else:
             return func(*args, **kwargs)
     return handler
+
+def login_required(func):
+    @wraps(func)
+    def handler(*args, **kwargs):
+        if flask_login.current_user.is_authenticated:
+            return func(*args, **kwargs)
+        else:
+            return flask.redirect('/')
+    return handler

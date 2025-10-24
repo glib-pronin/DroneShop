@@ -15,6 +15,26 @@
             <p class="title-summary">{{ product.summary }}</p>
         </div>
         <img class="product-img" src="{{ url_for('catalog.static', filename=product.get_path()) }}" alt="">
+
+    </div>
+{% endblock %}
+{% block content %}
+    <div class="content-container">
+        {% for section in sections %}
+            <div class="section {{ section.position }}">
+                <div class="text-container">
+                    <h2>{{ section.title }}</h2>
+                    <p>{{ section.section_text | replace('\n', '<br><br>') | safe }}</p>
+                </div>
+                <div class="media-container">
+                    {% if section.image_path %}
+                        <img src="{{ url_for('catalog.static', filename='images/products/'~section.image_path) }}" alt="">
+                    {% else %}
+                        <video src="{{ url_for('catalog.static', filename='videos/'~section.video_path) }}" controls></video>   
+                    {% endif %}
+                </div>
+            </div>
+        {% endfor %}
         <div class="buy-block">
             <div class="content">
                 <div class="img-container">
@@ -38,33 +58,14 @@
                         <path fill-rule="evenodd" clip-rule="evenodd" d="M5.64298 2.30932C6.2681 1.6842 7.11595 1.33301 8 1.33301C8.88406 1.33301 9.7319 1.6842 10.357 2.30932C10.9821 2.93444 11.3333 3.78229 11.3333 4.66634V5.33301H12.6667C13.0134 5.33301 13.3022 5.59878 13.331 5.94431L13.9977 13.9443C14.0132 14.1301 13.9502 14.3139 13.8239 14.4511C13.6977 14.5883 13.5198 14.6663 13.3333 14.6663H2.66667C2.48023 14.6663 2.30232 14.5883 2.17608 14.4511C2.04984 14.3139 1.98682 14.1301 2.0023 13.9443L2.66897 5.94431C2.69777 5.59878 2.98661 5.33301 3.33334 5.33301H4.66667V4.66634C4.66667 3.78229 5.01786 2.93444 5.64298 2.30932ZM4.66667 6.66634V7.33301C4.66667 7.7012 4.96515 7.99967 5.33334 7.99967C5.70153 7.99967 6 7.7012 6 7.33301V6.66634H10V7.33301C10 7.7012 10.2985 7.99967 10.6667 7.99967C11.0349 7.99967 11.3333 7.7012 11.3333 7.33301V6.66634H12.0532L12.6088 13.333H3.3912L3.94676 6.66634H4.66667ZM10 5.33301H6V4.66634C6 4.13591 6.21072 3.6272 6.58579 3.25213C6.96086 2.87705 7.46957 2.66634 8 2.66634C8.53044 2.66634 9.03914 2.87705 9.41422 3.25213C9.78929 3.6272 10 4.13591 10 4.66634V5.33301Z" fill="#0C122A"/>
                     </svg>
                 </button>
-                <button class="make-order-btn card-make-order-btn cursor-pointer">
+                <a href="/order?product_id={{ product.id }}" class="make-order-btn card-make-order-btn cursor-pointer">
                     ЗАМОВИТИ
                     <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M7.99996 2.66699L7.05996 3.60699L10.78 7.33366H2.66663V8.66699H10.78L7.05996 12.3937L7.99996 13.3337L13.3333 8.00033L7.99996 2.66699Z" fill="white"/>
                     </svg>
-                </button>
+                </a>
             </div>
         </div>
-    </div>
-{% endblock %}
-{% block content %}
-    <div class="content-container">
-        {% for section in sections %}
-            <div class="section {{ section.position }}">
-                <div class="text-container">
-                    <h2>{{ section.title }}</h2>
-                    <p>{{ section.section_text | replace('\n', '<br><br>') | safe }}</p>
-                </div>
-                <div class="media-container">
-                    {% if section.image_path %}
-                        <img src="{{ url_for('catalog.static', filename='images/products/'~section.image_path) }}" alt="">
-                    {% else %}
-                        <video src="{{ url_for('catalog.static', filename='videos/'~section.video_path) }}" controls></video>   
-                    {% endif %}
-                </div>
-            </div>
-        {% endfor %}
         {% if similiar_products %}
             <div class="similiar-products-container">
                 <h2 class="section-header">СХОЖІ ТОВАРИ</h2>

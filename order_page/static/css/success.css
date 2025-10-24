@@ -1,0 +1,28 @@
+body, header, main {
+    background-color: #cdd5dd;
+}
+
+main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+p, h1 {
+    margin: 0;
+    text-align: center;
+    letter-spacing: 1px;
+}
+
+h1 {
+    font-size: 60px;
+    color: white;
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    align-items: center;
+    justify-content: center;
+}

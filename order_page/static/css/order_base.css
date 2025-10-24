@@ -33,12 +33,10 @@
 }
 
 html {
-    /* height: 100%; */
     overflow-x: hidden;
 }
 
 body {
-  /* background-color: #CDD5DD; */
   display: flex;
   flex-direction: column;
   font-family: "GT Walsheim Pro";
@@ -48,6 +46,7 @@ body {
   margin: 0;
   padding: 0;
   overflow-x: hidden;
+  min-height: 100vh;
 }
 
 a {
@@ -56,20 +55,67 @@ a {
   font-weight: 500;
 }
 
-.nav-link:hover {
-  color: #0c122a;
-  transition: color 0.25s ease;
+header {
+  height: auto;
+  min-height: 74px;
+  background-color: #cdd5dd;
+  position: relative;
+  z-index: 4;
+  flex-shrink: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+header {
+    background-color: white;
+}
+
+.nav-container {
+  width: 100%;
+  height: 64px;
+  margin-top: 4vh;
+  display: flex;
+  justify-content: center;
+}
+
+.nav {
+  position: fixed;
+  z-index: 5;
+  height: 64px;
+  width: 95%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: rgba(255, 255, 255, 0.5);
+  border-radius: 62px;
+  padding: 10px 40px;
+  top: 4vh;
+  box-sizing: border-box;
+  border: 1px solid #e4e4e7;
+  backdrop-filter: blur(8px);
+}
+
+.menu {
+  display: flex;
+  gap: 33px;
+  font-size: 14px;
+}
+
+.logo {
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%);
 }
 
 main {
+  z-index: 3;
   flex: 1 0 auto;
-  /* min-height: 100vh; */
   background-color: white;
   margin: 0 40px;
 }
 
 footer {
-  height: 100vh;
   position: relative;
   z-index: 2;
   display: flex;
@@ -77,52 +123,14 @@ footer {
   align-items: center;
   margin: 0;
   background-color: #cdd5dd;
-  padding: 87px 0 0 0;
   flex-shrink: 0;
   justify-content: flex-end;
-  overflow: hidden;
-}
-
-.statistic-line {
-  position: relative;
-  z-index: 3;
-  display: flex;
-  gap: 20%;
-  justify-content: center;
-  width: 56%;
-  margin: 10vh 0 10vh 0;
-  flex-grow: 1;
-}
-
-.statistic-block {
-  text-align: center;
-  z-index: 4;
-}
-
-.statistic-value {
-  font-size: 44px;
-  font-weight: 700;
-  margin: 0;
-}
-
-.statistic-caption {
-  white-space: nowrap;
-  margin: 5vh 0 0 0;
+  overflow-x: hidden;
 }
 
 .big-text {
   display: block;
-  width: 1000px;
-  height: 22vh;
-}
-
-.footer-nav {
-  margin: 16vh 0 16vh 0;
-  width: 80%;
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 2%;
+  padding: 22px 0 35px 0;
 }
 
 .footer-copyright {
@@ -135,103 +143,76 @@ footer {
   color: #9ea0aa;
 }
 
-.ellipse-big {
-  width: 123vw;
-  min-width: 1200px;
-  height: 835px;
-  background-color: white;
-  position: absolute;
-  z-index: 3;
-  border-radius: 50%;
-}
-
-.pos2 {
-  bottom: -70%;
-}
-
-.section-header {
-  margin: 0;
-  text-align: center;
-  font-size: 44px;
-  color: #cdd5dd;
-  font-weight: 800;
-}
-
 .no-scroll {
   overflow: hidden;
 }
 
+.button1, .button2 {
+  width: fit-content;
+  font-size: 14px;
+  border-radius: 100px;
+  box-sizing: border-box;
+  letter-spacing: 2px;
+  padding: 12px 16px;
+  transition: all 0.25s ease;
+  border: 1.5px solid #0C122A;
+}
+
+.button1 {
+  background-color: white;
+  color: #0C122A;
+}
+
+.button2 {
+  background-color: #0C122A;
+  color: white;
+}
+
+.big-padding {
+  padding: 18px 40px;
+}
+
+.button1:hover {
+  background-color: #0C122A;
+  border: 1.5px solid white;
+  color: white;
+}
+
+.button2-hover:hover {
+  background-color: white;
+  border: 1.5px solid #0C122A;
+  color: #0C122A;
+}
+
 @media (max-width: 1000px) {
-  .statistic-line {
-    flex-direction: column;
-    margin: 0 0 2vh 0;
-    gap: 2vh;
-    justify-content: space-around;
-    align-items: center;
+  .logo {
+    position: static;
+    transform: translate(0);
   }
 
-  .statistic-caption {
-    margin-top: 2vh;
-  }
-
-  .pos2 {
-    bottom: -5%;
-  }
-
-  .big-text {
-    width: 600px;
-    height: 14vh;
-  }
-
-  .footer-nav {
-    margin: 10vh 0 10vh 0;
-  }
-}
-
-.page-header {
-    margin-top: 57px;
-}
-
-@media (max-width: 700px) {
-  .big-text {
-    width: 440px;
-  }
-
-  .pos2 {
-    bottom: -10%;
+  .nav {
+    flex-direction: row-reverse;
   }
 }
 
 @media (max-width: 480px) {
-  .footer-nav {
-    gap: 16px;
-  }
-
-  .big-text {
-    width: 343px;
-  }
-
   .footer-copyright {
     padding-bottom: 3vh;
-  }
-
-  .section-header {
-    font-size: 36px;
-  }
-
-  .page-header {
-    margin-top: 36px;
   }
 
   main {
     margin: 0 15px;
   }
 
-}
-
-@media (min-height: 1100px){
-  .ellipse-big {
-    width: 1435px;
-    height: 1000px;
+  .nav-container {
+    margin-top: 10px;
   }
+
+  .nav {
+    width: 100%;
+    margin: 0;
+    top: 10px !important;
+    padding: 10px 16px;
+  }
+
 }

@@ -66,23 +66,6 @@ header {
     gap: 8px;
 }
 
-.contact-form-row input, .contact-form-row textarea {
-    height: 40px;
-    width: 100%;
-    box-sizing: border-box;
-    padding: 0 16px;
-    border: 1px solid #CED0D4;
-    border-radius: 4px;
-    font-size: 16px;
-    color: #0C122A;
-}
-
-.contact-form-row textarea {
-    height: 99px;
-    padding: 10px 16px;
-    resize: vertical;
-}
-
 .send-btn {
     font-size: 14px;
     font-weight: 600;
@@ -100,4 +83,27 @@ header {
 .send-btn:hover {
     color: #0C122A;
     background-color: white;
+}
+
+@media (max-width: 900px) {
+    .contacts-container {
+        flex-direction: column-reverse;
+        gap: 50px;
+    }
+
+    .our-contacts {
+        align-items: center;
+    }
+
+    .our-contacts p {
+        text-align: center;
+    }
+
+    .contacts-info {
+        align-items: center;
+    }
+
+    .contact-us h3, .contact-form button {
+        align-self: center;
+    }
 }

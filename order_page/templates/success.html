@@ -1,0 +1,13 @@
+{% extends 'order_base.html' %}
+{% block links %}
+    <link rel="stylesheet" href="{{ url_for('order.static', filename='css/order_page.css') }}">
+    <link rel="stylesheet" href="{{ url_for('order.static', filename='css/success.css') }}">
+{% endblock %}
+{% block content %}
+    <div class="content">
+        <h1>УСПІХ</h1>
+        <p>Ваше замовлення №{{ order_id }} прийнято та відправлено на обробку.</p>
+        <p>Ми сповістимо Вас щойно замовлення буде відправлено. <br> Дякуємо за довіру!</p>
+        <a href="/" class="button2 big-padding">НА ГОЛОВНУ</a>
+    </div>
+{% endblock %}

@@ -2,7 +2,7 @@
     position: fixed;
     right: 3vw;
     bottom: 11vh;
-    z-index: 5;
+    z-index: 4;
     width: 232px;
     height: 164px;
     background-color: white;
@@ -79,6 +79,8 @@
     padding: 12px 16px;
     box-sizing: border-box;
     letter-spacing: 1px;
+    font-size: 14px;
+    font-weight: 400;
 }
 
 .content-container {

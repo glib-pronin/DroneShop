@@ -1,0 +1,71 @@
+.content-container {
+    display: flex;
+    margin: 57px 0 100px 0;
+    justify-content: space-between;
+}
+
+.content-container h2, .content-container h3, .content-container p{
+    margin: 0;
+    font-weight: 400;
+} 
+
+.content-container h2 {
+    font-size: 30px;
+}
+
+.content-container h3 {
+    font-size: 24px;
+}
+
+.main-container {
+    display: flex;
+    flex-direction: column;
+    gap: 44px;
+    width: 49%;
+}
+
+.line {
+    background-color: #CDD5DD;
+    height: 1.5px;
+    flex-shrink: 0;
+}
+
+.order-info-container {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.order-form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.order-form-block {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.choose-container {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.choose-block:has(input[type="radio"]:checked) {
+    border: 1px solid #3D4155;
+}
+
+.choose-block {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    padding: 10px 16px;
+    border: 1px solid #CED0D4;
+}
+
+.cursor-pointer {
+    cursor: pointer;
+}

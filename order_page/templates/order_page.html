@@ -1,11 +1,156 @@
-{% extends 'base.html' %}
+{% extends 'order_base.html' %}
 {% block links %}
-    <link rel="stylesheet" href="{{ url_for('about_us.static', filename='css/about_us.css') }}">
+    <link rel="stylesheet" href="{{ url_for('order.static', filename='css/order_page.css') }}">
+    <link rel="stylesheet" href="{{ url_for('order.static', filename='css/products_confirmation.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/inputs.css') }}">
 {% endblock %}
 {% block content %}
-    <div class="order">
-        {% for product in products %}
-            <p>{{ product.name }}</p>
-        {% endfor %}
+    <div class="content-container">
+        <div class="main-container">
+            <h2>ОФОРМИТИ ЗАМОВЛЕННЯ</h2>
+            <div class="order-info-container">
+                <div class="line"></div>
+                <h3>Ваші контактні дані</h3>
+                <div class="order-form">
+                    <div class="order-form-block">
+                        <p>Прізвище</p>
+                        <input type="text" placeholder="Ваше Прізвище" value="{{ crd.second_name if crd and crd.second_name else '' }}">
+                    </div>
+                    <div class="order-form-block">
+                        <p>Ім'я</p>
+                        <input type="text" placeholder="Ваше Ім'я" value="{{ crd.first_name if crd and crd.first_name else '' }}">
+                    </div>
+                    <div class="order-form-block">
+                        <p>По батькові</p>
+                        <input type="text" placeholder="По батькові" value="{{ crd.father_name if crd and crd.father_name else '' }}">
+                    </div>
+                    <div class="order-form-block">
+                        <p>Телефон</p>
+                        <input type="text" placeholder="+ 38 0" value="{{ crd.phone_number if crd and crd.phone_number else '' }}">
+                    </div>
+                    <div class="order-form-block">
+                        <p>E-mail</p>
+                        <input type="text" placeholder="Ваше E-mail" value="{{ crd.email if crd and crd.email else '' }}">
+                    </div>
+                    <div class="order-form-block">
+                        <p>Коментар до замовлення</p>
+                        <textarea name="" id="" placeholder="Що б ви хотіли уточнити"></textarea>
+                    </div>
+                </div>
+                <div class="line"></div>
+                <h3>Доставка</h3>
+                <div class="choose-container">
+                    <div class="choose-block">
+                        <input type="radio" name="delivery_type" id="">
+                        <p>Нова Пошта до поштомату</p>
+                        <svg width="21" height="20" viewBox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" clip-rule="evenodd" d="M16.2465 5.92079C16.3078 5.90151 16.3884 5.94007 16.4691 6.04609C16.4691 6.04609 16.4691 6.04609 20.1157 9.59951C20.3286 9.81155 20.3286 10.1328 20.1157 10.2903C20.1157 10.2903 20.1157 10.2903 16.4691 13.8983C16.3884 14.0043 16.3078 14.03 16.2465 13.9979C16.1851 13.9658 16.1464 13.8726 16.1464 13.7377V6.15212C16.1464 6.02039 16.1851 5.94007 16.2465 5.92079Z" fill="#ED1C24"/>
+                            <path fill-rule="evenodd" clip-rule="evenodd" d="M10.008 0H10.2662L10.5146 0.102812C10.5146 0.102812 10.5146 0.102811 14.2677 3.81687C14.429 4.02892 14.3741 4.18956 14.1063 4.18956C14.1063 4.18956 14.1063 4.18956 12.5509 4.18956C12.283 4.18956 12.0701 4.40161 12.0701 4.66827C12.0701 4.66827 12.0701 4.66827 12.0701 7.4249C12.0701 7.69157 11.8538 7.90361 11.5311 7.90361C11.5311 7.90361 11.5311 7.90361 8.79786 7.90361C8.53002 7.90361 8.31381 7.69157 8.31381 7.4249C8.31381 7.4249 8.31381 7.4249 8.31381 4.66827C8.31381 4.40161 8.10082 4.18956 7.82976 4.18956H6.16784C5.9 4.18956 5.84514 4.02892 6.00649 3.81687C6.00649 3.81687 6.00649 3.81687 9.76274 0.102812L10.008 0Z" fill="#ED1C24"/>
+                            <path fill-rule="evenodd" clip-rule="evenodd" d="M4.12897 5.84107C4.19673 5.87319 4.23868 5.96637 4.23868 6.10131V13.8443C4.23868 13.9792 4.19673 14.0595 4.12897 14.0852C4.06442 14.1109 3.97084 14.0852 3.86112 14.0049C3.86112 14.0049 3.86112 14.0049 0.159737 10.2909C-0.0532457 10.1334 -0.0532457 9.81215 0.159737 9.6001C0.159737 9.6001 0.159738 9.6001 3.86112 5.94066C3.97084 5.83464 4.06442 5.80894 4.12897 5.84107Z" fill="#ED1C24"/>
+                            <path fill-rule="evenodd" clip-rule="evenodd" d="M8.79826 11.9355C8.79826 11.9355 8.79826 11.9355 11.5315 11.9355C11.8542 11.9355 12.0705 12.1476 12.0705 12.4143C12.0705 12.4143 12.0705 12.4143 12.0705 15.3315C12.0705 15.6496 12.2834 15.8617 12.5513 15.8617H14.0002C14.268 15.8617 14.3745 16.0191 14.1616 16.1797C14.1616 16.1797 14.1616 16.1797 10.515 19.8392C10.4053 19.9452 10.273 19.9998 10.1375 19.9998C10.0052 19.9998 9.86963 19.9452 9.76314 19.8392C9.76314 19.8392 9.76314 19.8392 6.11661 16.1797C5.9004 16.0191 6.00689 15.8617 6.27473 15.8617C6.27473 15.8617 6.27473 15.8617 7.83015 15.8617C8.10122 15.8617 8.31421 15.6496 8.31421 15.3315C8.31421 15.3315 8.31421 15.3315 8.31421 12.4143C8.31421 12.1476 8.53042 11.9355 8.79826 11.9355Z" fill="#ED1C24"/>
+                        </svg>
+                    </div>
+                    <div class="choose-block">
+                        <input type="radio" name="delivery_type" id="">
+                        <p>Нова Пошта до відділення</p>
+                        <svg width="21" height="20" viewBox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" clip-rule="evenodd" d="M16.2465 5.92079C16.3078 5.90151 16.3884 5.94007 16.4691 6.04609C16.4691 6.04609 16.4691 6.04609 20.1157 9.59951C20.3286 9.81155 20.3286 10.1328 20.1157 10.2903C20.1157 10.2903 20.1157 10.2903 16.4691 13.8983C16.3884 14.0043 16.3078 14.03 16.2465 13.9979C16.1851 13.9658 16.1464 13.8726 16.1464 13.7377V6.15212C16.1464 6.02039 16.1851 5.94007 16.2465 5.92079Z" fill="#ED1C24"/>
+                            <path fill-rule="evenodd" clip-rule="evenodd" d="M10.008 0H10.2662L10.5146 0.102812C10.5146 0.102812 10.5146 0.102811 14.2677 3.81687C14.429 4.02892 14.3741 4.18956 14.1063 4.18956C14.1063 4.18956 14.1063 4.18956 12.5509 4.18956C12.283 4.18956 12.0701 4.40161 12.0701 4.66827C12.0701 4.66827 12.0701 4.66827 12.0701 7.4249C12.0701 7.69157 11.8538 7.90361 11.5311 7.90361C11.5311 7.90361 11.5311 7.90361 8.79786 7.90361C8.53002 7.90361 8.31381 7.69157 8.31381 7.4249C8.31381 7.4249 8.31381 7.4249 8.31381 4.66827C8.31381 4.40161 8.10082 4.18956 7.82976 4.18956H6.16784C5.9 4.18956 5.84514 4.02892 6.00649 3.81687C6.00649 3.81687 6.00649 3.81687 9.76274 0.102812L10.008 0Z" fill="#ED1C24"/>
+                            <path fill-rule="evenodd" clip-rule="evenodd" d="M4.12897 5.84107C4.19673 5.87319 4.23868 5.96637 4.23868 6.10131V13.8443C4.23868 13.9792 4.19673 14.0595 4.12897 14.0852C4.06442 14.1109 3.97084 14.0852 3.86112 14.0049C3.86112 14.0049 3.86112 14.0049 0.159737 10.2909C-0.0532457 10.1334 -0.0532457 9.81215 0.159737 9.6001C0.159737 9.6001 0.159738 9.6001 3.86112 5.94066C3.97084 5.83464 4.06442 5.80894 4.12897 5.84107Z" fill="#ED1C24"/>
+                            <path fill-rule="evenodd" clip-rule="evenodd" d="M8.79826 11.9355C8.79826 11.9355 8.79826 11.9355 11.5315 11.9355C11.8542 11.9355 12.0705 12.1476 12.0705 12.4143C12.0705 12.4143 12.0705 12.4143 12.0705 15.3315C12.0705 15.6496 12.2834 15.8617 12.5513 15.8617H14.0002C14.268 15.8617 14.3745 16.0191 14.1616 16.1797C14.1616 16.1797 14.1616 16.1797 10.515 19.8392C10.4053 19.9452 10.273 19.9998 10.1375 19.9998C10.0052 19.9998 9.86963 19.9452 9.76314 19.8392C9.76314 19.8392 9.76314 19.8392 6.11661 16.1797C5.9004 16.0191 6.00689 15.8617 6.27473 15.8617C6.27473 15.8617 6.27473 15.8617 7.83015 15.8617C8.10122 15.8617 8.31421 15.6496 8.31421 15.3315C8.31421 15.3315 8.31421 15.3315 8.31421 12.4143C8.31421 12.1476 8.53042 11.9355 8.79826 11.9355Z" fill="#ED1C24"/>
+                        </svg>
+                    </div>
+                </div>
+                <div class="line"></div>
+                <h3>Оплата</h3>
+                <div class="choose-container">
+                    <div class="choose-block">
+                        <input type="radio" name="payment_type" id="">
+                        <p>Оплата при отриманні</p>
+                    </div>
+                    <div class="choose-block">
+                        <input type="radio" name="payment_type" id="">
+                        <p>Нова Пошта до відділення</p>
+                        <svg width="37" height="12" viewBox="0 0 37 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" clip-rule="evenodd" d="M9.13181 11.9065H5.97074L3.60032 2.59724C3.48781 2.16901 3.24892 1.79044 2.89752 1.61201C2.02056 1.16361 1.0542 0.80676 0 0.626781V0.268375H5.09224C5.79504 0.268375 6.32214 0.80676 6.40999 1.43203L7.6399 8.14711L10.7994 0.268375H13.8727L9.13181 11.9065ZM15.6297 11.9065H12.6443L15.1026 0.268375H18.0879L15.6297 11.9065ZM21.9503 3.49252C22.0381 2.8657 22.5652 2.50729 23.1802 2.50729C24.1465 2.4173 25.1992 2.59728 26.0777 3.04413L26.6048 0.538385C25.7263 0.179979 24.76 0 23.883 0C20.9855 0 18.8771 1.61205 18.8771 3.84938C18.8771 5.55142 20.3705 6.44511 21.4247 6.9835C22.5652 7.52033 23.0045 7.87874 22.9166 8.41557C22.9166 9.22082 22.0381 9.57923 21.1612 9.57923C20.107 9.57923 19.0528 9.31081 18.0879 8.86241L17.5608 11.3697C18.6151 11.8166 19.7556 11.9965 20.8098 11.9965C24.0587 12.085 26.0777 10.4745 26.0777 8.05716C26.0777 5.01304 21.9503 4.83461 21.9503 3.49252ZM36.5257 11.9065L34.1553 0.268375H31.6092C31.0821 0.268375 30.555 0.626781 30.3793 1.16362L25.9899 11.9065H29.0631L29.6765 10.206H33.4525L33.8039 11.9065H36.5257ZM32.0484 3.40258L32.9254 7.7888H30.4671L32.0484 3.40258Z" fill="#1434CB"/>
+                        </svg>
+                        <svg width="32" height="20" viewBox="0 0 32 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M16 1.99927C13.5711 3.82368 12 6.72837 12 10C12 13.2716 13.5711 16.1763 16 18.0007C14.3287 19.2561 12.2512 20 10 20C4.47715 20 0 15.5228 0 10C0 4.47715 4.47715 0 10 0C12.2512 0 14.3287 0.74389 16 1.99927Z" fill="#ED0006"/>
+                            <path d="M16 18.0005C13.5711 16.1761 12 13.2714 12 9.99974C12 6.72811 13.5711 3.82344 16 1.99902C18.4289 3.82344 20 6.72813 20 9.99977C20 13.2714 18.4289 16.1761 16 18.0005Z" fill="#FF5E00"/>
+                            <path d="M16 18.0007C18.4289 16.1763 20 13.2716 20 10C20 6.72836 18.4289 3.82368 16 1.99927C17.6713 0.74389 19.7488 0 22 0C27.5228 0 32 4.47715 32 10C32 15.5228 27.5228 20 22 20C19.7488 20 17.6713 19.2561 16 18.0007Z" fill="#F9A000"/>
+                        </svg>
+                    </div>
+                </div>
+                <a href="/catalog" class="button1">ПОВЕРНУТИСЬ</a>
+            </div>
+        </div>
+        <div class="order-products-container">
+            <div class="products-header">
+                <p>Замовлення</p>
+                <svg class="cursor-pointer" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 20.0002H21M16.5 3.50023C16.8978 3.1024 17.4374 2.87891 18 2.87891C18.2786 2.87891 18.5544 2.93378 18.8118 3.04038C19.0692 3.14699 19.303 3.30324 19.5 3.50023C19.697 3.69721 19.8532 3.93106 19.9598 4.18843C20.0665 4.4458 20.1213 4.72165 20.1213 5.00023C20.1213 5.2788 20.0665 5.55465 19.9598 5.81202C19.8532 6.06939 19.697 6.30324 19.5 6.50023L7 19.0002L3 20.0002L4 16.0002L16.5 3.50023Z" stroke="#1E1E1E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </div>
+            <div class="products-content">
+                <div class="items-container" id="items-container">
+                    {% for p in products %}
+                        <div class="item-container">
+                            <div class="item-info">
+                                <div class="image-container">
+                                    <img src="{{ url_for('catalog.static', filename=p.get_path()) }}" alt="">
+                                </div>
+                                <div class="name-price">
+                                    <p class="name">{{ p.name }}</p>
+                                    {% if p.discount <= 0 %}
+                                        <p class="price">{{ p.price }} $</p>
+                                    {% else %}
+                                        <p class="price">
+                                            <span class="line-through">{{ p.price }} $</span>
+                                            <span class="red-color">{{ p.get_discounted_price() }} $</span>
+                                        </p>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <span class="quantity">{{ quantity.get(p.id, 1) }}</span>
+                        </div>
+                        {% if not loop.last %}
+                            <div class="line"></div>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+                <div class="line"></div>
+                <div class="total-price" id="total-price">
+                    {% if total_price != total_discounted_price %}
+                        <p class="total-price-row">
+                            Загальна сума
+                            <span class="line-through">{{ total_price }} $</span>
+                        </p>
+                        <p class="total-price-row" id="discount-line">
+                            Заощаджено
+                            <span class="savings">{{ total_price - total_discounted_price }} $</span>
+                        </p>
+                        <p class="total-price-row">
+                            Доставка
+                            <span class="savings">За тарифом перевізника</span>
+                        </p>
+                        <p class="total-price-row" id="alternative-price-line">
+                            Зі знижкою
+                            <span class="final-price red-color">{{ total_discounted_price }} $</span>
+                        </p>
+                    {% else %}
+                        <p class="total-price-row">
+                            Доставка
+                            <span class="savings">За тарифом перевізника</span>
+                        </p>
+                        <p class="total-price-row">
+                            Загальна сума
+                            <span class="final-price">{{ total_price }} $</span>
+                        </p>
+                    {% endif %}
+                </div>
+                <div class="line"></div>
+                <a href="" class="button2 button2-hover" id="make-order-btn">ОФОРМИТИ ЗАМОВЛЕННЯ</a>
+            </div>
+        </div>
     </div>
 {% endblock %}

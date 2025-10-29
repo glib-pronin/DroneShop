@@ -21,3 +21,4 @@ class Credentials(DATABASE.Model):
     user_id = DATABASE.Column(DATABASE.Integer, DATABASE.ForeignKey('user.id'))
 
     user = relationship('User', back_populates='credentials')
+    orders = relationship('Order', back_populates='credentials')

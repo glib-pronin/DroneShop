@@ -5,8 +5,6 @@ document.addEventListener('DOMContentLoaded', ()=>{
     const cartContainer = document.getElementById('cart-container')
     const productsContainer = document.querySelector('#products-container')
     const toCartBtns = document.querySelectorAll('.to-cart')
-    console.log(toCartBtns);
-    
     const emptyCart = cartContainer.querySelector('#empty-cart')
     const makeOrderbtn = cartContainer.querySelector('#make-order-btn')
     const cartItemsContainer = cartContainer.querySelector('#cart-items-container')

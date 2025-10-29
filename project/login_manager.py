@@ -1,9 +1,9 @@
-import flask_login, dotenv, os
+import flask_login
 from .settings import project
+from .load_env import seckret_key
 from profile_page import User
 
-dotenv_path = os.path.abspath(__file__+'/../../.env')
-project.secret_key = dotenv.get_key(dotenv_path=dotenv_path, key_to_get='SECRET_KEY')
+project.secret_key = seckret_key
 
 LOGIN_MANAGER = flask_login.LoginManager(app=project)
 

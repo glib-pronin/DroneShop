@@ -1,9 +1,15 @@
 import flask, random, re
 from flask_login import login_user, logout_user
-from ..models import User, DATABASE, select
+from ..models import User, DATABASE, select, Credentials
 from werkzeug.security import generate_password_hash, check_password_hash
 from ..decorators import anonymous_required
 from project.mail_manager import MAIL_MANAGER, Message
+
+def _bind_user_with_credentials(user_id, user_email):
+    crd = DATABASE.session.execute(select(Credentials).where(Credentials.email == user_email)).scalar_one_or_none()
+    if crd and crd.user_id is None:
+        crd.user_id = user_id
+        DATABASE.session.commit()
 
 @anonymous_required
 def register():
@@ -27,6 +33,7 @@ def register():
     DATABASE.session.add(user)
     DATABASE.session.commit()
     login_user(user)
+    _bind_user_with_credentials(user.id, user.email)
     return flask.jsonify({"success": True})
 
 @anonymous_required
@@ -38,6 +45,7 @@ def login():
     if not user or not check_password_hash(user.password, password):
         return flask.jsonify({"success": False, "error": "invalid_credentials"})
     login_user(user)
+    _bind_user_with_credentials(user.id, user.email)
     return flask.jsonify({"success": True})
 
 @anonymous_required

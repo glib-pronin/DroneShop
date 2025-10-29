@@ -58,14 +58,42 @@
     border: 1px solid #3D4155;
 }
 
-.choose-block {
+.choose-block .order-form-block {
+    display: none;
+}
+
+.choose-block:has(input[type="radio"]:checked) .order-form-block {
+    display: flex;
+}
+
+.choose-block-header {
     display: flex;
     gap: 20px;
     align-items: center;
+}
+
+.choose-block {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
     padding: 10px 16px;
     border: 1px solid #CED0D4;
 }
 
 .cursor-pointer {
     cursor: pointer;
+}
+
+.help-find-city span {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.hide {
+    display: none !important;
+}
+
+.error-msg {
+    color: red;
+    font-size: 14px;
 }

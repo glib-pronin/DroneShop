@@ -1,5 +1,6 @@
 from .urls import *
 from .settings import *
+from .load_env import *
 from .db import *
 from .login_manager import *
 from .mail_manager import *

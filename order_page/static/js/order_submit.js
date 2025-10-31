@@ -6,6 +6,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
     const paymentErrorInput = document.getElementById('payment-error')
     const commentTextarea = document.querySelector('textarea')
     const itemContainer = document.getElementById('single-product')    
+    const loadingContainer = document.getElementById('loading')    
 
     const requiredFields = ['second_name', 'first_name', 'phone_number', 'email']
 
@@ -79,6 +80,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
             data.product_id = itemContainer.dataset.id
             data.product_quantity = singleProductCount
         }
+        loadingContainer.classList.remove('hide')
         const res = await fetch('/make_order', {
             method: "post",
             headers: {"Content-Type": "application/json"},
@@ -86,6 +88,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
         })
 
         const res_data = await res.json()
+        loadingContainer.classList.add('hide')
         if (res_data.error){
             if (res_data.error === "missed_field" || res_data.error === "invalid_email" || res_data.error === "invalid_number"){
                 if (res_data.name === "delivery_type") {

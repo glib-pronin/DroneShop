@@ -50,7 +50,6 @@ def get_departments():
                 departments.append(name)
     return flask.jsonify(parcel_lockers) if dep_type == 'parcel_locker' else flask.jsonify(departments)
 
-
 def render_order_page():
     if flask.session.get("need_to_authorize"):
         flask.session.pop("need_to_authorize")
@@ -124,6 +123,23 @@ def _make_credentials(data, user_id=None):
     DATABASE.session.commit()
     return crd
 
+def _check_destination(city, dest):
+    data = {
+            "apiKey": api_key,
+            "modelName": "Address",
+            "calledMethod": "getWarehouses",
+            "methodProperties": {
+                "CityName": city,
+                "FindByString": dest
+        }
+    }
+    url = 'https://api.novaposhta.ua/v2.0/json/'
+    resp = requests.post(url, json=data)
+    print(resp.json().get("data"))
+    if resp.json().get("data") and resp.json().get("data")[0].get("Description") == dest:
+        return True
+    return False
+
 def make_order():
     data = flask.request.get_json()
     req_data = data.get("data")
@@ -137,6 +153,8 @@ def make_order():
         return flask.jsonify({"error": "invalid_number", "name": "phone_number", "msg": "Неправильний номер телефону"})
     if not "email" in req_data or not _validate_email(req_data.get("email")):
         return flask.jsonify({"error": "invalid_email", "name": "email", "msg": "Неправильна адреса електронноъ пошти"})
+    if not _check_destination(req_data.get("city"), req_data.get(req_data.get('delivery_type'))):
+        return flask.jsonify({"error": "missed_field", "name": req_data.get('delivery_type'), "msg": "Неправильне місце доставки"})
     if not current_user.is_authenticated:
         existing_crd = DATABASE.session.execute(select(Credentials).where(Credentials.email == req_data.get("email"))).scalars().first()
         if existing_crd:

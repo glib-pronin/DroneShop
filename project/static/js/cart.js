@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', ()=>{
     const openCart = document.getElementById('cart-btn')
     const openCartLink = document.getElementById('cart-btn-link')
-    const cartProductsIndicator = openCart.querySelector('.product-in-cart')
+    const cartProductsIndicator = openCart?.querySelector('.product-in-cart')
     const cartContainer = document.getElementById('cart-container')
     const productsContainer = document.querySelector('#products-container')
     const toCartBtns = document.querySelectorAll('.to-cart')
@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
     const makeOrderbtn = cartContainer.querySelector('#make-order-btn')
     const cartItemsContainer = cartContainer.querySelector('#cart-items-container')
     const totalPriceContainer = cartContainer.querySelector('#total-price')
-
+    const editOrderBtn = document.getElementById('edit-order-btn')
 
     function changeIncrementionState(btn, activate){
         if (activate) {
@@ -226,7 +226,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
 
     function showEmptyCart() {
         emptyCart.classList.remove('hide-element')
-        makeOrderbtn.classList.add('hide-element')
+        makeOrderbtn?.classList.add('hide-element')
         cartItemsContainer.classList.add('hide-element')
         totalPriceContainer.classList.add('hide-element')
     }
@@ -240,7 +240,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
             cartContainer.classList.add('show')
             if (data.list_product.length>0) {
                 emptyCart.classList.add('hide-element')
-                makeOrderbtn.classList.remove('hide-element')
+                makeOrderbtn?.classList.remove('hide-element')
                 cartItemsContainer.classList.remove('hide-element')
                 totalPriceContainer.classList.remove('hide-element')
                 cartItemsContainer.innerHTML = ''
@@ -265,26 +265,29 @@ document.addEventListener('DOMContentLoaded', ()=>{
         }
     }
 
-    openCart.addEventListener('click', (e)=> openCartModal(e))
-    openCartLink.addEventListener('click', (e)=> openCartModal(e))
+    openCart?.addEventListener('click', (e)=> openCartModal(e))
+    openCartLink?.addEventListener('click', (e)=> openCartModal(e))
+    editOrderBtn?.addEventListener('click', (e)=> openCartModal(e))
 
     function showCartProductsNum(needToReadCookie = true, cookiePart = null){
-        if (needToReadCookie){
-            cookiePart = document.cookie.split('productsId=')[1]
-        }
-        if (!cookiePart){
-            cartProductsIndicator.classList.add('hide-element')
-            return
-        }
-        productsSet = new Set(cookiePart.split('|'))
-        if (productsSet.size > 0){
-            cartProductsIndicator.classList.remove('hide-element')
-            cartProductsIndicator.textContent = productsSet.size
-            if (productsSet.size >= 10 ){
-                cartProductsIndicator.textContent = '9+'
+        if (openCart){ // функція не працюватиме на сторінці оформлення замовлення
+            if (needToReadCookie){
+                cookiePart = document.cookie.split('productsId=')[1].split('; ')[0]
             }
-        } else {
-            cartProductsIndicator.classList.add('hide-element')
+            if (!cookiePart){
+                cartProductsIndicator.classList.add('hide-element')
+                return
+            }
+            productsSet = new Set(cookiePart.split('|'))
+            if (productsSet.size > 0){
+                cartProductsIndicator.classList.remove('hide-element')
+                cartProductsIndicator.textContent = productsSet.size
+                if (productsSet.size >= 10 ){
+                    cartProductsIndicator.textContent = '9+'
+                }
+            } else {
+                cartProductsIndicator.classList.add('hide-element')
+            }
         }
     }
     
@@ -292,7 +295,8 @@ document.addEventListener('DOMContentLoaded', ()=>{
         e.preventDefault()
         productId = toCart.id.split('-')[2]
         if (document.cookie.includes('productsId')) {
-            productsId = document.cookie.split('productsId=')[1]
+            productsId = document.cookie.split('productsId=')[1].split('; ')[0]
+            console.log(productsId);
             document.cookie = `productsId=${productsId}|${productId}; path=/`
             showCartProductsNum(false, `${productsId}|${productId}`)
         } else {

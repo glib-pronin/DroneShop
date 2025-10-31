@@ -162,7 +162,7 @@
     margin: 0;
 }
 
-.total-price-row span {
+.total-price-row span:not(#text-for-changing)  {
     font-weight: 500;
 }
 

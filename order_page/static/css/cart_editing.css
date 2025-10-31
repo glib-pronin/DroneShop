@@ -1,0 +1,21 @@
+#cart-container {
+    display: none;
+}
+
+.cart-items-container {
+    height: 234px;
+}
+
+.cart-btns {
+    gap: 10px;
+}
+
+.close-btn {
+    border: none;
+    height: 13px;
+    background-color: inherit;
+}
+
+.show {
+    display: flex !important;
+}

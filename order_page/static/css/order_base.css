@@ -172,7 +172,7 @@ footer {
   padding: 18px 40px;
 }
 
-.button1:hover {
+.button1-hover:hover {
   background-color: #0C122A;
   border: 1.5px solid white;
   color: white;
@@ -232,7 +232,7 @@ footer {
   background-color: rgba(12, 18, 42, 0.7);
 }
 
-.modal-container span {
+#loading span {
   color: white;
   /* color: #9ea0aa; */
   font-size: 30px;
@@ -240,7 +240,7 @@ footer {
   margin-bottom: 20px;
 }
 
-.modal-container svg {
+#loading svg#spinner {
   width: 50px;
   height: 50px;
   animation: spin 1s linear infinite;

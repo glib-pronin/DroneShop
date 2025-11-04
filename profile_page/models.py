@@ -1,5 +1,5 @@
-import flask_login
-from project.db import DATABASE, select, relationship
+import flask_login, re
+from project.db import DATABASE, select, relationship, and_
 
 class User(DATABASE.Model, flask_login.UserMixin):
     id = DATABASE.Column(DATABASE.Integer, primary_key=True)
@@ -22,3 +22,21 @@ class Credentials(DATABASE.Model):
 
     user = relationship('User', back_populates='credentials')
     orders = relationship('Order', back_populates='credentials')
+    destinations = relationship('Destinations', back_populates='credentials')
+
+class Destinations(DATABASE.Model):
+    id = DATABASE.Column(DATABASE.Integer, primary_key=True)
+    city = DATABASE.Column(DATABASE.String)
+    type = DATABASE.Column(DATABASE.String)
+    place = DATABASE.Column(DATABASE.String)
+    checked = DATABASE.Column(DATABASE.Boolean, default=False)
+    credentials_id = DATABASE.Column(DATABASE.Integer, DATABASE.ForeignKey('credentials.id', name='fk_destinations_credentials_id'))
+
+    credentials = relationship('Credentials', back_populates='destinations')
+
+    def get_short_place(self):
+        if self.place:
+            parts = self.place.split(':')
+            parts[1] = re.sub(r'\s\(.*\)', '', parts[1])
+            return ':'.join(parts)
+        return

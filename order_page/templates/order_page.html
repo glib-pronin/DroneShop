@@ -53,7 +53,7 @@
                 <div class="choose-container">
                     <div class="choose-block">
                         <div class="choose-block-header">
-                            <input type="radio" name="delivery_type" id="" value="parcel_locker">
+                            <input type="radio" name="delivery_type" id="" value="parcel_locker" {% if dst and dst.type == 'parcel_locker' %}checked{% endif %}>
                             <p>Нова Пошта до поштомату</p>
                             <svg width="21" height="20" viewBox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path fill-rule="evenodd" clip-rule="evenodd" d="M16.2465 5.92079C16.3078 5.90151 16.3884 5.94007 16.4691 6.04609C16.4691 6.04609 16.4691 6.04609 20.1157 9.59951C20.3286 9.81155 20.3286 10.1328 20.1157 10.2903C20.1157 10.2903 20.1157 10.2903 16.4691 13.8983C16.3884 14.0043 16.3078 14.03 16.2465 13.9979C16.1851 13.9658 16.1464 13.8726 16.1464 13.7377V6.15212C16.1464 6.02039 16.1851 5.94007 16.2465 5.92079Z" fill="#ED1C24"/>
@@ -64,7 +64,7 @@
                         </div>
                         <div class="order-form-block">
                             <p>Місто</p>
-                            <input type="text" id="parcel_locker-city" list="city_list" name="city" placeholder="Місто">
+                            <input type="text" id="parcel_locker-city" list="city_list" name="city" placeholder="Місто" value="{{ dst.city if dst and dst.type == 'parcel_locker' else  '' }}">
                             <p class="error-msg hide">Вкажіть населений пункт</p>
                             <p class="help-find-city">
                                 <span>Вінниця</span>
@@ -82,14 +82,14 @@
                         </div>
                         <div class="order-form-block">
                             <p>Поштомат</p>
-                            <input type="text" id="city" list="parcel_locker" name="parcel_locker" placeholder="Поштомат">
+                            <input type="text" id="city" list="parcel_locker" name="parcel_locker" placeholder="Поштомат" value="{{ dst.place if dst and dst.type == 'parcel_locker' else  '' }}">
                             <p class="error-msg hide">Оберіть поштомат зі списку</p>
                             <datalist id="parcel_locker"></datalist>
                         </div>
                     </div>
                     <div class="choose-block">
                         <div class="choose-block-header">
-                            <input type="radio" name="delivery_type" id="" value="department">
+                            <input type="radio" name="delivery_type" id="" value="department" {% if dst and dst.type == 'department' %}checked{% endif %}>
                             <p>Нова Пошта до відділення</p>
                             <svg width="21" height="20" viewBox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path fill-rule="evenodd" clip-rule="evenodd" d="M16.2465 5.92079C16.3078 5.90151 16.3884 5.94007 16.4691 6.04609C16.4691 6.04609 16.4691 6.04609 20.1157 9.59951C20.3286 9.81155 20.3286 10.1328 20.1157 10.2903C20.1157 10.2903 20.1157 10.2903 16.4691 13.8983C16.3884 14.0043 16.3078 14.03 16.2465 13.9979C16.1851 13.9658 16.1464 13.8726 16.1464 13.7377V6.15212C16.1464 6.02039 16.1851 5.94007 16.2465 5.92079Z" fill="#ED1C24"/>
@@ -100,7 +100,7 @@
                         </div>
                         <div class="order-form-block">
                             <p>Місто</p>
-                            <input type="text" id="department-city" list="city_list" name="city" placeholder="Місто">
+                            <input type="text" id="department-city" list="city_list" name="city" placeholder="Місто" value="{{ dst.city if dst and dst.type == 'department' else  '' }}">
                             <p class="error-msg hide">Вкажіть населений пункт</p>
                             <p class="help-find-city">
                                 <span>Вінниця</span>
@@ -113,7 +113,7 @@
                         </div>
                         <div class="order-form-block">
                             <p>Відділення</p>
-                            <input type="text" list="department" name="department" placeholder="Відділення">
+                            <input type="text" list="department" name="department" placeholder="Відділення" value="{{ dst.place if dst and dst.type == 'department' else  '' }}">
                             <p class="error-msg hide">Оберіть відділення зі списку</p>
                             <datalist id="department"></datalist>
                         </div>

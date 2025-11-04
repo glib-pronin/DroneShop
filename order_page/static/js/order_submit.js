@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
 
     const requiredFields = ['second_name', 'first_name', 'phone_number', 'email']
 
-    document.querySelectorAll('input').forEach(field => {
+    document.querySelectorAll('input:not([type="radio"])').forEach(field => {
         if (field.name === "phone_number") {
             IMask(
                 field,

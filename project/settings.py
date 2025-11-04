@@ -6,4 +6,3 @@ project = flask.Flask(
     import_name="project",
     instance_path=db_path
 )
-

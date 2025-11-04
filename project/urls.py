@@ -33,4 +33,6 @@ profile.add_url_rule(rule='/verify_code', view_func=verify_code, methods=['POST'
 profile.add_url_rule(rule='/reset_password', view_func=reset_password, methods=['POST'])
 
 profile.add_url_rule(rule='/credentials', view_func=render_credentials, methods=['GET', 'POST'])
+profile.add_url_rule(rule='/destinations', view_func=render_user_destinations, methods=['GET', 'POST'])
+profile.add_url_rule(rule='/choose_destination', view_func=choose_destination, methods=['POST'])
 profile.add_url_rule(rule='/logout', view_func=logout)

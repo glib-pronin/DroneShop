@@ -1,7 +1,7 @@
 import flask, requests, re
 from flask_login import current_user
 from catalog_page.models import Product, DATABASE
-from profile_page.models import Credentials, select
+from profile_page.models import Credentials, Destinations, select, and_
 from catalog_page.views.cart import _get_cart_ids
 from flask_login import current_user
 from project.load_env import api_key
@@ -48,6 +48,8 @@ def get_departments():
                 parcel_lockers.append(name)
             else:
                 departments.append(name)
+    if dep_type == "all":
+        return flask.jsonify([*parcel_lockers, *departments])
     return flask.jsonify(parcel_lockers) if dep_type == 'parcel_locker' else flask.jsonify(departments)
 
 def render_order_page():
@@ -84,10 +86,11 @@ def render_order_page():
     if current_user.is_authenticated:
         crd = current_user.credentials 
         crd = crd[0] if crd else None
+        dst = None if not crd else DATABASE.session.execute(select(Destinations).where(and_(Destinations.checked, Destinations.credentials_id == crd.id))).scalars().first()
     return flask.render_template('order_page.html', 
                                  products=products_set, quantity=products_quantity, 
-                                 total_price=total_price, total_discounted_price=total_discounted_price,
-                                 crd = crd, city_names=get_city_names(api_key=api_key), is_product_from_cart=is_product_from_cart)
+                                 total_price=total_price, total_discounted_price=total_discounted_price, dst=dst,
+                                 crd=crd, city_names=get_city_names(api_key=api_key), is_product_from_cart=is_product_from_cart)
 
 def render_success_page():
     order_id = flask.session.get('order_id')
@@ -123,6 +126,24 @@ def _make_credentials(data, user_id=None):
     DATABASE.session.commit()
     return crd
 
+def _make_destination(data, crd_id):
+    dst = DATABASE.session.execute(select(Destinations).where(and_(
+        Destinations.credentials_id == crd_id, 
+        Destinations.place == data.get(data.get('delivery_type')),
+        Destinations.city == data.get("city")))).scalars().first()
+    if not dst:
+        chosen_dst = DATABASE.session.execute(select(Destinations).where(and_(
+            Destinations.checked, 
+            Destinations.credentials_id == crd_id))).scalars().first()
+        new_dst = Destinations(
+            city=data.get("city"), type=data.get("delivery_type"), 
+            place=data.get(data.get('delivery_type')), checked=True, credentials_id=crd_id)
+        if chosen_dst:
+            chosen_dst.checked = False
+        DATABASE.session.add(new_dst)
+        DATABASE.session.commit()
+    return 
+
 def _check_destination(city, dest):
     data = {
             "apiKey": api_key,
@@ -135,7 +156,6 @@ def _check_destination(city, dest):
     }
     url = 'https://api.novaposhta.ua/v2.0/json/'
     resp = requests.post(url, json=data)
-    print(resp.json().get("data"))
     if resp.json().get("data") and resp.json().get("data")[0].get("Description") == dest:
         return True
     return False
@@ -179,6 +199,7 @@ def make_order():
                 products.append(p)
         if not products:
             return flask.jsonify({"error": "empty_cart"})
+    _make_destination(req_data, crd.id)
     order = Order(
         comment = req_data.get("comment"),
         delivary_destination = f"{req_data.get('city')} | {req_data.get('delivery_type')} | {req_data.get(req_data.get('delivery_type'))}",

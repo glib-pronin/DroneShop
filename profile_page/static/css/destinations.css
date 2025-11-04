@@ -1,0 +1,44 @@
+.layout .form-rows-container, .choose-block-body {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.choose-block:has(input[type="radio"]:checked) {
+    border: 1px solid #3D4155;
+}
+
+.choose-block-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.choose-block-header-block {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+
+.choose-block .choose-block-header p {
+    font-size: 13px;
+    font-weight: 500;
+}
+
+.choose-block {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    padding: 10px 16px;
+    border: 1px solid #9EA0AA;
+}
+
+.form-row .help-find-city span {
+    text-decoration: underline;
+}
+
+.layout form:has(.empry-section) {
+    flex-grow: 1;
+    justify-content: center;
+    text-align: center;
+}

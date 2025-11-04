@@ -4,6 +4,14 @@ document.addEventListener('DOMContentLoaded', ()=>{
     const inputDepartment = document.querySelector('#department-city')
     inputDepartment.addEventListener('blur', () => getDepartments(inputDepartment.value, 'department'))
     inputParcelLocker.addEventListener('blur', () => getDepartments(inputParcelLocker.value, 'parcel_locker'))
+    emitBlur(inputDepartment, 'department')
+    emitBlur(inputParcelLocker, 'parcel_locker')
+
+    function emitBlur(input, type){
+        if (input.value.trim() !== '') {
+            getDepartments(input.value, type)
+        }
+    }
 
     spanList.forEach(span => {
         span.addEventListener('click', ()=>{
@@ -18,12 +26,12 @@ document.addEventListener('DOMContentLoaded', ()=>{
     async function getDepartments(city_name, type) {
         const dataList = document.getElementById(type)
         if (city_name.trim() !== '') {
-            res = await fetch('/api/departments', {
+            const res = await fetch('/api/departments', {
               method: "POST",
               headers: {"Content-Type": 'application/json'},
               body: JSON.stringify({ city_name, type }) 
             })
-            data = await res.json()
+            const data = await res.json()
             dataList.innerHTML = ''
             data.forEach(name => {
                 const option = document.createElement('option')

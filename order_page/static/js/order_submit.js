@@ -79,6 +79,9 @@ document.addEventListener('DOMContentLoaded', ()=>{
         if (itemContainer) {
             data.product_id = itemContainer.dataset.id
             data.product_quantity = singleProductCount
+            data.from_cart = false
+        } else {
+            data.from_cart = true
         }
         loadingContainer.classList.remove('hide')
         const res = await fetch('/make_order', {

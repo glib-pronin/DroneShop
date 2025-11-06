@@ -1,0 +1,94 @@
+.progress-container {
+    padding-top: 24px;
+    height: 70px;
+    box-sizing: border-box;
+}
+
+.progress-bar {
+    width: 100%;
+    height: 6px;
+    border-radius: 6px;
+    background-color: #CDD5DD;
+    position: relative;
+}
+
+.truck {
+    position: absolute;
+    z-index: 4;
+    top: -10px;
+}
+
+.progress {
+    position: absolute;
+    z-index: 2;
+    height: 100%;
+    background-color: #0C122A;
+    border-radius: 6px;
+}
+
+.steps-container {
+    position: absolute;
+    z-index: 3;
+    top: -3px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.step {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 21px;
+    align-items: center;
+}
+
+.circle {
+    flex-shrink: 0;
+    height: 12px;
+    width: 12px;
+    border-radius: 10px;
+    border: 1px solid #CDD5DD;
+    background-color: white;
+    box-sizing: border-box;
+}
+
+.progress-bar.selected-1 .progress {
+    width: 5%;
+}
+
+.progress-bar.selected-2 .progress {
+    width: 28%;
+}
+
+.progress-bar.selected-3 .progress {
+    width: 51%;
+}
+
+.progress-bar.selected-4 .progress {
+    width: 73%;
+}
+
+.progress-bar.selected-5 .progress {
+    width: 96%;
+}
+
+.steps-container.selected-1 .step:nth-child(1) span {
+    color: #0C122A;
+}
+
+.steps-container.selected-2 .step:nth-child(2) span {
+    color: #0C122A;
+}
+
+.steps-container.selected-3 .step:nth-child(3) span {
+    color: #0C122A;
+}
+
+.steps-container.selected-4 .step:nth-child(4) span {
+    color: #0C122A;
+}
+
+.steps-container.selected-5 .step:nth-child(5) span {
+    color: #0C122A;
+}

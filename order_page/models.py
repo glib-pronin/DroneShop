@@ -7,6 +7,9 @@ class Order(DATABASE.Model):
     payment_method = DATABASE.Column(DATABASE.String)
     is_paied = DATABASE.Column(DATABASE.Boolean, default=False)
     product_string = DATABASE.Column(DATABASE.String)
+    shipment_number = DATABASE.Column(DATABASE.String)
+    date = DATABASE.Column(DATABASE.String)
+    status = DATABASE.Column(DATABASE.String)
     credentials_id = DATABASE.Column(DATABASE.Integer, DATABASE.ForeignKey('credentials.id', name='fk_order_credentials_id'))
 
     credentials = relationship('Credentials', back_populates='orders')
@@ -22,4 +25,3 @@ class Order(DATABASE.Model):
 
 # product_string = 'product_id-price-discounted_price; ...'
 # delivary_destination = 'city | type | department/parcel_locker'
-

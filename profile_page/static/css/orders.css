@@ -1,0 +1,142 @@
+.layout form {
+    flex-grow: 1;
+}
+
+.choose-block-header-block {
+    gap: 24px;
+}
+
+.circle-status {
+    width: 16px;
+    height: 16px;
+    background-color: #CED0D4;
+    border-radius: 8px;
+}
+
+.completed-circle {
+    background-color: #4DBC4B;
+}
+
+.data-block {
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+}
+
+.in-row {
+    flex-direction: row;
+}
+
+.span-caption {
+    font-size: 14px;
+    color: #9EA0AA;
+}
+
+.min-width {
+    min-width: 164px;
+}
+
+.form-rows-container .choose-block p, span {
+    font-size: 14px;
+    font-weight: 400;
+}
+
+.product-image {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+}
+
+.rotate {
+    transform: rotate(180deg);
+}
+
+.product-info {
+    display: flex;
+    gap: 19px;
+}
+ 
+.left-block, .right-block {
+    width: 33%;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.left-block {
+    width: 33%;
+}
+
+.right-block {
+    width: 62%;
+}
+
+.product-line {
+    width: 100%;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.product-line span, .price-container, .header-title span {
+    width: 76px;
+    font-size: 12px;
+    text-align: center;
+}
+
+.header-title {
+    display: flex;
+    justify-content: space-between;
+}
+
+.header-title span:first-child {
+    width: 50px;
+}
+
+.header-title span {
+    color: #6D717F;
+}
+
+.products-container {
+    width: 100%;
+    max-height: 100px;
+    overflow-y: auto;
+}
+
+.product-info-block {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.line-through {
+    text-decoration: line-through;
+}
+
+.vertical-line {
+    width: 1.5px;
+    background-color: #CED0D4;
+}
+
+.service-data {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.service-data span {
+    min-width: 100px;
+}
+
+.right-block button {
+    background-color: white;
+    font-weight: 500;
+    transition: all 0.25s ease;
+}
+
+.right-block button:hover {
+    background-color: #0C122A;
+    color: white;
+}

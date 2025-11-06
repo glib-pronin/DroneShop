@@ -35,8 +35,6 @@ class Destinations(DATABASE.Model):
     credentials = relationship('Credentials', back_populates='destinations')
 
     def get_short_place(self):
-        if self.place:
-            parts = self.place.split(':')
-            parts[1] = re.sub(r'\s\(.*\)', '', parts[1])
-            return ':'.join(parts)
-        return
+        parts = self.place.split(':')
+        parts[1] = re.sub(r'\s\(.*\)', '', parts[1])
+        return ':'.join(parts)

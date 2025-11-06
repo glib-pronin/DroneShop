@@ -1,4 +1,5 @@
 import flask, requests, re
+from datetime import datetime
 from flask_login import current_user
 from catalog_page.models import Product, DATABASE
 from profile_page.models import Credentials, Destinations, select, and_
@@ -83,6 +84,7 @@ def render_order_page():
         return flask.render_template('order_error.html', msg='На жаль, ваша корзина порожня.')
     products_set = set(products)
     crd = None
+    dst = None
     if current_user.is_authenticated:
         crd = current_user.credentials 
         crd = crd[0] if crd else None
@@ -131,18 +133,19 @@ def _make_destination(data, crd_id):
         Destinations.credentials_id == crd_id, 
         Destinations.place == data.get(data.get('delivery_type')),
         Destinations.city == data.get("city")))).scalars().first()
+    chosen_dst = DATABASE.session.execute(select(Destinations).where(and_(
+        Destinations.checked, 
+        Destinations.credentials_id == crd_id))).scalars().first()
+    if chosen_dst:
+        chosen_dst.checked = False
     if not dst:
-        chosen_dst = DATABASE.session.execute(select(Destinations).where(and_(
-            Destinations.checked, 
-            Destinations.credentials_id == crd_id))).scalars().first()
         new_dst = Destinations(
             city=data.get("city"), type=data.get("delivery_type"), 
             place=data.get(data.get('delivery_type')), checked=True, credentials_id=crd_id)
-        if chosen_dst:
-            chosen_dst.checked = False
         DATABASE.session.add(new_dst)
-        DATABASE.session.commit()
-    return 
+    else:
+        dst.checked = True
+    DATABASE.session.commit()
 
 def _check_destination(city, dest):
     data = {
@@ -205,10 +208,15 @@ def make_order():
         delivary_destination = f"{req_data.get('city')} | {req_data.get('delivery_type')} | {req_data.get(req_data.get('delivery_type'))}",
         payment_method = req_data.get("payment_type"),
         is_paied = False,
+        date = datetime.today().strftime('%d.%m.%Y'),
+        status = 'Оформлено-1',
         product_string = _make_product_string(products, req_data.get("product_quantity", 1)),
         credentials_id = crd.id
     )
     DATABASE.session.add(order)
     DATABASE.session.commit()
     flask.session["order_id"] = order.id
-    return flask.jsonify({"res": "ok"})
+    resp = flask.make_response(flask.jsonify({"res": "ok"}))
+    if req_data.get("from_cart"):
+        resp.delete_cookie('productsId')
+    return resp

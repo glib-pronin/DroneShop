@@ -17,6 +17,10 @@
     background-color: #4DBC4B;
 }
 
+.canceled-circle {
+    background-color: #B62D11;
+}
+
 .data-block {
     display: flex;
     flex-direction: column;

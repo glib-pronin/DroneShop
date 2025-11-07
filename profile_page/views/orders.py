@@ -1,7 +1,9 @@
 import flask, re
 from flask_login import current_user
 from collections import defaultdict
-from catalog_page.models import Product, DATABASE, select
+from catalog_page.models import Product, DATABASE, select, and_
+from order_page.models import Order
+from .destinations import _safe_id
 from ..decorators import login_required
 
 def _get_short_place(place):
@@ -63,6 +65,21 @@ def _collect_orders_dict(orders):
 def render_user_orders():
     crd = current_user.credentials
     crd = crd[0] if crd else None
+    if flask.request.method == "POST":
+        data = flask.request.get_json()
+        order_id = _safe_id(data.get("orderId"))
+        if not crd or not order_id:
+            return flask.jsonify({"success": False, "error": "invalid data"})
+        order = DATABASE.session.execute(select(Order).where(and_(
+            Order.credentials_id == crd.id,
+            Order.id == order_id,
+            Order.status != "Отримано-5",
+            Order.status != "Скасовано-6"))).scalar_one_or_none()
+        if not order :
+            return flask.jsonify({"success": False, "error": "such order does not exist"})
+        order.status = "Скасовано-6"
+        DATABASE.session.commit()
+        return flask.jsonify({"success": True})
     orders = crd.orders if crd else None
     orders_dict = None
     if orders:

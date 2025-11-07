@@ -272,7 +272,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
     function showCartProductsNum(needToReadCookie = true, cookiePart = null){
         if (openCart){ // функція не працюватиме на сторінці оформлення замовлення
             if (needToReadCookie){
-                cookiePart = document.cookie.split('productsId=')[1].split('; ')[0]
+                cookiePart = document.cookie.split('productsId=')[1]?.split('; ')[0]
             }
             if (!cookiePart){
                 cartProductsIndicator.classList.add('hide-element')

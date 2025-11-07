@@ -71,8 +71,7 @@
 }
 
 .card-make-order-btn {
-    width: 144px;
-    height: 44px;
+    width: fit-content;
     background-color: #0C122A;
     color: white;
     border-radius: 100px;
@@ -130,4 +129,56 @@
 
 .view-all-btn:hover path {
     fill: #0C122A;
+}
+
+@media (max-width: 1000px) {
+    .buy-block {
+        bottom: 4vh;
+    }
+}
+
+@media (max-width: 550px) {
+    .buy-block {
+        width: 180px;
+        height: 150px;
+    }
+
+    .content p, .card-make-order-btn  {
+        font-size: 12px;
+    }
+
+    .info {
+        width: 90px;
+        gap: 6px;
+    }
+
+    .info .product-price-discount {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .img-container {
+        align-self: center;
+    }
+
+    .info .new-price {
+        margin: 0;
+    }
+
+    .card-make-order-btn {
+        padding: 10px 12px;
+    }
+
+    .card-make-order-btn svg  {
+        display: none;
+    }
+
+    .btns-line {
+        justify-content: space-between;
+    }
+
+    .to-cart {
+        height: 38px;
+        width: 38px;
+    }
 }

@@ -11,6 +11,7 @@
     height: 16px;
     background-color: #CED0D4;
     border-radius: 8px;
+    flex-shrink: 0;
 }
 
 .completed-circle {
@@ -148,4 +149,165 @@
 .right-block button:hover {
     background-color: #0C122A;
     color: white;
+}
+
+@media (max-width: 1450px) {
+    .choose-block-header-block img {
+        display: none;
+    }
+}
+
+@media (max-width: 1200px) {
+    .layout {
+        gap: 10%;
+    }
+    
+    .min-width {
+        min-width: 120px;
+    }
+
+    .product-info {
+        flex-direction: column;
+    }
+
+    .left-block {
+        width: 40%;
+    }
+
+    .right-block {
+        width: 80%;
+    }
+
+    .vertical-line {
+        width: 80%;
+        height: 1.5px;
+    }
+}
+
+@media (max-width: 1020px) {
+    .choose-block-header-block img {
+        display: block;
+    }
+
+    .min-width {
+        min-width: 164px;
+    }
+
+    .product-info {
+        flex-direction: row;
+    }
+
+    .left-block {
+        width: 33%;
+    }
+
+    .right-block {
+        width: 62%;
+    }
+
+    .vertical-line {
+        width: 1.5px;
+        height: auto;
+    }
+}
+
+@media (max-width: 950px) {
+    .choose-block-header-block img {
+        display: none;
+    }
+}
+
+@media (max-width: 780px) {
+    .layout {
+        gap: 10%;
+    }
+    
+    .min-width {
+        min-width: 120px;
+    }
+
+    .product-info {
+        flex-direction: column;
+    }
+
+    .left-block {
+        width: 50%;
+    }
+
+    .right-block {
+        width: 90%;
+    }
+
+    .vertical-line {
+        width: 90%;
+        height: 1.5px;
+    }
+}
+
+@media (max-width: 600px) {
+    .choose-block-header-block p, .choose-block-header-block span{
+        font-size: 12px !important;
+    }
+
+    .choose-block-header-block .min-width {
+        min-width: 60px;
+    }
+
+    .choose-block-header-block {
+        gap: 18px;
+    }
+
+    .open-body {
+        width: 20px;
+        height: 20px;
+    }
+
+    .circle-status {
+        width: 12px;
+        height: 12px;
+    }
+
+    .choose-block {
+        padding: 10px 10px;
+    }
+}
+
+@media (max-width: 520px) {
+    .left-block {
+        width: 70%;
+    }
+
+    .right-block, .vertical-line {
+        width: 100%;
+    }
+
+    .step .span-caption {
+        font-size: 12px;
+    }
+}
+
+
+@media (max-width: 400px) {
+    .choose-block-header-block {
+        gap: 14px;
+    }
+
+    .product-line {
+        height: 60px;
+    }
+
+    .product-line span, .header-title span {
+        width: 60px;
+    }
+
+    .products-container {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        max-height: 120px;
+    }
+
+    .header-title {
+        padding-bottom: 10px;
+    }
 }

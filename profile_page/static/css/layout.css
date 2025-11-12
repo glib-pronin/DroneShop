@@ -11,10 +11,14 @@ header {
     margin-top: 81px;
 }
 
-.layout aside {
+.layout aside, .aside-container {
     display: flex;
     flex-direction: column;
     gap: 44px;
+}
+
+aside > .line {
+    display: none;
 }
 
 aside h2 {
@@ -35,4 +39,60 @@ aside a:hover, aside a.selected  {
 aside .line {
     background-color: #CDD5DD;
     height: 2px;
+}
+
+@media (max-width: 1020px) {
+    .layout {
+        flex-direction: column;
+        align-items: center;
+        gap: 64px !important;
+        margin-top: 64px;
+    }
+
+    .layout aside {
+        width: 100%;
+        text-align: center;
+        gap: 30px;
+    }
+
+    aside .line {
+        display: block;
+    }
+
+    .aside-container {
+        flex-direction: row;
+        justify-content: space-around;
+        align-items: center;
+        /* overflow-x: auto; */
+        /* flex-wrap: wrap; */
+    }
+
+    .aside-container .line {
+        display: none;
+    }
+
+    form h3 {
+        text-align: center;
+    }
+
+    .layout form {
+        width: 100% !important;
+    }
+}
+
+@media (max-width: 550px) {
+    aside a {
+        font-size: 12px;
+    }
+
+    .aside-container {
+        gap: 20px;
+        justify-content: center;
+    }
+}
+
+@media (max-width: 440px) {
+    aside h2 {
+        font-size: 24px;
+    }
 }

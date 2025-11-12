@@ -18,6 +18,7 @@ document.addEventListener('DOMContentLoaded', ()=> {
         function changeMinusBtn() {
             minusBtn.disabled = !(singleProductCount>1)
             minusBtn.classList.toggle('disable', !(singleProductCount>1))
+            minusBtn.classList.toggle('cursor-pointer', (singleProductCount>1))
         }
 
         function updatePrices() {

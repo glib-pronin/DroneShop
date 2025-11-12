@@ -5,10 +5,37 @@ from catalog_page.models import Product, DATABASE
 from profile_page.models import Credentials, Destinations, select, and_
 from catalog_page.views.cart import _get_cart_ids
 from flask_login import current_user
-from project.load_env import api_key
+from project.load_env import api_key, mono_api_key, liq_private, liq_public
 from .models import Order
+# from liqpay import LiqPay
 
 url = 'https://api.novaposhta.ua/v2.0/json/'
+mono_url= 'https://api.monobank.ua/api/merchant/invoice/create'
+
+def redirect_payment(amount, from_cart):
+    data = {
+        "amount": amount,
+        "ccy": 980,
+        "redirectUrl": f'http://127.0.0.1:5000/success?from_cart={from_cart}&paied_now=1'
+    }
+    resp = requests.post(url=mono_url, json=data, headers={"X-Token": mono_api_key})
+    if resp.status_code == 200:
+        return resp.json().get("pageUrl")
+    return '/error_payment'
+
+# def create_liqpay(amount, order_id):
+#     liqpay = LiqPay(liq_public, liq_private)
+#     html = liqpay.cnb_form({
+#         'action': 'pay',
+#         'amount': amount,
+#         'currency': 'UAH',
+#         'description': 'Оплата товарів на сайт "Drones"',
+#         'order_id': order_id,
+#         'version': '3',
+#         'sandbox': 1,  
+#         'server_url': 'http://127.0.0.1:5000/validate_liqpay',
+#     })
+#     return html
 
 def get_city_names(api_key):
     data = {
@@ -19,7 +46,10 @@ def get_city_names(api_key):
     }
     city_names = []
     city_in_area = []
-    resp = requests.post(url, json=data)
+    try:
+        resp = requests.post(url, json=data, timeout=10)
+    except:
+        return []
     for c in resp.json().get('data'):
         name = c.get('Description')
         if 'обл' in name or 'р-н' in name:
@@ -41,7 +71,10 @@ def get_departments():
     }
     departments = []
     parcel_lockers = []
-    resp = requests.post(url, json=data)
+    try:
+        resp = requests.post(url, json=data)
+    except:
+        return flask.jsonify([])
     if resp.status_code == 200:
         for c in resp.json().get('data'):
             name = c.get('Description')
@@ -96,9 +129,33 @@ def render_order_page():
 
 def render_success_page():
     order_id = flask.session.get('order_id')
+    from_cart = flask.request.args.get('from_cart')
+    paied_now = flask.request.args.get('paied_now')
     if order_id:
         flask.session.pop("order_id")
-        return flask.render_template('success.html', order_id=order_id)
+        if paied_now == '1':
+            order = DATABASE.session.execute(select(Order).where(Order.id == order_id)).scalar_one_or_none()
+            if order:
+                order.is_paied = True
+                DATABASE.session.commit()
+            else:
+                return flask.redirect('/')
+        html = flask.render_template('success.html', order_id=order_id)
+        resp = flask.make_response(html)
+        if from_cart == '1':
+            resp.delete_cookie("productsId")
+        return resp
+    return flask.redirect('/')
+
+def render_error_page():
+    order_id = flask.session.get('order_id')
+    if order_id:
+        flask.session.pop("order_id")
+        order = DATABASE.session.execute(select(Order).where(Order.id == order_id)).scalar_one_or_none()
+        if order:
+            DATABASE.session.delete(order)
+            DATABASE.session.commit()
+        return flask.render_template('order_error.html', msg='На жаль, платіж не пройшов.', msg2='Спробуйте пізніше або виберіть інший спосіб оплати.')
     return flask.redirect('/')
 
 def _validate_number(phone_number):
@@ -158,7 +215,10 @@ def _check_destination(city, dest):
         }
     }
     url = 'https://api.novaposhta.ua/v2.0/json/'
-    resp = requests.post(url, json=data)
+    try:
+        resp = requests.post(url, json=data)
+    except:
+        return False
     if resp.json().get("data") and resp.json().get("data")[0].get("Description") == dest:
         return True
     return False
@@ -216,7 +276,16 @@ def make_order():
     DATABASE.session.add(order)
     DATABASE.session.commit()
     flask.session["order_id"] = order.id
-    resp = flask.make_response(flask.jsonify({"res": "ok"}))
-    if req_data.get("from_cart"):
-        resp.delete_cookie('productsId')
-    return resp
+    if req_data.get("payment_type") == "now":
+        return flask.jsonify({"res": "ok", "url": redirect_payment(order.calc_overall_price(), req_data.get("from_cart"))})
+        # resp = flask.make_response(flask.jsonify({"res": "ok", "form": create_liqpay(order.calc_overall_price(), order.id)}))
+    else:
+        return flask.jsonify({"res": "ok", "url": f'success?paied_now=0&from_cart={req_data.get("from_cart")}'})
+    
+# def validate_liqpay():
+#     liqpay = LiqPay(liq_public, liq_private)
+#     data = flask.request.form.get('data')
+#     signature = flask.request.form.get('signature')
+#     sign = liqpay.str_to_sign(liq_private + data + liq_private)
+#     if sign == signature:
+#         return flask.redirect('/success')

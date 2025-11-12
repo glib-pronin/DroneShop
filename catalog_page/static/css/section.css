@@ -59,6 +59,38 @@
     flex-direction: row-reverse;
 }
 
+.section-statistic-container {
+    display: flex;
+    align-items: center;
+    gap: 16vw;
+}
+
+.section-statistic-block {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+}
+
+.section-statistic-block span {
+    text-align: center;
+}
+
+.section-statistic-main, .section-statistic-big {
+    color: #6D717F;
+    font-weight: 700;
+    font-size: 18px;
+    letter-spacing: 1px;
+    word-spacing: 1.5px;
+    text-transform: uppercase;
+    white-space: nowrap;
+}
+
+.section-statistic-big {
+    font-size: 44px;
+    font-weight: 700;
+}
+
 @media (max-width: 1000px) {
     .section.left, .section.right {
         flex-direction: column ;
@@ -75,6 +107,14 @@
         width: 70vw;
         aspect-ratio: 16 / 8;
     }
+
+    .section-statistic-container {
+        gap: 12vw;
+    }
+
+    .section-statistic-big {
+        font-size: 36px;
+    }
 }
 
 @media (max-width: 880px) {
@@ -84,7 +124,7 @@
 }
 
 @media (max-width: 780px) {
-    .text-container h2 {
+    .text-container h2, .section-statistic-block .section-statistic-big {
         font-size: 32px;
     }
 
@@ -95,10 +135,18 @@
     .content-container {
         gap: 100px;
     }
+
+    .section-statistic-container {
+        gap: 10vw;
+    }
+
+    .section-statistic-block span {
+        font-size: 14px;
+    }
 }
 
 @media (max-width: 600px) {
-    .text-container h2 {
+    .text-container h2, .section-statistic-block .section-statistic-big {
         font-size: 30px;
     }
 
@@ -109,7 +157,34 @@
     .content-container {
         margin-top: 0;
     }
+
+    .section-statistic-container {
+        gap: 8vw;
+    }
 }
+
+@media (max-width: 550px) {
+    .section-statistic-big {
+        white-space: normal;
+    }
+    .section-statistic-main{
+        white-space: normal;
+        width: 110px;
+    }
+
+    .section-statistic-block span {
+        font-size: 12px;
+    }
+
+    .section-statistic-block .section-statistic-big {
+        font-size: 26px;
+    }
+
+    .section-statistic-container {
+        gap: 6vw;
+    }
+} 
+
 
 @media (max-width: 500px) {
     .content-container .section .text-container {
@@ -124,6 +199,10 @@
 @media (max-width: 450px) {
     .text-container h2 {
         font-size: 26px;
+    }
+
+    .section-statistic-main{
+        width: 90px;
     }
 
     .content-container .section .text-container {

@@ -15,7 +15,6 @@
             <p class="title-summary">{{ product.summary }}</p>
         </div>
         <img class="product-img" src="{{ url_for('catalog.static', filename=product.get_path()) }}" alt="">
-
     </div>
 {% endblock %}
 {% block content %}
@@ -26,6 +25,11 @@
                     <h2>{{ section.title }}</h2>
                     <p>{{ section.section_text | replace('\n', '<br><br>') | safe }}</p>
                 </div>
+                {% if section.position == "center" and section.statistic_string %}
+                    <div class="section-statistic-container">
+                        {{ section.statistic_string | safe }}
+                    </div>
+                {% endif %}
                 <div class="media-container">
                     {% if section.image_path %}
                         <img src="{{ url_for('catalog.static', filename='images/products/'~section.image_path) }}" alt="">
@@ -42,14 +46,14 @@
                 </div>
                 <div class="info">
                     <p class="product-name">{{ product.name }}</p>
-                        {% if product.discount <= 0 %}
-                            <p class="product-price">{{ product.price }} $</p>
-                        {% else %}
-                            <p class="product-price-discount">
-                                <span class="discount">{{ product.price }} $</span> 
-                                <span class="new-price">{{ product.get_discounted_price()}} $</span>
-                            </p>
-                        {% endif %}
+                    {% if product.discount <= 0 %}
+                        <p class="product-price">{{ product.price }} $</p>
+                    {% else %}
+                        <p class="product-price-discount">
+                            <span class="discount">{{ product.price }} $</span> 
+                            <span class="new-price">{{ product.get_discounted_price()}} $</span>
+                        </p>
+                    {% endif %}
                 </div>
             </div>
             <div class="btns-line">
@@ -103,4 +107,7 @@
             </div>
         {% endif %}
     </div>
+{% endblock %}
+{% block scripts %}
+    <script src="{{ url_for('catalog.static', filename='js/sync_width.js') }}"></script>
 {% endblock %}

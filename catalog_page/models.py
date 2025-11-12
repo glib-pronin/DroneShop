@@ -23,6 +23,7 @@ class Section(DATABASE.Model):
     position = DATABASE.Column(DATABASE.String)
     image_path = DATABASE.Column(DATABASE.String, nullable=True)
     video_path = DATABASE.Column(DATABASE.String, nullable=True)
+    statistic_string = DATABASE.Column(DATABASE.String, nullable=True)
     product_id = DATABASE.Column(DATABASE.Integer, DATABASE.ForeignKey('product.id'))
 
     product = relationship('Product', back_populates='sections')

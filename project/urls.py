@@ -13,8 +13,10 @@ contacts.add_url_rule(rule='/contacts', view_func=render_contacts_page)
 
 order.add_url_rule(rule='/order', view_func=render_order_page)
 order.add_url_rule(rule='/success', view_func=render_success_page)
+order.add_url_rule(rule='/error_payment', view_func=render_error_page)
 order.add_url_rule(rule='/api/departments', view_func=get_departments, methods=['POST'])
 order.add_url_rule(rule='/make_order', view_func=make_order, methods=['POST'])
+order.add_url_rule(rule='/validate_liqpay', view_func=make_order, methods=['POST'])
 
 catalog.add_url_rule(rule='/catalog', view_func=render_catalog, methods=['GET', 'POST'])
 catalog.add_url_rule(rule='/add_section', view_func=add_section_to_product, methods=['POST'])

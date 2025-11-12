@@ -40,6 +40,11 @@
     min-width: 164px;
 }
 
+.layout .form-rows-container {
+    flex-direction: column-reverse;
+    overflow: hidden;
+}
+
 .form-rows-container .choose-block p, span {
     font-size: 14px;
     font-weight: 400;

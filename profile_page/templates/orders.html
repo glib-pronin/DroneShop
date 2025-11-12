@@ -23,7 +23,7 @@
                                 </div>
                                 <div class="data-block">
                                     <span class="span-caption min-width">Номер відправлення</span>
-                                    <p>{{ order.shipment_number }}</p>
+                                    <p>{{ order.shipment_number if order.shipment_number else 'Ще не визначений'  }}</p>
                                 </div>
                                 <div class="data-block">
                                     <span class="span-caption min-width">Сума замовлення</span>

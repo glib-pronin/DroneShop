@@ -79,9 +79,9 @@ document.addEventListener('DOMContentLoaded', ()=>{
         if (itemContainer) {
             data.product_id = itemContainer.dataset.id
             data.product_quantity = singleProductCount
-            data.from_cart = false
+            data.from_cart = '0'
         } else {
-            data.from_cart = true
+            data.from_cart = '1'
         }
         loadingContainer.classList.remove('hide')
         const res = await fetch('/make_order', {
@@ -114,7 +114,12 @@ document.addEventListener('DOMContentLoaded', ()=>{
                 window.location.href = `/order`
             }
         } else{
-            window.location.href = `/success`
+            window.location.href = res_data.url
+            // const payment_form_container = document.createElement('div')
+            // document.body.append(payment_form_container)
+            // console.log(res_data.form);
+            // payment_form_container.innerHTML = res_data.form
+            // setTimeout(()=>payment_form_container.querySelector('sdk-button').click(), 1000)
         }
     })
 })

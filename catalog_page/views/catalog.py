@@ -32,6 +32,9 @@ def add_section_to_product():
     )
     DATABASE.session.add(section)
     DATABASE.session.commit()
+    print(flask.request.form.get("statistic"))
+    if section.position == "center":
+        section.statistic_string = flask.request.form.get("statistic")
     image = flask.request.files.get('image')
     video = flask.request.files.get('video')
     os.makedirs(products_videos_path, exist_ok=True)

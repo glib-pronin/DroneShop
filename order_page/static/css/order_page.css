@@ -97,3 +97,40 @@
     color: red;
     font-size: 14px;
 }
+
+
+@media (max-width: 1050px) {
+    .content-container {
+        flex-direction: column;
+        align-items: center;
+        gap: 44px;
+    }
+
+    .main-container {
+        width: 80%;
+    }
+}
+
+@media (max-width: 800px) {
+    .main-container {
+        width: 100%;
+    }
+}
+
+@media (max-width: 550px) {
+    .main-container {
+        gap: 24px;
+    }
+}
+
+
+@media (max-width: 440px) {
+    .content-container h2 {
+        font-size: 24px;
+        text-align: center;
+    }
+
+    .content-container h3 {
+        font-size: 20px;
+    }
+}

@@ -80,7 +80,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
             showResultMessage(successMessage)
         } else {
             const p = errorMessage.querySelector('p')
-            p.textContent = 'Під час відправки сталася помилка, спробуйте пізніше.'
+            p.textContent = resData.message === '429 error' ? 'Ви вичерпали ліміт повідомлень, спробуйте пізніше.' : 'Під час відправки сталася помилка, спробуйте пізніше.'
             showResultMessage(errorMessage)
         }
         form.reset()

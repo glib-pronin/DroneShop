@@ -4,6 +4,7 @@ from .load_env import *
 from .db import *
 from .login_manager import *
 from .mail_manager import *
+from .limiter_manager import *
 
 from main_page import main
 from catalog_page import catalog

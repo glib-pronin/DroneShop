@@ -1,5 +1,6 @@
 import flask, re, requests
 from project.load_env import bot_token, admin_chat_id
+from project.limiter_manager import LIMITER
 
 url = f'https://api.telegram.org/bot{bot_token}/sendMessage'
 
@@ -20,7 +21,7 @@ def _send_message_to_admin(data):
         return True
     return False
 
-
+@LIMITER.limit("5 per day")
 def send_message():
     req_data = flask.request.get_json().get("data")
     for key, value in req_data.items():
@@ -33,3 +34,6 @@ def send_message():
     if _send_message_to_admin(req_data):
         return flask.jsonify({"success": True})    
     return flask.jsonify({"success": False, "message": "Error during sending"})
+
+def handle_limiter_error(error):
+    return flask.jsonify({"success": False, "message": "429 error"})

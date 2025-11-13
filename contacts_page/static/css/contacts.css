@@ -85,6 +85,24 @@ header {
     background-color: white;
 }
 
+.result-message {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+
+.result-message p {
+    font-size: 18px;
+}
+
+.result-message.success {
+    color: #4DBC4B;
+}
+
+.result-message.error {
+    color: #B62D11;
+}
+
 @media (max-width: 900px) {
     .contacts-container {
         flex-direction: column-reverse;

@@ -10,6 +10,7 @@ main.add_url_rule(rule='/', view_func=render_main_page)
 about_us.add_url_rule(rule='/about_us', view_func=render_about_us_page)
 
 contacts.add_url_rule(rule='/contacts', view_func=render_contacts_page)
+contacts.add_url_rule(rule='/send_message', view_func=send_message, methods=['POST'])
 
 order.add_url_rule(rule='/order', view_func=render_order_page)
 order.add_url_rule(rule='/success', view_func=render_success_page)

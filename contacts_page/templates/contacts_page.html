@@ -55,22 +55,55 @@
             <form class="contact-form">
                 <div class="contact-form-row">
                     <p>Ім'я</p>
-                    <input type="text" placeholder="Ваше ім'я">
+                    <input type="text" name="name" placeholder="Ваше ім'я">
+                    <p class="error-msg hide-element"></p>
                 </div>
                 <div class="contact-form-row">
                     <p>Телефон</p>
-                    <input type="text" placeholder="+ 38 0">
+                    <input type="text" name="phone_number" placeholder="+ 38 0">
+                    <p class="error-msg hide-element"></p>
                 </div>
                 <div class="contact-form-row">
                     <p>E-mail</p>
-                    <input type="text" placeholder="Ваше E-mail">
+                    <input type="email" name="email" placeholder="Ваше E-mail">
+                    <p class="error-msg hide-element"></p>
                 </div>
                 <div class="contact-form-row">
                     <p>Повідомлення</p>
-                    <textarea name="" id="" placeholder="Ваше повідомлення"></textarea>
+                    <textarea name="message" placeholder="Ваше повідомлення"></textarea>
+                    <p class="error-msg hide-element"></p>
                 </div>
                 <button class="send-btn cursor-pointer">НАДІСЛАТИ</button>
+                 <div class="result-message success hide-element">
+                    <svg width="52" height="52" viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                        <circle cx="26" cy="26" r="16.25" fill="white"/>
+                        <rect width="52" height="52" fill="url(#pattern0_1229_3924)"/>
+                        <defs>
+                            <pattern id="pattern0_1229_3924" patternContentUnits="objectBoundingBox" width="1" height="1">
+                                <use xlink:href="#image0_1229_3924" transform="scale(0.0111111)"/>
+                            </pattern>
+                            <image id="image0_1229_3924" width="90" height="90" preserveAspectRatio="none" xlink:href="data:image/png;base64,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"/>
+                        </defs>
+                    </svg>
+                    <p>Ваше повідомлення успішно надіслане.</p>
+                 </div>
+                 <div class="result-message error hide-element">
+                    <svg width="52" height="52" viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                        <rect width="52" height="52" fill="url(#pattern0_1230_3935)"/>
+                        <defs>
+                            <pattern id="pattern0_1230_3935" patternContentUnits="objectBoundingBox" width="1" height="1">
+                                <use xlink:href="#image0_1230_3935" transform="scale(0.0111111)"/>
+                            </pattern>
+                            <image id="image0_1230_3935" width="90" height="90" preserveAspectRatio="none" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFoAAABaCAYAAAA4qEECAAAACXBIWXMAAAsTAAALEwEAmpwYAAAFbklEQVR4nO2d32tcRRTHB1q1Ut07Z2tM1UKURtDdOVs1CoJKRPyBD6I+REErWH+9KEQtkvrmmz+eSsB/Ig/WmJ25Tfqwj4pEauyLLxUfbP1Ra+qTXUhy5dxc1KTZeDd75s7c3fnCgQvZnTv3k7Pz88y5QgQFBQUFBQUFBQUFBQXl08yE2GXq++4z9eqrWslPjILPjYLvDMJZg/CHQWhnRtdn07+ln5Efr3+nci+VkfN2gyWD1QMGo7cNwpxG+adBSHoxreCSVvCFRjk5d6h6ixhkzdx/4NpmXb6kUZ4yCKu9wu1oClYMygWj5OHWyMgeMShq1YauI0/TSp6zBrezp/+mET44NQaR6FctjomrYoT3NMLFogFfARzholZwlOok+kkxyoeMkmdcA77Sw+X3MVYfFWUXtYlawacaYc011G28e00jTJtRcY0oo+JD0a1Gya9cgzS5vRu+OVmrjIoyiX6OHMM0UzzsS7oRPSLKIKOiZzXKv1xDMzu3tq7D88JnGYQ3rI6JsTBb1QivCx+lVfTM+uTAOaSEC3ZTwXPCJ1G7phEuewAnYba2qVcfFz5o7q7rby9jx2e66CBNvXLQKWQae9KwyDUMY98WnY6zaTLiAYSkEM9GmHY2rfZ5xmf4Qa8ZJccLhdwaF7s1wpLrhzdFm5JnCl2IolU45w+Nrqz6ToHryfC7+wcGJ0bPTgysgzYIU64f1riGreCo9e0ng/IXpgq36Z/WrA3tJ6NrzklPVtaG8rN7MpQtz1vdFqM9PkbPmNpcvkZ4kgM2lUFlbS7fKDjGVn8lX7QGOttIZalosza0f6t7xA14osfVv7ZpyKe2KntW3TjMCDq2Apm27TkXjZodQPcIuyNk0sLd+25mA42waiWUIYu74AwDOLbd/bptRjo1FxvKVPJ9zmfQSr5lATTMsVYSc4DJCZuzrC7tBH+YloJl5kom//dTz9mMcJSx01/lMmv4WRoLxw856dUbHXryP9bEaIwNtEZ4zVZFzc690p0n//efraIjfKApqtMu6KRLcF5Azn5VHzKChtkCQCddNAVOmwtrHWKRS6I6B2yPIJOdZgNtEH4ssOJJnqbBZXOxwTEU/MAG2lEEaLsb2C4gp6bgAhtorlUvYwm2M8hZUxdAY8lAh6YDCms6QmeIxXSGYXiHRQzv6ByfJ5C1ZxMWjfAZG+gwBYdipuB0ItUjyEkP32G3GKOXGUGHZVLTGfQ9bKDDwj8Us/BPorPVvniy8cSzWTvCfysqJ5k9YooTTB7YrHEd64E0b7KDTrfqSx5uMMsa1wEr2z1DT0qzBJQ4gGaBM67DVgBNClrJwzbjOrTlkDDOuA6N8ILtIMefmSrbJtjxHTfcREbX7EGOm8pnC3JU8pz13B+DHYQOGWh4V9jWfGN4Ly0NDixkLCgQnUSB2IMLWk6Kgg8Lfev6oU2/HxYimQY8GI6/FaQ0c8vAeDMcF65Ex3bT47t9783y65mauNoZ6BR2vXIwPZjev568PN+IbhM+KK5HD5c860zSwdpaVR8TPqmJ8ul+S4wSY3VC+ChKj9MXqX4UrFBMuPBZlPKnzM2IRrjsXYqfbVP/lLGDVLBM/Y0ok5p3yhGt5JfO4WFuW3Se0qenVEAI0z7PINdnfHDc+TiZcbq+5CHkJV2HB0Q/qTUudlNSES+WWBVcoFU4qpPoV803hvemO+pK/lS4Byv4lRJ1m9FqRQyKWiMjeygVg1bypNWJDpWtZEx7fAOVen4r0Z4eHWCno2TZ2yh6BUxlnKC4C2shAWXXzITYRfFsRlVf0Sg/omggikGmV4FkJw/S14Nk1/TKkNP0mfSzKjpC3w2vBwkKCgoKCgoKCgoKChL59TdOzn4KVkOJZQAAAABJRU5ErkJggg=="/>
+                        </defs>
+                    </svg>
+                    <p></p>
+                 </div>
             </form>
         </div>
     </div>
+{% endblock %}
+{% block scripts %}
+    <script src="https://unpkg.com/imask"></script>
+    <script src="{{ url_for('contacts.static', filename='js/sendingMessage.js') }}"></script>
 {% endblock %}

@@ -91,17 +91,57 @@ resp = requests.post(
     json=data,
     headers={"X-Token": mono_api_key}  # токен мерчанта MonoPay
 )
-```    
+```
+
+- **Використовується для:**
+    - редіректу користувача на оплату;
+    - обробки статусів (через webhook).
+
 
 ### 2. Nova Posh
 - **Роль:** пошук міст, відділень та поштоматів.
 
 - **Документація:** https://developers.novaposhta.ua/
 
+- **Приклад запиту**
+``` python
+import requests
+
+url = 'https://api.novaposhta.ua/v2.0/json/'
+
+data = {
+    "apiKey": api_key, # api-ключ
+    "modelName": "Address", # сервіс API
+    "calledMethod": "getCities", # метод для отримання списку міст
+    "methodProperties": {}
+}
+resp = requests.post(url, json=data, timeout=10)
+```
+
+- **Використовується для:**
+    - отримання списку міст;
+    - завантаження відділень/поштоматів.
+
 ### 3. Telegram Bot API
 - **Роль:** відправка повідомлень адміністратору.
 
 - **Документація:** https://core.telegram.org/bots/api
+
+- **Приклад запиту**
+``` python
+import requests
+
+url = f'https://api.telegram.org/bot{bot_token}/sendMessage''
+
+data = {
+        "chat_id": admin_chat_id, # id адміністратора
+        "text": "..." # повідомлення
+    }
+    res = requests.post(url=url, data=data)
+```
+
+- **Використовується для:**
+    - швидкого зворотного зв'язку.
 
 ---
 ## Налаштування .env файлу

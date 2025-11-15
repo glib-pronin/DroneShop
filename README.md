@@ -128,8 +128,8 @@ cd drones
 pip install -r requirements.txt
 ```
 
-3. Налаштування:
-    -Створити .env
+3. Налаштування:   
+    - Створити .env
 
 3. Запуск:  
 ```

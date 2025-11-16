@@ -188,7 +188,7 @@ ADMIN_CHAT_ID = admin_id
 
 1. клонування репозиторію:
 ```
-git clone <тут посилання>
+git clone https://github.com/glib-pronin/DroneShop.git
 cd drones
 ```
 

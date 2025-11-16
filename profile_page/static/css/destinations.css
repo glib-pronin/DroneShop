@@ -46,3 +46,7 @@
 .choose-block-header {
     gap: 10px;
 }
+
+.toggle-body {
+    flex-shrink: 0;
+}

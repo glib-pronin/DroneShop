@@ -232,8 +232,8 @@ footer {
 }
 
 #loading span {
+  text-align: center;
   color: white;
-  /* color: #9ea0aa; */
   font-size: 30px;
   font-weight: 500;
   margin-bottom: 20px;

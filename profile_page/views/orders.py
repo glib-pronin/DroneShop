@@ -83,5 +83,11 @@ def render_user_orders():
     orders = crd.orders if crd else None
     orders_dict = None
     if orders:
+        for o in list(orders):
+            if o.payment_method == "now" and not o.is_paied:
+                DATABASE.session.delete(o)
+        DATABASE.session.commit()
+        orders = crd.orders
+    if orders:  
         orders_dict = _collect_orders_dict(orders)
     return flask.render_template('orders.html', my_orders_class='selected', orders_dict=orders_dict)

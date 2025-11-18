@@ -77,6 +77,7 @@ aside .line {
 
     .layout form {
         width: 100% !important;
+        min-height: 40vh;
     }
 }
 

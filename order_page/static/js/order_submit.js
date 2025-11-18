@@ -10,6 +10,12 @@ document.addEventListener('DOMContentLoaded', ()=>{
 
     const requiredFields = ['second_name', 'first_name', 'phone_number', 'email']
 
+    window.addEventListener("pageshow",  (event) => {
+        if (event.persisted) {
+            loadingContainer.classList.add('hide')
+        }
+    })
+
     document.querySelectorAll('input:not([type="radio"])').forEach(field => {
         if (field.name === "phone_number") {
             IMask(
@@ -91,7 +97,6 @@ document.addEventListener('DOMContentLoaded', ()=>{
         })
 
         const res_data = await res.json()
-        loadingContainer.classList.add('hide')
         if (res_data.error){
             if (res_data.error === "missed_field" || res_data.error === "invalid_email" || res_data.error === "invalid_number"){
                 if (res_data.name === "delivery_type") {

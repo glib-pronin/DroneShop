@@ -5,18 +5,20 @@ from catalog_page.models import Product, DATABASE
 from profile_page.models import Credentials, Destinations, select, and_
 from catalog_page.views.cart import _get_cart_ids
 from flask_login import current_user
-from project.load_env import api_key, mono_api_key, liq_private, liq_public
+from project.load_env import api_key, mono_api_key, liq_private, liq_public, admin_chat_id, bot_token
+from project.mail_manager import MAIL_MANAGER, Message
 from .models import Order
 # from liqpay import LiqPay
 
 url = 'https://api.novaposhta.ua/v2.0/json/'
+tg_url = f'https://api.telegram.org/bot{bot_token}/sendMessage'
 mono_url= 'https://api.monobank.ua/api/merchant/invoice/create'
 
 def redirect_payment(amount, from_cart):
     data = {
         "amount": amount,
         "ccy": 980,
-        "redirectUrl": f'http://127.0.0.1:5000/success?from_cart={from_cart}&paied_now=1'
+        "redirectUrl": f"http://127.0.0.1:5000/success?from_cart={from_cart}&paied_now=1"
     }
     resp = requests.post(url=mono_url, json=data, headers={"X-Token": mono_api_key})
     if resp.status_code == 200:
@@ -127,19 +129,73 @@ def render_order_page():
                                  total_price=total_price, total_discounted_price=total_discounted_price, dst=dst,
                                  crd=crd, city_names=get_city_names(api_key=api_key), is_product_from_cart=is_product_from_cart)
 
+def _send_messages_about_order(products_info, whole_price, crd, order):
+    products_text_lines = []
+    for pid, info in products_info.items():
+        products_text_lines.append(f'- {info["name"]} - {info["count"]} шт - {info["price"]} грн/шт')
+    products_text = '\n'.join(products_text_lines)
+    req_body = {
+    "chat_id": admin_chat_id,
+    "text": f"""📦 Нове замовлення #{order.id}
+
+Клієнт: {crd.first_name} {crd.second_name}
+{crd.phone_number}
+{crd.email}
+
+🛍 Товари:
+{products_text}
+💰 Разом: {whole_price} грн
+
+🚚 Доставка: {order.delivary_destination.split('|')[0]}, {order.delivary_destination.split('|')[2]}
+💳 Оплата: {"Online" if order.payment_method == "now" else "При отриманні"}""" 
+    }
+    requests.post(url=tg_url, data=req_body)
+    
+    try:
+        msg = Message(subject='Ваше замовлення', recipients=[crd.email])
+        msg.body = f"""
+Дякуємо за замовлення!
+
+📦 Номер замовлення: {order.id}
+
+🛍 Ваші товари:
+{products_text}
+💰 Разом: {whole_price} грн
+
+Доставка: {order.delivary_destination.split('|')[0]}, {order.delivary_destination.split('|')[2]}
+Оплата: {"Online" if order.payment_method == "now" else "При отриманні"}
+        """
+        MAIL_MANAGER.send(msg)
+    except Exception as e:
+        print(e)
+
 def render_success_page():
     order_id = flask.session.get('order_id')
     from_cart = flask.request.args.get('from_cart')
     paied_now = flask.request.args.get('paied_now')
     if order_id:
         flask.session.pop("order_id")
-        if paied_now == '1':
-            order = DATABASE.session.execute(select(Order).where(Order.id == order_id)).scalar_one_or_none()
-            if order:
+        order = DATABASE.session.execute(select(Order).where(Order.id == order_id)).scalar_one_or_none()
+        if order:
+            products_info = {}
+            whole_price = 0
+            for product in order.product_string.split('; ')[:-1]:
+                product_id = int(product.split('-')[0])
+                whole_price += int(product.split('-')[2])
+                if product_id in products_info:
+                    products_info[product_id]["count"] += 1
+                else:
+                    products_info[product_id] = {"name": "", "price": product.split('-')[2], "count": 1}
+            products = DATABASE.session.execute(select(Product).where(Product.id.in_(products_info.keys()))).scalars().all()
+            for p in products:
+                products_info[p.id]["name"] = p.name
+            crd = DATABASE.session.get(Credentials, order.credentials_id)
+            _send_messages_about_order(products_info, whole_price, crd, order)
+            if paied_now == '1':
                 order.is_paied = True
                 DATABASE.session.commit()
-            else:
-                return flask.redirect('/')
+        else:
+            return flask.redirect('/')
         html = flask.render_template('success.html', order_id=order_id)
         resp = flask.make_response(html)
         if from_cart == '1':

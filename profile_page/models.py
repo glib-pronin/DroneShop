@@ -21,8 +21,8 @@ class Credentials(DATABASE.Model):
     user_id = DATABASE.Column(DATABASE.Integer, DATABASE.ForeignKey('user.id'))
 
     user = relationship('User', back_populates='credentials')
-    orders = relationship('Order', back_populates='credentials')
-    destinations = relationship('Destinations', back_populates='credentials')
+    orders = relationship('Order', back_populates='credentials', cascade="all, delete-orphan")
+    destinations = relationship('Destinations', back_populates='credentials', cascade="all, delete-orphan")
 
 class Destinations(DATABASE.Model):
     id = DATABASE.Column(DATABASE.Integer, primary_key=True)

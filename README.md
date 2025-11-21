@@ -1,6 +1,6 @@
 # Drones
 
-**Drones** - це повнофункціональний інтернет-магазин на Flask з підтримкою офомрлення замовлень, кошика, онлайн-оплати, інтеграції нової Пошти, Telegram-сповіщень адміністратора та особистого кабінету користувача.
+**Drones** - це повнофункціональний інтернет-магазин на Flask з підтримкою офомрлення замовлень, кошика, онлайн-оплати, інтеграції нової Пошти, Telegram-сповіщень адміністратора та особистого кабінету користувача. Цей інтернет-магазин був виконаний як завдання в курсів World IT.
 
 ---
 ## Зміст
@@ -18,6 +18,15 @@
 ## Інтерфейс
 Дизайн інтерфейсу був зроблений у Figma:
 [Посиаллня на Figma](https://www.figma.com/design/HBsneKCybUJf8eQsBKxomk/Shop?node-id=263-19851&t=QaA5UmXsk4fmRK7X-1)
+
+![Main page](project/static/screenshots/main_page.png)
+> Головна сторінка
+
+![Catalog page](project/static/screenshots/catalog.png)
+> Сторінка каталогу
+
+![Cart](project/static/screenshots/cart.png)
+> Кошик
 
 ---
 ## Основні можливості
@@ -63,10 +72,20 @@
 - SQLite - легка вбудована база даних.
 
 **Frontend**
-
 - HTML5, CSS3;
 
-- Jinja2 - шаблонізатор.
+- JavaScripts;
+
+- jQuery;
+
+- Jinja2 - шаблонізатор;
+
+**API**
+- MonoPay API - для проведення тестової оплати; 
+
+- Nova Poshta API - для отримання списків міст, відділень та поштоматів;
+
+- Telegram Bot API - для відправки повідомлень адміністратору в Telegram.
 
 ---
 ## Використані API
@@ -100,7 +119,7 @@ resp = requests.post(
     - обробки статусів (через webhook).
 
 
-### 2. Nova Posh
+### 2. Nova Poshta API
 - **Роль:** пошук міст, відділень та поштоматів.
 
 - **Документація:** https://developers.novaposhta.ua/

@@ -8,11 +8,12 @@ from flask_login import current_user
 from project.load_env import api_key, mono_api_key, liq_private, liq_public, admin_chat_id, bot_token
 from project.mail_manager import MAIL_MANAGER, Message
 from .models import Order
-# from liqpay import LiqPay
+from liqpay import LiqPay
 
 url = 'https://api.novaposhta.ua/v2.0/json/'
 tg_url = f'https://api.telegram.org/bot{bot_token}/sendMessage'
 mono_url= 'https://api.monobank.ua/api/merchant/invoice/create'
+from_cart = None
 
 def redirect_payment(amount, from_cart):
     data = {
@@ -25,19 +26,20 @@ def redirect_payment(amount, from_cart):
         return resp.json().get("pageUrl")
     return '/error_payment'
 
-# def create_liqpay(amount, order_id):
-#     liqpay = LiqPay(liq_public, liq_private)
-#     html = liqpay.cnb_form({
-#         'action': 'pay',
-#         'amount': amount,
-#         'currency': 'UAH',
-#         'description': 'Оплата товарів на сайт "Drones"',
-#         'order_id': order_id,
-#         'version': '3',
-#         'sandbox': 1,  
-#         'server_url': 'http://127.0.0.1:5000/validate_liqpay',
-#     })
-#     return html
+def create_liqpay(amount, order_id):
+    liqpay = LiqPay(liq_public, liq_private)
+    html = liqpay.cnb_form({
+        'action': 'pay',
+        'amount': amount,
+        'currency': 'UAH',
+        'description': 'Оплата товарів на сайт "Drones"',
+        'order_id': order_id,
+        'version': '3',
+        'sandbox': 1,  
+        'server_url': 'https://glibpronin.pythonanywhere.com/validate_liqpay',
+        'result_url': 'https://glibpronin.pythonanywhere.com/liqpay_result'
+    })
+    return html
 
 def get_city_names(api_key):
     data = {
@@ -190,7 +192,7 @@ def render_success_page():
             for p in products:
                 products_info[p.id]["name"] = p.name
             crd = DATABASE.session.get(Credentials, order.credentials_id)
-            _send_messages_about_order(products_info, whole_price, crd, order)
+            # _send_messages_about_order(products_info, whole_price, crd, order)
             if paied_now == '1':
                 order.is_paied = True
                 DATABASE.session.commit()
@@ -332,16 +334,51 @@ def make_order():
     DATABASE.session.add(order)
     DATABASE.session.commit()
     flask.session["order_id"] = order.id
+    from_cart = req_data.get("from_cart")
     if req_data.get("payment_type") == "now":
-        return flask.jsonify({"res": "ok", "url": redirect_payment(order.calc_overall_price(), req_data.get("from_cart"))})
-        # resp = flask.make_response(flask.jsonify({"res": "ok", "form": create_liqpay(order.calc_overall_price(), order.id)}))
+        if req_data.get("bank_type") == "mono":
+            return flask.jsonify({"res": "ok", "url": redirect_payment(order.calc_overall_price(), from_cart)})
+        else:
+            return flask.jsonify({"res": "ok", "url": 'liqpay'})
     else:
-        return flask.jsonify({"res": "ok", "url": f'success?paied_now=0&from_cart={req_data.get("from_cart")}'})
+        return flask.jsonify({"res": "ok", "url": f'success?paied_now=0&from_cart={from_cart}'})
     
-# def validate_liqpay():
-#     liqpay = LiqPay(liq_public, liq_private)
-#     data = flask.request.form.get('data')
-#     signature = flask.request.form.get('signature')
-#     sign = liqpay.str_to_sign(liq_private + data + liq_private)
-#     if sign == signature:
-#         return flask.redirect('/success')
+def render_liqpay():
+    order_id = flask.session.get('order_id')
+    if order_id:
+        order = DATABASE.session.get(Order, int(order_id))
+        html = create_liqpay(order.calc_overall_price(), order.id)
+        return flask.render_template('liqpay.html', liqpay_html = html)
+    return flask.redirect('/')
+
+def render_liqpay_result():
+    order_id = flask.session.get('order_id')
+    if order_id:
+        order = DATABASE.session.get(Order, int(order_id))
+        if order.is_paied:
+            return flask.redirect('/success?from_cart={from_cart}&paied_now=1')
+        else:
+            return flask.redirect('/error_payment')
+    return flask.redirect('/')
+
+def validate_liqpay():
+    print('test')
+    liqpay = LiqPay(liq_public, liq_private)
+    data = flask.request.form.get('data')
+    print(data)
+    signature = flask.request.form.get('signature')
+    sign = liqpay.str_to_sign(liq_private + data + liq_private)
+    if sign != signature:
+        return 'Error'
+    info = liqpay.decode_data_from_str(data)
+    order_id = info.get("order_id")
+    status = info.get("status")
+
+    order = DATABASE.session.get(Order, int(order_id))
+    if order:
+        if status == "success":
+            order.is_paied = True
+        else:
+            order.is_paied = False
+        DATABASE.session.commit()
+    return "OK"

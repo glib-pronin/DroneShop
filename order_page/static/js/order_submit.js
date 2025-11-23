@@ -80,6 +80,10 @@ document.addEventListener('DOMContentLoaded', ()=>{
             isValid = false
         } else {
             data[payment.name] = payment.value
+            const bankType = document.querySelector('input[name="bank_type"]:checked')
+            if (bankType){
+                data[bankType.name] = bankType.value
+            }
         }
         if (!isValid) return
         if (itemContainer) {
@@ -120,11 +124,6 @@ document.addEventListener('DOMContentLoaded', ()=>{
             }
         } else{
             window.location.href = res_data.url
-            // const payment_form_container = document.createElement('div')
-            // document.body.append(payment_form_container)
-            // console.log(res_data.form);
-            // payment_form_container.innerHTML = res_data.form
-            // setTimeout(()=>payment_form_container.querySelector('sdk-button').click(), 1000)
         }
     })
 })

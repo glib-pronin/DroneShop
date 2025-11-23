@@ -48,6 +48,10 @@
     gap: 8px;
 }
 
+.order-form-block.payment-block {
+    gap: 17px;
+}
+
 .choose-container {
     display: flex;
     flex-direction: column;

@@ -1,0 +1,16 @@
+{% extends 'order_base.html' %}
+{% block links %}
+    <link rel="stylesheet" href="{{ url_for('order.static', filename='css/order_page.css') }}">
+    <link rel="stylesheet" href="{{ url_for('order.static', filename='css/success.css') }}">
+{% endblock %}
+{% block content %}
+    <div class="content">
+        <h1>Оплата замовлення</h1>
+        <p>Для оплати вашого замовлення натисність на кнопку</p>
+        {{ liqpay_html | safe }}
+    </div>
+{% endblock %}
+ {% block scripts %}
+    <script src="{{ url_for('order.static', filename='js/nova_poshta.js') }}"></script>
+    <script src="{{ url_for('order.static', filename='js/single_product_editing.js') }}"></script>
+ {% endblock  %}

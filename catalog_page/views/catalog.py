@@ -13,7 +13,6 @@ def render_catalog():
             price = flask.request.form.get('price'),
             discount = flask.request.form.get('discount'),
             summary = flask.request.form.get('summary'),
-            html_description = ''
         )
         DATABASE.session.add(product)
         DATABASE.session.commit()

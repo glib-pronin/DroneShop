@@ -362,10 +362,8 @@ def render_liqpay_result():
     return flask.redirect('/')
 
 def validate_liqpay():
-    print('test')
     liqpay = LiqPay(liq_public, liq_private)
     data = flask.request.form.get('data')
-    print(data)
     signature = flask.request.form.get('signature')
     sign = liqpay.str_to_sign(liq_private + data + liq_private)
     if sign != signature:
@@ -373,12 +371,13 @@ def validate_liqpay():
     info = liqpay.decode_data_from_str(data)
     order_id = info.get("order_id")
     status = info.get("status")
-
     order = DATABASE.session.get(Order, int(order_id))
     if order:
-        if status == "success":
+        if status in ("success", "sandbox"):
             order.is_paied = True
+            print('true')
         else:
             order.is_paied = False
+            print('false')
         DATABASE.session.commit()
     return "OK"

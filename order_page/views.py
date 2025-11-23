@@ -13,7 +13,6 @@ from liqpay import LiqPay
 url = 'https://api.novaposhta.ua/v2.0/json/'
 tg_url = f'https://api.telegram.org/bot{bot_token}/sendMessage'
 mono_url= 'https://api.monobank.ua/api/merchant/invoice/create'
-from_cart = None
 
 def redirect_payment(amount, from_cart):
     data = {
@@ -335,6 +334,7 @@ def make_order():
     DATABASE.session.commit()
     flask.session["order_id"] = order.id
     from_cart = req_data.get("from_cart")
+    flask.session["from_cart"] = from_cart
     if req_data.get("payment_type") == "now":
         if req_data.get("bank_type") == "mono":
             return flask.jsonify({"res": "ok", "url": redirect_payment(order.calc_overall_price(), from_cart)})
@@ -355,6 +355,7 @@ def render_liqpay_result():
     order_id = flask.session.get('order_id')
     if order_id:
         order = DATABASE.session.get(Order, int(order_id))
+        from_cart = flask.session.get('from_cart')
         if order.is_paied:
             return flask.redirect('/success?from_cart={from_cart}&paied_now=1')
         else:

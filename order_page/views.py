@@ -191,7 +191,7 @@ def render_success_page():
             for p in products:
                 products_info[p.id]["name"] = p.name
             crd = DATABASE.session.get(Credentials, order.credentials_id)
-            # _send_messages_about_order(products_info, whole_price, crd, order)
+            _send_messages_about_order(products_info, whole_price, crd, order)
             if paied_now == '1':
                 order.is_paied = True
                 DATABASE.session.commit()
@@ -357,7 +357,7 @@ def render_liqpay_result():
         order = DATABASE.session.get(Order, int(order_id))
         from_cart = flask.session.get('from_cart')
         if order.is_paied:
-            return flask.redirect('/success?from_cart={from_cart}&paied_now=1')
+            return flask.redirect(f'/success?from_cart={from_cart}&paied_now=1')
         else:
             return flask.redirect('/error_payment')
     return flask.redirect('/')

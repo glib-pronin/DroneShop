@@ -6,6 +6,7 @@ class User(DATABASE.Model, flask_login.UserMixin):
     name = DATABASE.Column(DATABASE.String, nullable=False)
     email = DATABASE.Column(DATABASE.String, nullable=False)
     password = DATABASE.Column(DATABASE.String, nullable=False)
+    is_admin = DATABASE.Column(DATABASE.Boolean, default=False)
 
     credentials = relationship('Credentials', back_populates='user')
 

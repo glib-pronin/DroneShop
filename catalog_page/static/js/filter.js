@@ -7,7 +7,7 @@ $(document).ready(()=>{
             type: 'get',
             success: (res)=>{
                 currentPage = res.currentPage
-                renderProducts(res.products)
+                renderProducts(res.products, res.isAdmin)
                 renderPagination(res.totalPages, maxVisible)
             }
         })

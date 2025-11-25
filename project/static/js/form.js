@@ -30,7 +30,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (pcs.length > 0) {
           pcs.forEach((pc) => {
             const [input, passwordHider, passwordShower] = getPasswordContainerElement(pc)
-            passwordShower.classList.contains("hide") ? null : hidePassword(input, passwordHider, passwordShower);
+            passwordShower?.classList.contains("hide") ? null : hidePassword(input, passwordHider, passwordShower);
           });
         }
         container.querySelectorAll("input").forEach(input => input.value = "")
@@ -50,11 +50,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
   for (const passwordContainer of passwordContainers) {
     const [input, passwordHider, passwordShower] = getPasswordContainerElement(passwordContainer)
-    passwordHider.addEventListener("click", () =>
+    passwordHider?.addEventListener("click", () =>
       showPassword(input, passwordHider, passwordShower)
     );
 
-    passwordShower.addEventListener("click", () =>
+    passwordShower?.addEventListener("click", () =>
       hidePassword(input, passwordHider, passwordShower)
     );
   }

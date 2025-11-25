@@ -84,7 +84,7 @@ button {
   position: relative;
 }
 
-.input-container input {
+.input-container input, .input-container select, .input-container textarea  {
   margin-top: 8px;
 }
 

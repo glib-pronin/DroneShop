@@ -1,4 +1,4 @@
-input:not([type="radio"]), textarea {
+input:not([type="radio"], [type="file"]), textarea {
   width: 100%;
   height: 40px;
   border-radius: 4px;
@@ -9,6 +9,34 @@ input:not([type="radio"]), textarea {
   color: #0C122A;
   font-family: "GT Walsheim Pro";
 } 
+
+select {
+  font-size: 16px;
+  padding: 5px 16px;
+  border-radius: 4px;
+  border: 1px solid #ced0d4;
+  appearance: none;
+  width: 140px;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='9' viewBox='0 0 16 9'><path fill-rule='evenodd' clip-rule='evenodd' d='M0.329505 0.329505C0.768845 -0.109835 1.48116 -0.109835 1.9205 0.329505L7.875 6.28401L13.8295 0.329505C14.2688 -0.109835 14.9812 -0.109835 15.4205 0.329505C15.8598 0.768845 15.8598 1.48116 15.4205 1.9205L8.6705 8.6705C8.23116 9.10983 7.51884 9.10983 7.0795 8.6705L0.329505 1.9205C-0.109835 1.48116 -0.109835 0.768845 0.329505 0.329505Z' fill='%23000'/></svg>");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  cursor: pointer;
+}
+
+input[type="file"] {
+  display: none;
+}
+
+label.file-upload {
+  display: block;
+  margin-top: 8px;
+  font-size: 16px;
+  padding: 5px 16px;
+  width: fit-content;
+  border-radius: 4px;
+  border: 1px solid #ced0d4;
+  cursor: pointer;
+}
 
 textarea {
     height: 99px;

@@ -1,25 +1,41 @@
 const productsContainer = document.getElementById('products-container')
 const pagination = document.getElementById('catalog-pagination')
 
-function createSVG(width, height, viewBox, d, fillRule, clipRule, fill){
+function createSVG(width, height, viewBox, d, fillRule, clipRule, fill, addPath=true){
         const svgNS = 'http://www.w3.org/2000/svg'
         const svg = document.createElementNS(svgNS, 'svg')
         svg.setAttribute('width', width)
         svg.setAttribute('height', height)
         svg.setAttribute('viewBox', viewBox)
         svg.setAttribute('fill', 'none')
-        const path = document.createElementNS(svgNS, 'path')
-        if (fillRule) path.setAttribute('fill-rule', fillRule)
-        if (clipRule) path.setAttribute('clip-rule', clipRule)
-        path.setAttribute('d', d)
-        path.setAttribute('fill', fill)
-        svg.append(path)
+        if (addPath) {
+            const path = document.createElementNS(svgNS, 'path')
+            if (fillRule) path.setAttribute('fill-rule', fillRule)
+            if (clipRule) path.setAttribute('clip-rule', clipRule)
+            path.setAttribute('d', d)
+            path.setAttribute('fill', fill)
+            svg.append(path)
+        }
         return svg
     }
 
-    function renderProducts(products){
-        console.log('render');
-        
+function createChangeBtn(id){
+    const changeBtn = document.createElement('div')
+    changeBtn.id = `for-cart-${id}`
+    changeBtn.classList.add('change-product')
+    const svg = createSVG("24", "24", "0 0 24 24", null, null, null, null, addPath=false)
+    const path = document.createElementNS('http://www.w3.org/2000/svg', 'path')
+    path.setAttribute('d', "M16.5 3.49998C16.8978 3.10216 17.4374 2.87866 18 2.87866C18.2786 2.87866 18.5544 2.93353 18.8118 3.04014C19.0692 3.14674 19.303 3.303 19.5 3.49998C19.697 3.69697 19.8532 3.93082 19.9598 4.18819C20.0665 4.44556 20.1213 4.72141 20.1213 4.99998C20.1213 5.27856 20.0665 5.55441 19.9598 5.81178C19.8532 6.06915 19.697 6.303 19.5 6.49998L7 19L3 20L4 16L16.5 3.49998Z")
+    path.setAttribute('stroke', '#1E1E1E')
+    path.setAttribute('stroke-width', '2')
+    path.setAttribute('stroke-linecap', 'round')
+    path.setAttribute('stroke-linejoin', 'round')
+    svg.append(path)
+    changeBtn.append(svg)
+    return changeBtn
+}
+
+    function renderProducts(products, isAdmin){
         productsContainer.querySelectorAll('.product').forEach(p=>p.remove())
         products.forEach(product=>{
             const productLink = document.createElement('a')
@@ -64,8 +80,12 @@ function createSVG(width, height, viewBox, d, fillRule, clipRule, fill){
                 'evenodd', "evenodd", '#0C122A'
             )
             toCart.append(svg)
-
             productLink.append(imageContainer, info, toCart)
+            if (isAdmin) {
+                toCart.classList.add('extra-bottom')
+                const changeBtn = createChangeBtn(product.id)
+                productLink.append(changeBtn)
+            }
             productsContainer.append(productLink)
         })
     }

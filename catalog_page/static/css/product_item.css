@@ -50,7 +50,7 @@
     color: red;
 }
 
-.product .to-cart {
+.product .to-cart, .product .change-product {
     position: absolute;
     width: 44px;
     height: 44px;
@@ -59,24 +59,36 @@
     display: none;
     justify-content: center;
     align-items: center;
-    bottom: 35px;
+    bottom: 25px;
     right: 14px;
     z-index: 3;
     transition: all 0.25s ease;
+}
+
+.product .to-cart.extra-bottom {
+    bottom: 35px;
+}
+
+.product .change-product {
+    bottom: 95px;
 }
 
 .product:hover {
     background-color: #F4F4F4;
 }
 
-.product:hover .to-cart{
+.product:hover .to-cart, .product:hover .change-product{
     display: flex;
 }
 
-.product .to-cart:hover {
+.product .to-cart:hover, .product .change-product:hover {
     background-color: #0C122A;
 }
 
 .product .to-cart:hover path {
     fill: white;
+}
+
+.product .change-product:hover path {
+    stroke: white;
 }

@@ -309,10 +309,14 @@ document.addEventListener('DOMContentLoaded', ()=>{
 
     if (productsContainer){
         productsContainer.addEventListener('click', (e)=>{
-            const toCart = e.target.closest('.to-cart');
-            if (!toCart) return; 
-            e.preventDefault()
-            addProductToCart(toCart, e)
+            const target = e.target
+            if (target.closest('.to-cart')) {
+                e.preventDefault()
+                addProductToCart(target.closest('.to-cart'), e)
+            } else if (target.closest('.change-product')) {
+                e.preventDefault()
+                changeProductHandler(target.closest('.change-product').id.split('-')[2])
+            }
         })
     }
 

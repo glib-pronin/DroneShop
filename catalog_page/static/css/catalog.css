@@ -51,6 +51,24 @@ header {
     transform: scale(1.1);
 }
 
+.add-new-product {
+    padding: 18px 40px;
+    border-radius: 100px;
+    border: 1.5px solid #0C122A;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    background-color: white;
+    cursor: pointer;
+    align-self: flex-start;
+    margin-bottom: 24px;
+    transition: all 0.25s ease;
+}
+
+.add-new-product:hover {
+    background-color: #0C122A;
+    color: white;
+}
+
 .products-container {
     position: relative;
     display: inline-flex;
@@ -84,6 +102,25 @@ header {
 
 .not-clickable path {
     fill: #9EA0AA;
+}
+
+#add-product-form .form-body {
+    margin-bottom: 24px;
+}
+
+#add-product-form .modal-header {
+    margin-bottom: 20px;
+}
+
+.file-upload-wrapper {
+    display: flex;
+    gap: 5px;
+    align-items: center;
+}
+
+.file-upload-wrapper #file-name {
+    margin-top: 8px;
+    font-size: 16px;
 }
 
 @media (max-width: 770px) {

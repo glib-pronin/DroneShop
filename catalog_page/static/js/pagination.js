@@ -10,9 +10,10 @@ const maxVisible = 7
         currentPage = data.currentPage
         console.log(data);
         
-        renderProducts(data.products)
+        renderProducts(data.products, data.isAdmin)
         renderPagination(data.totalPages, maxVisible, currentPage)
     }
+
 document.addEventListener('DOMContentLoaded', ()=>{
     fetchProducts()
 })

@@ -5,14 +5,6 @@
 {% endblock %}
 {% block content %}
     <h2 class="section-header page-header">КАТАЛОГ</h2>
-    <form action="" method="post" enctype="multipart/form-data">
-        <input type="text" name="name" required placeholder="Назва">
-        <input type="number" name="price" required placeholder="Ціна">
-        <input type="number" name="discount" required placeholder="Знижка">
-        <input type="file" name="image" id="" accept="image/*">
-        <textarea name="summary" id="" placeholder="Короткий опис"></textarea>
-        <button>Додати</button>
-    </form>
     <!-- <form action="/add_section" method="post" enctype="multipart/form-data">
         <input type="text" required name="title" placeholder="Заголовок секції">
         <textarea name="section_text" id="" placeholder="Текст секції" required></textarea>
@@ -51,13 +43,104 @@
                 <img src="{{ url_for('catalog.static', filename='/images/filters/thermal_imager.png') }}" alt="">
             </button>
         </div>
+        {% if current_user.is_admin %}
+            <button class="add-new-product" id="add-new-product">
+                ДОДАТИ ТОВАР
+            </button>
+        {% endif %}
         <div class="products-container" id="products-container"></div>
         <div class="catalog-pagination hide-element" id="catalog-pagination"></div>
     </div>
+{% endblock %}
+{% block modals %}
+    {% if current_user.is_admin %}
+        <div class="modal-container" id="add-product-container">
+            <form action="" class="modal-form" id="add-product-form">
+                <div class="modal-header">
+                    <div class="modal-header-text">
+                        <button type="button" class="current-modal btn-text">Додати товар</button>
+                    </div>
+                    <button type="button" class="special-btn close-btn cursor-pointer">
+                        <svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M6.5 5.05945L11.1669 0.392578L12.5 1.7257L7.83312 6.39258L12.5 11.0595L11.1669 12.3926L6.5 7.7257L1.83312 12.3926L0.5 11.0595L5.16688 6.39258L0.5 1.7257L1.83312 0.392578L6.5 5.05945Z" fill="#0C122A"/>
+                        </svg>
+                    </button>
+                    <p class="error-msg general-mistake"></p>
+                </div>
+                <div class="form-body">
+                    <div class="input-container">
+                        <label for="">Назва товару</label> <br>
+                        <input type="" placeholder="Введіть назву товару" required name="name">
+                        <p class="error-msg"></p>
+                    </div>
+                    <div class="input-container">
+                        <label for="">Ціна товару</label> <br>
+                        <input type="number" placeholder="Введіть ціну" required name="price">
+                        <p class="error-msg"></p>
+                    </div>
+                    <div class="input-container">
+                        <label for="">Знижка</label> <br>
+                        <input type="number" placeholder="Введіть знижку цілим числом (0-10)" required name="discount">
+                        <p class="error-msg"></p>
+                    </div>
+                    <div class="input-container">
+                        <label for="">Фото товару</label> <br>
+                        <div class="file-upload-wrapper">
+                            <label class="file-upload" for="upload-image">
+                                <input type="file" name="image" id="upload-image" accept="image/*">
+                                <span>Завантажити файл</span>
+                            </label>
+                            <span id="file-name">Нічого не обрано</span>
+                        </div>
+                    </div>
+                    <div class="input-container">
+                        <label for="">Категорія товару</label> <br>
+                        <select required name="type" id="">
+                            <option value="drone">Дрон</option>
+                            <option value="thermal_imager">Тепловізор</option>
+                        </select>
+                    </div>
+                    <div class="input-container">
+                        <label for="">Опис товару</label> <br>
+                            <textarea name="summary" id="" placeholder="Введіть опис"></textarea>
+                    </div>
+                </div>
+                <div class="buttons buttons-for-adding">
+                    <button class="cancel-btn form-btn cursor-pointer close-btn" type="button">СКАСУВАТИ</button>
+                    <button class="submit-btn form-btn cursor-pointer" type="submit">ДОДАТИ</button>
+                </div>
+                <div class="buttons buttons-for-changing">
+                    <button class="cancel-btn form-btn cursor-pointer close-btn" type="button">ВИДАЛИТИ</button>
+                    <button class="submit-btn form-btn cursor-pointer" type="button">ОНОВИТИ</button>
+                </div>
+            </form>
+        </div>
+        <div class="modal-container" id="product-changing-result-container">
+            <form action="" class="modal-form" id="" method="get">
+                <div class="modal-header">
+                    <div class="modal-header-text">
+                        <button type="button" class="current-modal btn-text"></button>
+                    </div>
+                    <button class="cursor-pointer special-btn close-btn" type="button">
+                        <svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M6.5 5.05945L11.1669 0.392578L12.5 1.7257L7.83312 6.39258L12.5 11.0595L11.1669 12.3926L6.5 7.7257L1.83312 12.3926L0.5 11.0595L5.16688 6.39258L0.5 1.7257L1.83312 0.392578L6.5 5.05945Z" fill="#0C122A"/>
+                        </svg>
+                    </button>
+                </div>
+                <div class="form-body">
+                    <p id="info-container"></p>
+                </div>
+                <div class="buttons">
+                    <button class="submit-btn form-btn cursor-pointer" type="button">ПОВЕРНУТИСЬ НА САЙТ</button>
+                </div>
+            </form>
+        </div>
+    {% endif %}
 {% endblock %}
 {% block scripts %}
     <script src="{{ url_for('catalog.static', filename='js/render_catalog_elements.js') }}"></script>
     <script src="{{ url_for('catalog.static', filename='js/pagination.js') }}"></script>
     <script src="{{ url_for('catalog.static', filename='js/filter.js') }}"></script>
     <script src="{{ url_for('catalog.static', filename='js/text_editor.js') }}"></script>
+    <script src="{{ url_for('catalog.static', filename='js/adding_product.js') }}"></script>
 {% endblock  %}

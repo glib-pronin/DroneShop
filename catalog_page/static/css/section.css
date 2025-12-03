@@ -1,3 +1,9 @@
+.section-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
 .section {
     display: flex;
     align-items: center;
@@ -91,6 +97,17 @@
     font-weight: 700;
 }
 
+.section-btns-container {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.add-statistic {
+    background-color: white;
+    color: #0C122A;
+}
+
 @media (max-width: 1000px) {
     .section.left, .section.right {
         flex-direction: column ;
@@ -160,6 +177,10 @@
 
     .section-statistic-container {
         gap: 8vw;
+    }
+
+    .section-btns-container {
+        flex-direction: column;
     }
 }
 

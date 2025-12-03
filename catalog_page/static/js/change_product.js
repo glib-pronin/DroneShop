@@ -37,30 +37,42 @@ async function changeProductHandler(productId) {
         })
         const closeBtn = addProductContainer.querySelector('.close-btn')
         deleteBtn.replaceWith(deleteBtn.cloneNode(true))
-        addProductContainer.querySelector('.buttons-for-changing .cancel-btn').addEventListener('click', ()=>deleteProduct(productId, closeBtn, generalErrorcontainer))
+        addProductContainer.querySelector('.buttons-for-changing .cancel-btn').addEventListener('click', ()=>deleteProduct(productId, closeBtn))
         updateBtn.replaceWith(updateBtn.cloneNode(true))
         addProductContainer.querySelector('.buttons-for-changing .submit-btn').addEventListener('click', ()=>updateProduct(productId, new FormData(addProductForm), closeBtn, addProductForm, generalErrorcontainer))
     }
 }
 
-async function deleteProduct(productId, closeBtn, generalErrorcontainer){
-    const res = await fetch('/api/deleteProduct', {
-        method: "POST",
-        headers: {"Content-Type": "application/json"},
-        body: JSON.stringify({id: productId})
-    })
-    const data = await res.json()
-    if (data.success) {
+function deleteProduct(productId, closeBtn){
         closeBtn.click()
-        fetchProducts()
-        handleRsult('Видалення товару', 'Товар успішно видалено з каталогу')
-    } else {
-        if (data.error === "rights_error") {
-            generalErrorcontainer.textContent = "Вам недостпна така дія"
-        } else if (data.error === "incorrect_id") {
-            generalErrorcontainer.textContent = "Сталася помилка під час виадлення"
+        confirmDeleting(productId)
+}
+
+async function confirmDeleting(productId) {
+    const confirmationContainer = document.getElementById('confirm-product-deleting')
+    confirmationContainer.classList.add('show')
+    document.documentElement.classList.add('no-scroll')
+    const deleteBtn = confirmationContainer.querySelector('#confirm-deleting-btn')
+    deleteBtn.replaceWith(deleteBtn.cloneNode(true))
+    confirmationContainer.querySelector('#confirm-deleting-btn').addEventListener('click', async ()=> {
+        const res = await fetch('/api/deleteProduct', {
+            method: "POST",
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify({id: productId})
+        })
+        const data = await res.json()
+        if (data.success) {
+            confirmationContainer.querySelector('.close-btn').click()
+            fetchProducts()
+            handleRsult('Видалення товару', 'Товар успішно видалено з каталогу')
+        } else {
+            if (data.error === "rights_error") {
+                handleRsult('Видалення товару', 'Вам недостпна така дія')
+            } else if (data.error === "incorrect_id") {
+                handleRsult('Видалення товару', 'Сталася помилка під час виадлення')
+            }
         }
-    }
+    })
 }
 
 async function updateProduct(productId, formData, closeBtn, addProductForm, generalErrorcontainer) {
@@ -93,7 +105,7 @@ async function updateProduct(productId, formData, closeBtn, addProductForm, gene
         }
     } else {
         if (data.error === "rights_error") {
-            generalErrorcontainer.textContent = "Вам недостпна така дія"
+            generalErrorcontainer.textContent = "Вам недоступна така дія"
         } else if (data.error === "incorrect_id") {
             generalErrorcontainer.textContent = "Сталася помилка під час оновлення"
         }

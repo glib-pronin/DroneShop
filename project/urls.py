@@ -23,7 +23,10 @@ order.add_url_rule(rule='/validate_liqpay', view_func=validate_liqpay, methods=[
 order.add_url_rule(rule='/liqpay_result', view_func=render_liqpay_result)
 
 catalog.add_url_rule(rule='/catalog', view_func=render_catalog, methods=['GET', 'POST'])
-catalog.add_url_rule(rule='/add_section', view_func=add_section_to_product, methods=['POST'])
+catalog.add_url_rule(rule='/api/add_section', view_func=add_section_to_product, methods=['POST'])
+catalog.add_url_rule(rule='/api/get_section/<int:section_id>', view_func=get_section)
+catalog.add_url_rule(rule='/api/deleteSection', view_func=delete_section, methods=['POST'])
+catalog.add_url_rule(rule='/api/updateSection', view_func=update_section, methods=['POST'])
 catalog.add_url_rule(rule='/api/products', view_func=get_products, methods=['GET', 'POST'])
 catalog.add_url_rule(rule='/api/get_product/<int:productId>', view_func=get_product_info)
 catalog.add_url_rule(rule='/api/deleteProduct', view_func=delete_product, methods=['POST'])

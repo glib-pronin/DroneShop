@@ -6,24 +6,6 @@
 {% block content %}
     <h2 class="section-header page-header">КАТАЛОГ</h2>
     <!-- <form action="/add_section" method="post" enctype="multipart/form-data">
-        <input type="text" required name="title" placeholder="Заголовок секції">
-        <textarea name="section_text" id="" placeholder="Текст секції" required></textarea>
-        <input type="file" name="image" id="" accept="image/*">  
-        <input type="file" name="video" id="" accept="video/*">
-        <label for="">Розтташування новини</label>
-        <select name="position" id="" required>
-            <option value="center">По центру</option>
-            <option value="left">Ліворуч</option>
-            <option value="right">Праворуч</option>
-        </select>
-        {% if products %}
-        <label for="">Товар</label>
-            <select name="product_id" id="">
-                {% for product in products %}
-                    <option value="{{ product.id }}">{{ product.name }}</option>
-                {% endfor %}
-            </select>
-        {% endif %} 
         <div style="display: flex; justify-content: center; gap: 20px;">
             <button id="block-btn" type="button">block</button>
             <button id="first-line-btn" type="button">first line</button>
@@ -80,7 +62,7 @@
                     </div>
                     <div class="input-container">
                         <label for="">Знижка</label> <br>
-                        <input type="number" placeholder="Введіть знижку цілим числом (0-10)" required name="discount">
+                        <input type="number" placeholder="Введіть знижку цілим числом (0-100)" required name="discount">
                         <p class="error-msg"></p>
                     </div>
                     <div class="input-container">
@@ -112,6 +94,27 @@
                 <div class="buttons buttons-for-changing">
                     <button class="cancel-btn form-btn cursor-pointer close-btn" type="button">ВИДАЛИТИ</button>
                     <button class="submit-btn form-btn cursor-pointer" type="button">ОНОВИТИ</button>
+                </div>
+            </form>
+        </div>
+        <div class="modal-container" id="confirm-product-deleting">
+            <form action="" class="modal-form" method="get">
+                <div class="modal-header">
+                    <div class="modal-header-text">
+                        <button type="button" class="current-modal btn-text">Видалення товару</button>
+                    </div>
+                    <button class="cursor-pointer special-btn close-btn" type="button">
+                        <svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M6.5 5.05945L11.1669 0.392578L12.5 1.7257L7.83312 6.39258L12.5 11.0595L11.1669 12.3926L6.5 7.7257L1.83312 12.3926L0.5 11.0595L5.16688 6.39258L0.5 1.7257L1.83312 0.392578L6.5 5.05945Z" fill="#0C122A"/>
+                        </svg>
+                    </button>
+                </div>
+                <div class="form-body">
+                    <p id="info-container">Ви впевнені, що хочете видалити товар?</p>
+                </div>
+                <div class="buttons">
+                    <button class="cancel-btn form-btn cursor-pointer close-btn" type="button">СКАСУВАТИ</button>
+                    <button class="submit-btn form-btn cursor-pointer" id="confirm-deleting-btn" type="button">ВИДАЛИТИ</button>
                 </div>
             </form>
         </div>

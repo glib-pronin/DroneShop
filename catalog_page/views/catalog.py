@@ -90,33 +90,6 @@ def update_product():
     DATABASE.session.commit()
     return flask.jsonify({"success": True})
 
-def add_section_to_product():
-    section = Section(
-        title=flask.request.form.get('title'),
-        section_text=flask.request.form.get('section_text'),
-        position = flask.request.form.get('position'),
-        product_id = flask.request.form.get('product_id')
-    )
-    DATABASE.session.add(section)
-    DATABASE.session.commit()
-    print(flask.request.form.get("statistic"))
-    if section.position == "center":
-        section.statistic_string = flask.request.form.get("statistic")
-    image = flask.request.files.get('image')
-    video = flask.request.files.get('video')
-    os.makedirs(products_videos_path, exist_ok=True)
-    os.makedirs(products_images_path, exist_ok=True)
-    if image:
-        filename = f'{section.id}_{section.position}_image.png'
-        image.save(f'{products_images_path}/{filename}')
-        section.image_path = filename
-    elif video:
-        filename = f'{section.id}_{section.position}_video.mp4'
-        video.save(f'{products_videos_path}/{filename}')
-        section.video_path = filename
-    DATABASE.session.commit()
-    return flask.redirect('/catalog')
-
 def get_products():
     page = int(flask.request.args.get("page", 1))
     type = flask.request.args.get('type', 'all')

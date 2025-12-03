@@ -103,7 +103,9 @@
     gap: 24px;
 }
 
-.view-all-btn {
+.view-all-btn, .add-new-section, .change-section, .add-statistic {
+    width: fit-content;
+    align-self: center;
     font-size: 14px;
     color: white;
     background-color: #0C122A;
@@ -111,6 +113,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    letter-spacing: 1.5px;
     padding: 18px 40px;
     border-radius: 100px;
     box-sizing: border-box;
@@ -122,13 +125,24 @@
     margin-left: 16px;
 }
 
-.view-all-btn:hover {
+.view-all-btn:hover, .add-new-section:hover {
     background-color: white;
     color: #0C122A;
 }
 
 .view-all-btn:hover path {
     fill: #0C122A;
+}
+
+.file-upload-wrapper {
+    display: flex;
+    gap: 5px;
+    align-items: center;
+}
+
+.file-upload-wrapper #file-name {
+    margin-top: 8px;
+    font-size: 16px;
 }
 
 @media (max-width: 1000px) {

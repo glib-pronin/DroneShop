@@ -151,6 +151,14 @@
     color: white;
 }
 
+.clickable-number {
+    transition: transform 0.25s ease;
+}
+
+.clickable-number:hover {
+    transform: scale(1.1);
+}
+
 @media (max-width: 1450px) {
     .choose-block-header-block img {
         display: none;

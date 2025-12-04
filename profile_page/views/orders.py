@@ -5,6 +5,7 @@ from catalog_page.models import Product, DATABASE, select, and_
 from order_page.models import Order
 from .destinations import _safe_id
 from ..decorators import login_required
+from catalog_page.decorator import admin_required
 
 def _get_short_place(place):
     parts = place.split(':')
@@ -58,6 +59,11 @@ def _collect_orders_dict(orders):
             "city": dest[0],
             "delivery_type": dest[1],
             "dest": _get_short_place(dest[2]),
+            "user": {
+                "first_name": order.credentials.first_name,
+                "second_name": order.credentials.second_name,
+                "phone_number": order.credentials.phone_number
+            }
         }
     return orders_dict
 
@@ -80,14 +86,37 @@ def render_user_orders():
         order.status = "Скасовано-6"
         DATABASE.session.commit()
         return flask.jsonify({"success": True})
-    orders = crd.orders if crd else None
+    if current_user.is_admin:
+        orders = DATABASE.session.execute(select(Order)).scalars().all()
+    else:
+        orders = crd.orders if crd else None
     orders_dict = None
     if orders:
         for o in list(orders):
             if o.payment_method == "now" and not o.is_paied:
                 DATABASE.session.delete(o)
         DATABASE.session.commit()
-        orders = crd.orders
+        orders = DATABASE.session.execute(select(Order)).scalars().all() if current_user.is_admin else crd.orders
     if orders:  
         orders_dict = _collect_orders_dict(orders)
     return flask.render_template('orders.html', my_orders_class='selected', orders_dict=orders_dict)
+
+@admin_required
+def update_shipment_number():
+    data = flask.request.get_json()
+    order_id = _safe_id(data.get("order_id"))
+    shipment_number = data.get("shipment_number")
+    if not order_id:
+        return flask.jsonify({"success": False, "error": "invalid id"})
+    order = DATABASE.session.get(Order, order_id)
+    if not order:
+        return flask.jsonify({"success": False, "error": "such an order does not exist"})
+    if shipment_number == "Ще не визначений" or shipment_number in ('0', ''):
+        order.shipment_number = None
+        value_for_front = "Ще не визначений"
+    else:
+        order.shipment_number = shipment_number
+        value_for_front = shipment_number
+    DATABASE.session.commit()
+    return flask.jsonify({"success": True, "shipmentNumber": value_for_front})
+

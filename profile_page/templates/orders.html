@@ -8,7 +8,7 @@
 {% block page_content %}
     <form action="" method="post" id="contact-form">
         {% if orders_dict %}
-            <h3>Мої замовлення</h3>
+            <h3>{{ 'Мої замовлення' if not current_user.is_admin else 'Усі замовлення' }}</h3>
             <div class="form-rows-container">
                 {% for order_id, order in orders_dict.items() %}
                     <div class="choose-block">
@@ -23,7 +23,7 @@
                                 </div>
                                 <div class="data-block">
                                     <span class="span-caption min-width">Номер відправлення</span>
-                                    <p>{{ order.shipment_number if order.shipment_number else 'Ще не визначений'  }}</p>
+                                    <p class="{{ '' if not current_user.is_admin else 'cursor-pointer clickable-number' }}" data-order-id="{{ order_id }}">{{ order.shipment_number if order.shipment_number else 'Ще не визначений' }}</p>
                                 </div>
                                 <div class="data-block">
                                     <span class="span-caption min-width">Сума замовлення</span>
@@ -43,7 +43,7 @@
                             <div>
                                 <div class="data-block in-row">
                                     <span class="span-caption">Номер відправлення: </span>
-                                    <p>{{ order.shipment_number }}</p>
+                                    <p class="{{ '' if not current_user.is_admin else 'number-for-admin' }}">{{ order.shipment_number if order.shipment_number else 'Ще не визначений'  }}</p>
                                     <svg class="cursor-pointer copy_code" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <path fill-rule="evenodd" clip-rule="evenodd" d="M7.3335 6.66634C6.96531 6.66634 6.66683 6.96482 6.66683 7.33301V13.333C6.66683 13.7012 6.96531 13.9997 7.3335 13.9997H13.3335C13.7017 13.9997 14.0002 13.7012 14.0002 13.333V7.33301C14.0002 6.96482 13.7017 6.66634 13.3335 6.66634H7.3335ZM5.3335 7.33301C5.3335 6.22844 6.22893 5.33301 7.3335 5.33301H13.3335C14.4381 5.33301 15.3335 6.22844 15.3335 7.33301V13.333C15.3335 14.4376 14.4381 15.333 13.3335 15.333H7.3335C6.22893 15.333 5.3335 14.4376 5.3335 13.333V7.33301Z" fill="black"/>
                                         <path fill-rule="evenodd" clip-rule="evenodd" d="M2.6665 2.00033C2.48969 2.00033 2.32012 2.07056 2.1951 2.19559C2.07008 2.32061 1.99984 2.49018 1.99984 2.66699V8.66699C1.99984 8.8438 2.07008 9.01337 2.1951 9.1384C2.32012 9.26342 2.48969 9.33366 2.6665 9.33366H3.33317C3.70136 9.33366 3.99984 9.63214 3.99984 10.0003C3.99984 10.3685 3.70136 10.667 3.33317 10.667H2.6665C2.13607 10.667 1.62736 10.4563 1.25229 10.0812C0.877218 9.70613 0.666504 9.19743 0.666504 8.66699V2.66699C0.666504 2.13656 0.877217 1.62785 1.25229 1.25278C1.62736 0.877706 2.13607 0.666992 2.6665 0.666992H8.6665C9.19694 0.666992 9.70564 0.877706 10.0807 1.25278C10.4558 1.62785 10.6665 2.13656 10.6665 2.66699V3.33366C10.6665 3.70185 10.368 4.00033 9.99984 4.00033C9.63165 4.00033 9.33317 3.70185 9.33317 3.33366V2.66699C9.33317 2.49018 9.26293 2.32061 9.13791 2.19559C9.01288 2.07056 8.84332 2.00033 8.6665 2.00033H2.6665Z" fill="black"/>
@@ -98,8 +98,8 @@
                                     </div>
                                     <div class="data-block">
                                         <span class="span-caption min-width">Отримувач</span>
-                                        <p>{{ current_user.credentials[0].first_name }} {{ current_user.credentials[0].second_name }}</p>
-                                        <p>{{ current_user.credentials[0].phone_number }}</p>
+                                        <p>{{ order.user.first_name }} {{ order.user.second_name }}</p>
+                                        <p>{{ order.user.phone_number }}</p>
                                     </div>
                                 </div>
                                 <div class="vertical-line"></div>
@@ -191,8 +191,35 @@
             </div>
         </form>
     </div>
+    <div class="modal-container" id="shipment-number-container">
+        <form action="" class="modal-form" id="shipment-number-form">
+            <div class="modal-header">
+                <div class="modal-header-text">
+                    <button type="button" class="current-modal btn-text">Оновити номер відправлення</button>
+                </div>
+                <button type="button" class="special-btn close-btn cursor-pointer">
+                    <svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M6.5 5.05945L11.1669 0.392578L12.5 1.7257L7.83312 6.39258L12.5 11.0595L11.1669 12.3926L6.5 7.7257L1.83312 12.3926L0.5 11.0595L5.16688 6.39258L0.5 1.7257L1.83312 0.392578L6.5 5.05945Z" fill="#0C122A"/>
+                    </svg>
+                </button>
+                <p class="error-msg general-mistake"></p>
+            </div>
+            <div class="form-body">
+                <div class="input-container">
+                    <label for="">Номер відпрвалення (введіть 0, якщо ще нема)</label> <br>
+                    <input type="text" placeholder="Введіть номер відправлення" required name="shipmentNumber">
+                    <p class="error-msg"></p>
+                </div>
+            </div>
+            <div class="buttons">
+                <button class="cancel-btn form-btn cursor-pointer close-btn" type="button">СКАСУВАТИ</button>
+                <button class="submit-btn form-btn cursor-pointer" type="submit">ОНОВИТИ</button>
+            </div>
+        </form>
+    </div>
 {% endblock %}
 {% block scripts %}
  <script src="{{ url_for('profile.static', filename='js/svg_creation.js') }}"></script>
  <script src="{{ url_for('profile.static', filename='js/orders.js') }}"></script>
+ <script src="{{ url_for('profile.static', filename='js/shipment_number.js') }}"></script>
 {% endblock %}

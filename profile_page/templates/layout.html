@@ -10,7 +10,7 @@
             <div class="line"></div>
             <div class="aside-container">
                 <a class="cursor-pointer {{ credentials_class }}" href="/credentials">КОНТАКТНІ ДАНІ</a>
-                <a class="cursor-pointer {{ my_orders_class }}" href="/orders">МОЇ ЗАМОВЛЕННЯ</a>
+                <a class="cursor-pointer {{ my_orders_class }}" href="/orders">{{ 'МОЇ ЗАМОВЛЕННЯ' if not current_user.is_admin else 'УСІ ЗАМОВЛЕННЯ' }}</a>
                 <a class="cursor-pointer {{ address_class }}" href="/destinations">АДРЕСА ДОСТАВКИ</a>
                 <div class="line"></div>
                 <a class="cursor-pointer" href="/logout">ВИЙТИ</a>

@@ -30,6 +30,9 @@
                         <div class="section-statistic-container">
                             {{ section.statistic_string | safe }}
                         </div>
+                        <button class="change-statistic cursor-pointer" data-section-id="{{ section.id }}">
+                            ЗМІНИТИ СТАТИСТИКУ
+                        </button>
                     {% endif %}
                     <div class="media-container">
                         {% if section.image_path %}
@@ -40,7 +43,7 @@
                     </div>
                 </div>
                 <div class="section-btns-container">
-                    {% if section.position == "center" %}
+                    {% if section.position == "center" and not section.statistic_string %}
                         <button class="add-statistic cursor-pointer" data-section-id="{{ section.id }}">
                             ДОДАТИ СТАТИСТИКУ
                         </button>
@@ -193,7 +196,7 @@
             <form action="" class="modal-form" method="get">
                 <div class="modal-header">
                     <div class="modal-header-text">
-                        <button type="button" class="current-modal btn-text">Видалення товару</button>
+                        <button type="button" class="current-modal btn-text"></button>
                     </div>
                     <button class="cursor-pointer special-btn close-btn" type="button">
                         <svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -202,7 +205,7 @@
                     </button>
                 </div>
                 <div class="form-body">
-                    <p id="info-container">Ви впевнені, що хочете видалити секцію?</p>
+                    <p id="info-container"></p>
                 </div>
                 <div class="buttons">
                     <button class="cancel-btn form-btn cursor-pointer close-btn" type="button">СКАСУВАТИ</button>
@@ -230,9 +233,44 @@
                 </div>
             </form>
         </div>
+        <div class="modal-container" id="add-statistic-container">
+            <form action="" class="modal-form" id="add-statistic-form">
+                <div class="modal-header">
+                    <div class="modal-header-text">
+                        <button type="button" class="current-modal btn-text"></button>
+                    </div>
+                    <button type="button" class="special-btn close-btn cursor-pointer">
+                        <svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M6.5 5.05945L11.1669 0.392578L12.5 1.7257L7.83312 6.39258L12.5 11.0595L11.1669 12.3926L6.5 7.7257L1.83312 12.3926L0.5 11.0595L5.16688 6.39258L0.5 1.7257L1.83312 0.392578L6.5 5.05945Z" fill="#0C122A"/>
+                        </svg>
+                    </button>
+                </div>
+                <div class="form-body">
+                    <div class="input-container">
+                        <div class="text-editor-btns">
+                            <button class="cursor-pointer" id="block-btn" type="button">блок</button>
+                            <button class="cursor-pointer" id="first-line-btn" type="button">1-й рядок</button>
+                            <button class="cursor-pointer" id="second-line-btn" type="button">2-й рядок</button>
+                            <button class="cursor-pointer" id="big-text-btn" type="button">тескт</button>
+                        </div>
+                        <textarea name="statistic" id="edit-textarea" placeholder="Введіть текст статистики та за допомогою кнопок обгорніть його в теги"></textarea>
+                    </div>
+                </div>
+                <div class="buttons buttons-for-adding">
+                    <button class="cancel-btn form-btn cursor-pointer close-btn" type="button">СКАСУВАТИ</button>
+                    <button class="submit-btn form-btn cursor-pointer" type="submit">ДОДАТИ</button>
+                </div>
+                <div class="buttons buttons-for-changing">
+                    <button class="cancel-btn form-btn cursor-pointer close-btn" type="button">ВИДАЛИТИ</button>
+                    <button class="submit-btn form-btn cursor-pointer" type="button">ОНОВИТИ</button>
+                </div>
+            </form>
+        </div>
     {% endif %}
 {% endblock %}
 {% block scripts %}
     <script src="{{ url_for('catalog.static', filename='js/sync_width.js') }}"></script>
+    <script src="{{ url_for('catalog.static', filename='js/section_statistic.js') }}"></script>
     <script src="{{ url_for('catalog.static', filename='js/product_section.js') }}"></script>
+    <script src="{{ url_for('catalog.static', filename='js/text_editor.js') }}"></script>
 {% endblock %}

@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', ()=>{
-    const form = document.querySelector('form')
+    const form = document.querySelector('#add-statistic-form')
     if (form) {
         const blockBtn = form.querySelector('#block-btn')
         const firstLineBtn = form.querySelector('#first-line-btn')

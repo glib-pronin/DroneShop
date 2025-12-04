@@ -5,16 +5,6 @@
 {% endblock %}
 {% block content %}
     <h2 class="section-header page-header">КАТАЛОГ</h2>
-    <!-- <form action="/add_section" method="post" enctype="multipart/form-data">
-        <div style="display: flex; justify-content: center; gap: 20px;">
-            <button id="block-btn" type="button">block</button>
-            <button id="first-line-btn" type="button">first line</button>
-            <button id="second-line-btn" type="button">second line</button>
-            <button id="big-text-btn" type="button">big text</button>
-        </div>
-        <textarea name="statistic" id="edit-textarea"></textarea>
-        <button>Додати</button>
-    </form> -->
     <div class="products-wrapper">
         <div class="catalog-filter">
             <button href="" class="filter-criteria selected-criteria cursor-pointer" id="all">Всі</button>
@@ -144,6 +134,5 @@
     <script src="{{ url_for('catalog.static', filename='js/render_catalog_elements.js') }}"></script>
     <script src="{{ url_for('catalog.static', filename='js/pagination.js') }}"></script>
     <script src="{{ url_for('catalog.static', filename='js/filter.js') }}"></script>
-    <script src="{{ url_for('catalog.static', filename='js/text_editor.js') }}"></script>
     <script src="{{ url_for('catalog.static', filename='js/adding_product.js') }}"></script>
 {% endblock  %}

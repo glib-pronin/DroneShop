@@ -8,7 +8,6 @@ document.addEventListener('DOMContentLoaded', ()=>{
     const videoNameSpan = sectionForm.querySelector('#video-name')
     const changeBtns = document.querySelectorAll('.change-section')
     const confirmContainer = document.getElementById('confirm-deleting')
-    const resultContainer = document.getElementById('changing-result-container')
 
     openFormBtn.addEventListener('click', ()=>{
         sectionFormContainer.classList.add('show')
@@ -97,14 +96,6 @@ document.addEventListener('DOMContentLoaded', ()=>{
         openFormBtn.parentElement.insertBefore(mainWrapper, openFormBtn)
     }
 
-    function createStatisticBtn(container, id) {
-        const addStatisticBtn = document.createElement('button')
-        addStatisticBtn.classList.add('add-statistic', 'cursor-pointer')
-        addStatisticBtn.textContent = 'ДОДАТИ СТАТИСТИКУ'
-        addStatisticBtn.dataset.sectionId = id
-        container.prepend(addStatisticBtn)
-    }
-
     function fillMedia(section, container){
         if (section.image_path) {
             const img = document.createElement('img')
@@ -153,6 +144,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
     async function handleDeleting(sectionId) {
         confirmContainer.classList.add('show')
         document.documentElement.classList.add('no-scroll')
+        setupConfirmContainer('Видалення секції', 'Ви впевнені, що хочете видалити секцію?')
         const confirmBtn = confirmContainer.querySelector('#confirm-deleting-btn')
         confirmBtn.replaceWith(confirmBtn.cloneNode(true))
         confirmContainer.querySelector('#confirm-deleting-btn').addEventListener('click', async ()=>{
@@ -171,8 +163,6 @@ document.addEventListener('DOMContentLoaded', ()=>{
     } 
 
     async function handleUpdating(sectionId) {
-        console.log('text');
-        
         const formData = new FormData(sectionForm)
         formData.append("id", sectionId)
         const res = await fetch('/api/updateSection', {
@@ -194,22 +184,11 @@ document.addEventListener('DOMContentLoaded', ()=>{
         const sectionEl = wrapper.querySelector('.section')
         sectionEl.className = `section ${section.position}`
         wrapper.querySelector('.add-statistic')?.remove()
-        if (section.position === "center") {
+        if (section.position === "center" && !wrapper.querySelector('.section-statistic-container')) {
             createStatisticBtn(wrapper.querySelector('.section-btns-container'), section.id)
         }
         const mediaContainer = wrapper.querySelector('.media-container')
         mediaContainer.innerHTML = ''
         fillMedia(section, mediaContainer)
     }
-
-    function showResult(headerText, bodyText) {
-        resultContainer.classList.add('show')
-        document.documentElement.classList.add('no-scroll')
-        resultContainer.querySelector('.modal-header-text .current-modal.btn-text').textContent = headerText
-        resultContainer.querySelector('.form-body #info-container').textContent = bodyText
-        const btn = resultContainer.querySelector('.submit-btn')
-        btn.replaceWith(btn.cloneNode(true))
-        resultContainer.querySelector('.submit-btn').addEventListener('click', ()=>resultContainer.querySelector('.close-btn').click())
-    }
-
 })

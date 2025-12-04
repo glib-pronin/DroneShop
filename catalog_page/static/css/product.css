@@ -103,7 +103,7 @@
     gap: 24px;
 }
 
-.view-all-btn, .add-new-section, .change-section, .add-statistic {
+.view-all-btn, .add-new-section, .change-section, .add-statistic, .change-statistic {
     width: fit-content;
     align-self: center;
     font-size: 14px;
@@ -125,7 +125,7 @@
     margin-left: 16px;
 }
 
-.view-all-btn:hover, .add-new-section:hover {
+.view-all-btn:hover, .add-new-section:hover, .change-statistic:hover {
     background-color: white;
     color: #0C122A;
 }
@@ -143,6 +143,20 @@
 .file-upload-wrapper #file-name {
     margin-top: 8px;
     font-size: 16px;
+}
+
+.text-editor-btns  {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.text-editor-btns button {
+    background-color: white;
+    padding: 5px 10px;
+    border: 1.5px solid #0C122A;
+    border-radius: 100px;
+    margin-bottom: 10px;
 }
 
 @media (max-width: 1000px) {

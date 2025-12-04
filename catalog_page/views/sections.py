@@ -1,6 +1,6 @@
 import flask, os
 from ..decorator import admin_required
-from ..models import Product, Section, DATABASE, select, and_
+from ..models import Product, Section, DATABASE
 
 products_images_path = os.path.abspath(__file__+'/../../static/images/products')
 products_videos_path = os.path.abspath(__file__+'/../../static/videos')

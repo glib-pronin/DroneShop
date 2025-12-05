@@ -10,6 +10,8 @@ def _bind_user_with_credentials(user_id, user_email):
     if crd and crd.user_id is None:
         crd.user_id = user_id
         DATABASE.session.commit()
+        return True
+    return False
 
 @anonymous_required
 def register():
@@ -33,7 +35,12 @@ def register():
     DATABASE.session.add(user)
     DATABASE.session.commit()
     login_user(user)
-    _bind_user_with_credentials(user.id, user.email)
+    if not _bind_user_with_credentials(user.id, user.email):
+        crd = Credentials()
+        crd.email = email
+        crd.user_id = user.id
+        DATABASE.session.add(crd)
+        DATABASE.session.commit()
     return flask.jsonify({"success": True})
 
 @anonymous_required

@@ -24,6 +24,7 @@
     height: 100%;
     background-color: #0C122A;
     border-radius: 6px;
+    transition: width 1s ease;
 }
 
 .steps-container {
@@ -53,6 +54,16 @@
     box-sizing: border-box;
 }
 
+.admin-progress-bar .step .step-caption {
+    cursor: pointer;
+    transition: all 0.25s ease;
+}
+
+.admin-progress-bar .step .step-caption:hover {
+    color: #0C122A;
+    transform: scale(1.1);
+}
+
 .progress-bar.selected-1 .progress {
     width: 5%;
 }
@@ -70,7 +81,7 @@
 }
 
 .progress-bar.selected-5 .progress {
-    width: 96%;
+    width: 95%;
 }
 
 .steps-container.selected-1 .step:nth-child(1) span {

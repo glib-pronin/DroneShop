@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
     let orderBlock = null
 
     confirmationForm.addEventListener('submit', async (e)=>{
-        e.preventDefault()        
+        e.preventDefault()
         const res = await fetch('/orders', {
             method: "POST",
             headers: {"Content-Type": "application/json"},

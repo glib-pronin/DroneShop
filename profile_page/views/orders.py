@@ -120,3 +120,26 @@ def update_shipment_number():
     DATABASE.session.commit()
     return flask.jsonify({"success": True, "shipmentNumber": value_for_front})
 
+status_dict = {
+    "1": "Оформлено",
+    "2": "Збирається",
+    "3": "У дорозі",
+    "4": "Доставлено",
+    "5": "Отримано"
+}
+
+@admin_required
+def change_status_code():
+    data = flask.request.get_json()
+    order_id = _safe_id(data.get("order_id"))
+    status_code = data.get("status_code")
+    if not order_id:
+        return flask.jsonify({"success": False, "error": "invalid id"})
+    if int(status_code) > 5 or int(status_code) < 1:
+        return flask.jsonify({"success": False, "error": "invalid status code"})
+    order = DATABASE.session.get(Order, order_id)
+    if not order:
+        return flask.jsonify({"success": False, "error": "such an order does not exist"})
+    order.status = f"{status_dict[status_code]}-{status_code}"
+    DATABASE.session.commit()
+    return flask.jsonify({"success": True, "orderId": order.id, "statusMsg": status_dict[status_code]})

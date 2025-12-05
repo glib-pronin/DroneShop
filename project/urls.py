@@ -57,3 +57,4 @@ profile.add_url_rule(rule='/destinations', view_func=render_user_destinations, m
 profile.add_url_rule(rule='/choose_destination', view_func=choose_destination, methods=['POST'])
 profile.add_url_rule(rule='/orders', view_func=render_user_orders, methods=['GET', 'POST'])
 profile.add_url_rule(rule='/api/change_shipment_number', view_func=update_shipment_number, methods=['POST'])
+profile.add_url_rule(rule='/api/change_status_code', view_func=change_status_code, methods=['POST'])

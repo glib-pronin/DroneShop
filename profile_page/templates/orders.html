@@ -11,7 +11,7 @@
             <h3>{{ 'Мої замовлення' if not current_user.is_admin else 'Усі замовлення' }}</h3>
             <div class="form-rows-container">
                 {% for order_id, order in orders_dict.items() %}
-                    <div class="choose-block">
+                    <div class="choose-block" data-order-id="{{ order_id }}">
                         <div class="choose-block-header">
                             <div class="choose-block-header-block">
                                 <div class="circle-status 
@@ -59,29 +59,29 @@
                                     </svg>
                                 </div>
                                 {% if order.status_code != '6' %}
-                                    <div class="progress-container">
+                                    <div class="progress-container {{ '' if not current_user.is_admin else 'admin-progress-bar' }}">
                                         <div class="progress-bar selected-{{ order.status_code }}">
                                             <div class="progress"></div>
-                                            <div class="steps-container selected-{{ order.status_code }}">
-                                                <div class="step">
+                                            <div class="steps-container selected-{{ order.status_code }}" data-selected="{{ order.status_code }}">
+                                                <div class="step" data-status-code="1">
                                                     <div class="circle"></div>
-                                                    <span class="span-caption">Оформлено</span>
+                                                    <span class="span-caption step-caption">Оформлено</span>
                                                 </div>
-                                                <div class="step">
+                                                <div class="step" data-status-code="2">
                                                     <div class="circle"></div>
-                                                    <span class="span-caption">Збирається</span>
+                                                    <span class="span-caption step-caption">Збирається</span>
                                                 </div>
-                                                <div class="step">
+                                                <div class="step" data-status-code="3">
                                                     <div class="circle"></div>
-                                                    <span class="span-caption">У дорозі</span>
+                                                    <span class="span-caption step-caption">У дорозі</span>
                                                 </div>
-                                                <div class="step">
+                                                <div class="step" data-status-code="4">
                                                     <div class="circle"></div>
-                                                    <span class="span-caption">Доставлено</span>
+                                                    <span class="span-caption step-caption">Доставлено</span>
                                                 </div>
-                                                <div class="step">
+                                                <div class="step" data-status-code="5">
                                                     <div class="circle"></div>
-                                                    <span class="span-caption">Отримано</span>
+                                                    <span class="span-caption step-caption">Отримано</span>
                                                 </div>
                                             </div>
                                         </div>
@@ -222,4 +222,5 @@
  <script src="{{ url_for('profile.static', filename='js/svg_creation.js') }}"></script>
  <script src="{{ url_for('profile.static', filename='js/orders.js') }}"></script>
  <script src="{{ url_for('profile.static', filename='js/shipment_number.js') }}"></script>
+ <script src="{{ url_for('profile.static', filename='js/order_status.js') }}"></script>
 {% endblock %}
